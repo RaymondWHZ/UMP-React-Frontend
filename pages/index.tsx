@@ -6,7 +6,7 @@ import {
   Stack,
   Text,
   Box,
-  Container
+  VStack
 } from '@chakra-ui/react';
 import Image from 'next/image'
 import styles from "pages/home.module.css"
@@ -122,10 +122,23 @@ const HelloSection = () => (
         <Flex flex={1} justify={'right'} width="">
           <Image src="/hello_woman.png" height={600} width={300}/>
         </Flex>
-        <Flex bg={"orange"} flex={1.5} align={'end'} justify={'left'}  pl={40} overflow="hidden">
+        <Flex flex={2.5} align={'end'} justify={'left'}  pl={40} overflow="hidden">
           <Box style={{"height":"100px", "width":"100px", "marginLeft":"-160px", "marginBottom": "500px", "transform": "rotate(10deg)"}}>
-          <Image src="/hello_sign.png" height={100} width={100}/>
+            <Image src="/hello_sign.png" height={100} width={100}/>
           </Box>
+          <VStack mb={250} spacing={4}>
+            <Heading size="3xl" fontStyle={'bold'} color={"#60D1FA"}>Try Ultra Muisc Practice Today</Heading>
+            <Text fontSize="3xl" fontStyle={'bold'} color={"white"}>Geting Start For Free</Text>
+            <Button
+              size={"lg"}
+              bg={'#FBA140'}
+              color={'white'}
+              _hover={{
+                bg: '#FBA140',
+              }} style={{"fontSize": "20px"}}>
+              Try Now!
+            </Button>
+          </VStack>
         </Flex>
       </Stack>
     </Stack>

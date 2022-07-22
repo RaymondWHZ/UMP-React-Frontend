@@ -1,0 +1,27 @@
+.HeadingWrapper {
+  width: 100%;
+  height: 600px;
+  position: relative;
+}
+
+.container {
+  --divider-height: 4rem;
+  
+  position: relative;
+  top: calc( var(--divider-height)/2 * -1 );
+
+  height: var(--divider-height);
+  width: 100%;
+
+  float: left; 
+  z-index: 1;
+
+}
+
+.svgStyle {
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  z-index: 10;
+  display: block;
+}
