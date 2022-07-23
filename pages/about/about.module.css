@@ -4,24 +4,48 @@
   position: relative;
 }
 
-.container {
-  --divider-height: 4rem;
-  
-  position: relative;
-  top: calc( var(--divider-height)/2 * -1 );
-
-  height: var(--divider-height);
+.OutcomesWrapper {
   width: 100%;
-
-  float: left; 
-  z-index: 1;
-
+  height: 800px;
+  position: relative;
 }
 
 .svgStyle {
   position: absolute;
-  right: -10px;
+  right: 0px;
   top: -10px;
   z-index: 10;
   display: block;
+}
+
+.ReasonWrapper {
+  width: 100%;
+  height: 1200px;
+  position: relative;
+}
+
+.ReasonCardBg {
+  background: rgba(255, 255, 255, 0.49);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(15.8px);
+  -webkit-backdrop-filter: blur(15.8px);
+}
+
+.FAQWrapper{
+  width: 100%;
+  position: relative;
+}
+
+.ackownledgeCard {
+  border-radius: 15px;
+  width: 80%;
+  color:white;
+}
+
+.workingImg {
+  position: absolute;
+  right: 3%;
+  bottom: -230px;
+  transform: scaleX(-1);
 }
