@@ -16,6 +16,7 @@ import {
 } from '@chakra-ui/react';
 import Image from 'next/image'
 import styles from "../about/about.module.css"
+import {useState} from 'react'
 
 interface settingP {
   p: string
@@ -31,6 +32,16 @@ interface reasonInfo {
   icon: string,
   title: string,
   explaination: string
+}
+
+interface memberInfo {
+  position: string,
+  avatar: string,
+  firstName: string,
+  lastName: string,
+  major1: string,
+  major2: string,
+  email: string
 }
 
 const cardInfo1 = [
@@ -181,7 +192,7 @@ const ReasonSection = () => (
 )
 
 const WaveLine = ({p}:settingP) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" width="100%" preserveAspectRatio="none" height="300px">
     <path fill="#13253F" fill-opacity="1" d={p}>
     </path>
   </svg>
@@ -310,6 +321,7 @@ And after hundreds of times of correctly practicing a piece, you become a wonder
   
 </Accordion>
 )
+
 const FAQSection = () => (
   <Box className={styles.FAQWrapper} bg={"white"} px={"160"}>
     <Flex align={"center"} mb={10}>
@@ -338,6 +350,85 @@ const FAQSection = () => (
   </Box>
 )
 
+const memberInfo1 = [
+  {position:"CEO - FOUNDER", avatar:"/TeamMember/tommy.png", firstName:"Haoxiang", lastName:"Sun", major1:"Computer Science", major2:"Piano Performance", email:"hs23@illinois.edu"},
+  {position:"CEO - FOUNDER", avatar:"/TeamMember/vivek.png", firstName:"Vivek", lastName:"Bhookya", major1:"Computer Science &", major2:"Astronomy", email:"v.bhookya98@gmail.com"},
+  {position:"ASSISTANT DEVELOPER", avatar:"/TeamMember/Victoria.jpg", firstName:"Victoria", lastName:"Hu", major1:"Computer Science", major2: "Communication", email:"runzhao3@illinois.edu"}
+]
+
+const memberInfo2 = [
+  {position:"MARKETING CONSULTANT", avatar:"/TeamMember/Linda.jpeg", firstName:"Linda", lastName:"Luo", major1:"Finance", major2: "Accounting", email:"rluo7@illinois.edu"}
+]
+
+const MemberCard = ({position, avatar, firstName, lastName, major1, major2, email}: memberInfo) => {
+  
+  const [isExpand, setExpand] = useState(false)
+  
+  return (
+  <Box className={` ${styles.ReasonCardBg}`} p={"30"}  minW="350px" maxW={350} style={{"width":"350px", "flexGrow":"1"}} flex={1}>
+    <Flex justify={"left"}>
+      <Text fontSize={"xl"} fontWeight="bold" color={"white"}>{position}</Text>
+    </Flex>
+    <Box height={175} width={175} className={styles.avatarWrapper}>
+      <Image src={avatar} width={175} height={175}></Image>
+    </Box>
+    <Text fontSize={"2xl"} fontWeight="bold" color={"white"}>{firstName}</Text>
+    <Text fontSize={"2xl"} fontWeight="bold" color={"white"}>{lastName}</Text>
+    <Box className={styles.plusIcon} width={50} height={50} onClick={() => setExpand(!isExpand)}>
+      <Image src={`${isExpand ? "/icons/minus.png" : "/icons/plus.png"}`} layout='fill'></Image>
+    </Box>
+    <div className={`${!isExpand ? styles.TeamAfterExpand : styles.TeamBeforeExpand} ${styles.memberMoreInfo}`}>
+      <Flex justify={"center"} flexDirection="column" justifyContent={"center"}>
+        <Text fontSize={"xl"} fontWeight="bold" color={"white"}>{major1}</Text>
+        <Text fontSize={"xl"} fontWeight="bold" color={"white"}>{major2}</Text>
+        <Text fontSize={"xl"} fontWeight="bold" color={"white"}>{email}</Text>
+      </Flex>
+    </div>
+  </Box>
+  )
+}
+
+const TeamSection = () => (
+  <Stack className={styles.TeamWrapper} direction={"column"} px={200} spacing="10" bg={"#13253F"} align={"top"}>
+    <Flex justify="center" mb={15}> 
+      <Heading fontStyle={'bold'} fontSize={{ base: 'xl', md: '4xl', lg: '5xl' }}>
+        <Text color={'white'} as={'span'}>
+          Our Team Members
+        </Text>
+      </Heading>
+    </Flex>
+    <div style={{"display":"flex", "alignItems": "flex-start", "gap":"70px", "width":"100%"}}>
+        {
+          memberInfo1.map((obj, index) => <MemberCard {...obj} key={index}/>)
+        }
+    </div>
+    <div style={{"display":"flex", "alignItems": "flex-start", "gap":"70px", "width":"100%"}}>
+        {
+          memberInfo2.map((obj, index) => <MemberCard {...obj} key={index}/>)
+        }
+        <Box flex={2} className={styles.ReasonCardBg} minW={770} maxW={770} py={10} px={50}>
+          <Heading fontSize={"4xl"} fontWeight="bold" color={"white"} my={5}>We Value Your Feedback</Heading>
+          <Text fontSize={"xl"} color={"white"}>To be the first such kind of software, we have a lot to improve.
+          Please give us any suggestions you may have about this website.</Text>
+          <Button 
+          
+          size={"lg"}
+          bg={'#FBA140'}
+          color={'white'}
+          _hover={{
+            bg: '#FBA140',
+          }} 
+          width={"40"}
+          px={20}
+          style={{"fontSize": "20px","marginTop": "30px",}}>
+              Feedback Form
+        </Button>
+        </Box>
+    </div>
+  </Stack>
+)
+
+
 const About: NextPage = () => (
   <>
     <HeadingSection/>
@@ -348,6 +439,7 @@ const About: NextPage = () => (
     <WaveLine p="M0,160L60,154.7C120,149,240,139,360,138.7C480,139,600,149,720,176C840,203,960,245,1080,234.7C1200,224,1320,160,1380,128L1440,96L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"/>
     <FAQSection/>
     <WaveLine p="M0,224L60,213.3C120,203,240,181,360,176C480,171,600,181,720,192C840,203,960,213,1080,202.7C1200,192,1320,160,1380,144L1440,128L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"/>
+    <TeamSection/>
   </>
 )
 

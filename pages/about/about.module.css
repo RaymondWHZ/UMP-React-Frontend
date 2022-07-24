@@ -49,3 +49,30 @@
   bottom: -230px;
   transform: scaleX(-1);
 }
+
+.TeamWrapper {
+  width: 100%;
+  height: 1000px;
+  position: relative;
+}
+
+.avatarWrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+  margin: 10px auto;
+}
+
+.plusIcon {
+  position: absolute;
+  bottom: 20px;
+  right: 5px;
+}
+
+.TeamAfterExpand {
+  display: none;
+}
+
+.TeamBeforeExpand {
+  display: block;
+}
