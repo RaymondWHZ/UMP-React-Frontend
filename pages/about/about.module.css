@@ -32,6 +32,14 @@
   -webkit-backdrop-filter: blur(15.8px);
 }
 
+.ReasonAnimation:hover{
+  transition: all 0.6s ease 0s;
+}
+
+.ReasonAnimation:hover{
+  transform: scale(1.1);
+}
+
 .FAQWrapper{
   width: 100%;
   position: relative;
@@ -75,4 +83,8 @@
 
 .TeamBeforeExpand {
   display: block;
+}
+
+.memberCard {
+  transition: all 0.6s;
 }

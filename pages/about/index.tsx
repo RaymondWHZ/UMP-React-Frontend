@@ -111,7 +111,7 @@ const OutcomesCard = ({data, title, explaination}: cardInfo) => (
 )
 
 const OutcomesSection = () => (
-  <Stack className={styles.OutcomesWrapper} direction={"column"} px={120} spacing="10">
+  <Stack className={styles.OutcomesWrapper} direction={"column"} px={160} spacing="10">
     <Flex justify="center" mb={15}> 
       <Heading fontStyle={'bold'} fontSize={{ base: 'xl', md: '4xl', lg: '5xl' }}>
         <Text color={'#13253F'} as={'span'}>
@@ -156,7 +156,7 @@ const reasonInfo2 = [
 ]
 
 const ReasonCard = ({icon, title, explaination}: reasonInfo) => (
-  <Box flex={1} className={styles.ReasonCardBg} justifyContent={"center"} p={"30"} minW={"300"} h={500}>
+  <Box flex={1} className={`${styles.ReasonCardBg} ${styles.ReasonAnimation}`} justifyContent={"center"} p={"30"} minW={"250"} h={500}>
     <Flex justify={"center"} mb={5}>
       <Image src={icon} height={50} width={50}/>
     </Flex>
@@ -170,7 +170,7 @@ const ReasonCard = ({icon, title, explaination}: reasonInfo) => (
 )
 
 const ReasonSection = () => (
-  <Stack className={styles.ReasonWrapper} bg={"#13253F"} direction={"column"} px={150} spacing="10">
+  <Stack className={styles.ReasonWrapper} bg={"#13253F"} direction={"column"} px={160} spacing="10">
     <Flex justify="center" mb={15}> 
       <Heading fontStyle={'bold'} fontSize={{ base: 'xl', md: '4xl', lg: '5xl' }}>
         <Text color={'white'} as={'span'}>
@@ -323,7 +323,7 @@ And after hundreds of times of correctly practicing a piece, you become a wonder
 )
 
 const FAQSection = () => (
-  <Box className={styles.FAQWrapper} bg={"white"} px={"160"}>
+  <Box className={styles.FAQWrapper} bg={"white"} px={160}>
     <Flex align={"center"} mb={10}>
       <Image src={"/FAQ.png"} height="150" width="150"/>
       <Heading fontStyle={'bold'} fontSize={{ base: 'xl', md: '4xl', lg: '6xl' }} color={"#13253F"} ml={10}>
@@ -365,7 +365,7 @@ const MemberCard = ({position, avatar, firstName, lastName, major1, major2, emai
   const [isExpand, setExpand] = useState(false)
   
   return (
-  <Box className={` ${styles.ReasonCardBg}`} p={"30"}  minW="350px" maxW={350} style={{"width":"350px", "flexGrow":"1"}} flex={1}>
+  <Box className={` ${styles.ReasonCardBg} ${styles.memberCard}`} p={"30"} style={{"width":"350px", "flexGrow":"1"}} maxW={350} flex={1}>
     <Flex justify={"left"}>
       <Text fontSize={"xl"} fontWeight="bold" color={"white"}>{position}</Text>
     </Flex>
@@ -389,7 +389,7 @@ const MemberCard = ({position, avatar, firstName, lastName, major1, major2, emai
 }
 
 const TeamSection = () => (
-  <Stack className={styles.TeamWrapper} direction={"column"} px={200} spacing="10" bg={"#13253F"} align={"top"}>
+  <Stack className={styles.TeamWrapper} bg={"#13253F"} direction={"column"} px={160} spacing="10">
     <Flex justify="center" mb={15}> 
       <Heading fontStyle={'bold'} fontSize={{ base: 'xl', md: '4xl', lg: '5xl' }}>
         <Text color={'white'} as={'span'}>
@@ -406,7 +406,7 @@ const TeamSection = () => (
         {
           memberInfo2.map((obj, index) => <MemberCard {...obj} key={index}/>)
         }
-        <Box flex={2} className={styles.ReasonCardBg} minW={770} maxW={770} py={10} px={50}>
+        <Box flex={2} className={styles.ReasonCardBg} py={10} px={50} maxW={770}>
           <Heading fontSize={"4xl"} fontWeight="bold" color={"white"} my={5}>We Value Your Feedback</Heading>
           <Text fontSize={"xl"} color={"white"}>To be the first such kind of software, we have a lot to improve.
           Please give us any suggestions you may have about this website.</Text>
