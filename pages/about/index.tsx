@@ -365,7 +365,7 @@ const MemberCard = ({position, avatar, firstName, lastName, major1, major2, emai
   const [isExpand, setExpand] = useState(false)
   
   return (
-  <Box className={` ${styles.ReasonCardBg} ${styles.memberCard}`} p={"30"} style={{"width":"350px", "flexGrow":"1"}} maxW={350} flex={1}>
+  <Box className={`${styles.ReasonCardBg} ${styles.memberCard}`} p={"30"} style={{"width":"350px", "flexGrow":"1"}} maxW={350} flex={1}>
     <Flex justify={"left"}>
       <Text fontSize={"xl"} fontWeight="bold" color={"white"}>{position}</Text>
     </Flex>
@@ -377,7 +377,7 @@ const MemberCard = ({position, avatar, firstName, lastName, major1, major2, emai
     <Box className={styles.plusIcon} width={50} height={50} onClick={() => setExpand(!isExpand)}>
       <Image src={`${isExpand ? "/icons/minus.png" : "/icons/plus.png"}`} layout='fill'></Image>
     </Box>
-    <div className={`${!isExpand ? styles.TeamAfterExpand : styles.TeamBeforeExpand} ${styles.memberMoreInfo}`}>
+    <div className={`${!isExpand ? styles.TeamAfterExpand : styles.TeamBeforeExpand}`}>
       <Flex justify={"center"} flexDirection="column" justifyContent={"center"}>
         <Text fontSize={"xl"} fontWeight="bold" color={"white"}>{major1}</Text>
         <Text fontSize={"xl"} fontWeight="bold" color={"white"}>{major2}</Text>

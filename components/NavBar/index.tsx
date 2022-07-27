@@ -13,7 +13,7 @@ import {
   useColorModeValue,
   useBreakpointValue,
   useDisclosure,
-  Button
+  Button, useToast, Menu, MenuButton, MenuList, MenuItem, MenuGroup, MenuDivider, Avatar
 } from '@chakra-ui/react';
 import {
   HamburgerIcon,
@@ -22,8 +22,13 @@ import {
   ChevronRightIcon,
 } from '@chakra-ui/icons';
 import {SiteLink, SiteLinkButton} from "@/components/SiteLink";
-import React from "react";
+import React, {FC, useEffect, useState} from "react";
 import {useScrollPosition} from "@/utils/hooks";
+import Head from "next/head";
+import Script from "next/script";
+import request from "@/utils/request";
+import {useIsMounted} from "framer-motion/types/utils/use-is-mounted";
+import useSWR from 'swr';
 
 export type NavItem = {
   label: string;
@@ -43,9 +48,90 @@ export type NavBarProps = {
   }
 }
 
+function LoginAvatar() {
+  const toast = useToast();
+  const { data: userData, error } = useSWR('/user-info', async () => {
+    try {
+      const res = await request.post('/user-info');
+      console.log(res.data);
+      return res.data;
+    } catch (e) {
+      toast({
+        title: 'Failed to load user data.',
+        description: "Please reload the page to try again.",
+        status: 'error'
+      })
+    }
+  })
+  const loading = !userData && !error;
+
+  if (loading) {
+    return <></>
+  }
+
+  if (!userData.email) {
+    return (
+      <>
+        <Script src="https://accounts.google.com/gsi/client" async defer></Script>
+        <div id="g_id_onload"
+             data-client_id="377209871944-4e19f4e5aadmgnekii6j9c15v1sucnf0.apps.googleusercontent.com"
+             data-callback="handleToken"
+             data-auto_prompt="true"
+             data-nonce="n3ch7e9q8tf850c5goijd32"
+        />
+        <div className="g_id_signin"
+             data-type="standard"
+             data-size="large"
+             data-theme="outline"
+             data-text="sign_in_with"
+             data-shape="rectangular"
+             data-logo_alignment="left"
+        />
+        <Script
+          id="script1"
+          data-partytown-config
+          dangerouslySetInnerHTML={{
+            __html: `
+                      function handleToken(response) {
+                        console.log(response)
+                        localStorage.setItem("gis-token", response.credential)
+                        location.reload()
+                      }
+                    `,
+          }}
+        />
+      </>
+    )
+  }
+
+  return (
+    <Menu>
+      <MenuButton ml={30} as={Avatar} colorScheme='pink' size='sm' src={userData.picture} showBorder />
+      <MenuList>
+        <MenuItem closeOnSelect={false}>{userData.email}</MenuItem>
+        <MenuDivider />
+        <MenuGroup title='Subscription'>
+          <MenuItem closeOnSelect={false}>Expiration date: 2099</MenuItem>
+        </MenuGroup>
+        <MenuDivider />
+        <MenuItem
+          onClick={async () => {
+            localStorage.removeItem('api-token');
+            location.reload()
+          }}
+        >
+          Logout
+        </MenuItem>
+      </MenuList>
+    </Menu>
+  )
+}
+
 export function NavBar({ title, items, opacity, height, rightButton }: NavBarProps) {
   const { isOpen, onToggle } = useDisclosure();
   const atPageTop = useScrollPosition() <= 0;
+
+  const loggedIn = false;
 
   return (
     <Box>
@@ -91,7 +177,7 @@ export function NavBar({ title, items, opacity, height, rightButton }: NavBarPro
           </SiteLink>
         </Flex>
 
-        <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'end' }} mr={30}>
+        <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'end' }}>
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
             <DesktopNav items={items} />
           </Flex>
@@ -102,20 +188,7 @@ export function NavBar({ title, items, opacity, height, rightButton }: NavBarPro
             justify={'flex-end'}
             direction={'row'}
             spacing={6}>
-          <SiteLinkButton
-              display={{ base: 'none', md: 'inline-flex' }}
-              fontSize={'sm'}
-              fontWeight={600}
-              color={'white'}
-              bg={'#FBA140'}
-              href={'#'}
-              _hover={{
-                bg: 'orange.200',
-              }}
-              {...rightButton?.props}
-          >
-            {rightButton?.text ?? 'Button'}
-          </SiteLinkButton>
+          <LoginAvatar/>
         </Stack>
       </Flex>
 

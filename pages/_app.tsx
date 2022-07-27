@@ -4,6 +4,7 @@ import { Box, ChakraProvider } from "@chakra-ui/react";
 import Head from "next/head";
 import { NavItem, NavBar } from "@/components/NavBar";
 import { Footer } from "@/components/Footer";
+import React from "react";
 
 const WEBSITE_NAME = "Ultra Music Practice"
 
@@ -19,6 +20,10 @@ const NAV_ITEMS: NavItem[] = [
     {
         label: 'Services',
         href: '/services',
+    },
+    {
+      label: 'Pricing',
+      href: '/pricing',
     },
 ];
 
@@ -43,7 +48,11 @@ function MyApp({ Component, pageProps, router }: AppProps) {
               title={WEBSITE_NAME}
               items={NAV_ITEMS}
               height={'60px'}
-              rightButton={{ text: 'Login', props: { href: '/about' } }}
+              rightButton={
+                {
+                  text: 'Login'
+                }
+              }
           />
           <Box mt={'60px'}>
               <Component {...pageProps} />
