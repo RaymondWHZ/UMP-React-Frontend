@@ -119,12 +119,12 @@ const OutcomesSection = () => (
         </Text>
       </Heading>
     </Flex>
-    <HStack width={"100%"} spacing="5">
+    <HStack width={"100%"} spacing="3">
       {
         cardInfo1.map(obj => <OutcomesCard {...obj}/>)
       }
     </HStack>
-    <HStack width={"100%"} spacing="5">
+    <HStack width={"100%"} spacing="3">
       {
         cardInfo2.map(obj => <OutcomesCard {...obj}/>)
       }
@@ -375,7 +375,7 @@ const MemberCard = ({position, avatar, firstName, lastName, major1, major2, emai
     <Text fontSize={"2xl"} fontWeight="bold" color={"white"}>{firstName}</Text>
     <Text fontSize={"2xl"} fontWeight="bold" color={"white"}>{lastName}</Text>
     <Box className={styles.plusIcon} width={50} height={50} onClick={() => setExpand(!isExpand)}>
-      <Image src={`${isExpand ? "/icons/minus.png" : "/icons/plus.png"}`} layout='fill'></Image>
+      <Image src={`${isExpand ? "/icons/minus.png" : "/icons/plus.png"}`} width={50} height={50}></Image>
     </Box>
     <div className={`${!isExpand ? styles.TeamAfterExpand : styles.TeamBeforeExpand}`}>
       <Flex justify={"center"} flexDirection="column" justifyContent={"center"}>
@@ -397,12 +397,12 @@ const TeamSection = () => (
         </Text>
       </Heading>
     </Flex>
-    <div style={{"display":"flex", "alignItems": "flex-start", "gap":"70px", "width":"100%"}}>
+    <div className={styles.TeamMemberLayout}>
         {
           memberInfo1.map((obj, index) => <MemberCard {...obj} key={index}/>)
         }
     </div>
-    <div style={{"display":"flex", "alignItems": "flex-start", "gap":"70px", "width":"100%"}}>
+    <div className={styles.TeamMemberLayout}>
         {
           memberInfo2.map((obj, index) => <MemberCard {...obj} key={index}/>)
         }

@@ -1,5 +1,4 @@
 
-
 .skewed_container {
   -webkit-transform: skewY(6deg);
   -moz-transform: skewY(6deg);
@@ -16,4 +15,11 @@
   -ms-transform: skewY(-6deg);
   -o-transform: skewY(-6deg);
   transform: skewY(-6deg);
+}
+
+.fingeringBefore {
+  transform: skewY(-6deg) rotate(-15deg);
+  -webkit-transform: skewY(-6deg) rotate(-15deg);
+  margin-bottom: -170px;
+  margin-left: -35px;
 }

@@ -72,9 +72,8 @@
 }
 
 .plusIcon {
-  position: absolute;
-  bottom: 20px;
-  right: 5px;
+  margin-top: -50px;
+  margin-left: 250px;
 }
 
 .TeamAfterExpand {
@@ -87,4 +86,13 @@
 
 .memberCard {
   transition: all 0.6s;
+}
+
+.TeamMemberLayout {
+  display: flex;
+  align-items: flex-start;
+  gap:70px;
+  width:100%;  
+  -webkit-alignItems:flex-start;
+  justify-content: center;
 }
