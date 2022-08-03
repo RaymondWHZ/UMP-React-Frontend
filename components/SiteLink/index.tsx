@@ -14,7 +14,7 @@ export const SiteLink: React.FC<
 
 export const SiteLinkButton: React.FC<
   React.ComponentProps<typeof Button>
-  > = (props) => {
+> = (props) => {
   return (
     <NextLink href={props.href ?? '#'} passHref>
       <Button as="a" {...{...props, href: undefined }} />

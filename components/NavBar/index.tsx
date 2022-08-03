@@ -13,7 +13,7 @@ import {
   useColorModeValue,
   useBreakpointValue,
   useDisclosure,
-  Button, useToast, Menu, MenuButton, MenuList, MenuItem, MenuGroup, MenuDivider, Avatar
+  Button, Menu, MenuButton, MenuList, MenuItem, MenuGroup, MenuDivider, Avatar
 } from '@chakra-ui/react';
 import {
   HamburgerIcon,
@@ -21,14 +21,11 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
 } from '@chakra-ui/icons';
-import {SiteLink, SiteLinkButton} from "@/components/SiteLink";
-import React, {FC, useEffect, useState} from "react";
+import {SiteLink} from "@/components/SiteLink";
+import React from "react";
 import {useScrollPosition} from "@/utils/hooks";
-import Head from "next/head";
 import Script from "next/script";
-import request from "@/utils/request";
-import {useIsMounted} from "framer-motion/types/utils/use-is-mounted";
-import useSWR from 'swr';
+import {useUserInfo} from "../../services/services";
 
 export type NavItem = {
   label: string;
@@ -49,21 +46,7 @@ export type NavBarProps = {
 }
 
 function LoginAvatar() {
-  const toast = useToast();
-  const { data: userData, error } = useSWR('/user-info', async () => {
-    try {
-      const res = await request.post('/user-info');
-      console.log(res.data);
-      return res.data;
-    } catch (e) {
-      toast({
-        title: 'Failed to load user data.',
-        description: "Please reload the page to try again.",
-        status: 'error'
-      })
-    }
-  })
-  const loading = !userData && !error;
+  const { data: userData, loading } = useUserInfo()
 
   if (loading) {
     return <></>
@@ -73,6 +56,18 @@ function LoginAvatar() {
     return (
       <>
         <Script src="https://accounts.google.com/gsi/client" async defer></Script>
+        <Script
+          id="script1"
+          dangerouslySetInnerHTML={{
+            __html: `
+            function handleToken(response) {
+              console.log(response)
+              localStorage.setItem("gis-token", response.credential)
+              location.reload()
+            }
+          `,
+          }}
+        />
         <div id="g_id_onload"
              data-client_id="377209871944-4e19f4e5aadmgnekii6j9c15v1sucnf0.apps.googleusercontent.com"
              data-callback="handleToken"
@@ -86,19 +81,6 @@ function LoginAvatar() {
              data-text="sign_in_with"
              data-shape="rectangular"
              data-logo_alignment="left"
-        />
-        <Script
-          id="script1"
-          data-partytown-config
-          dangerouslySetInnerHTML={{
-            __html: `
-                      function handleToken(response) {
-                        console.log(response)
-                        localStorage.setItem("gis-token", response.credential)
-                        location.reload()
-                      }
-                    `,
-          }}
         />
       </>
     )
@@ -127,11 +109,9 @@ function LoginAvatar() {
   )
 }
 
-export function NavBar({ title, items, opacity, height, rightButton }: NavBarProps) {
+export function NavBar({ title, items, opacity, height }: NavBarProps) {
   const { isOpen, onToggle } = useDisclosure();
   const atPageTop = useScrollPosition() <= 0;
-
-  const loggedIn = false;
 
   return (
     <Box>
