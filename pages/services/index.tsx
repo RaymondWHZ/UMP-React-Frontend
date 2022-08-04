@@ -14,7 +14,7 @@ import {
   AlertDialogFooter
 } from '@chakra-ui/react';
 import Image from 'next/image'
-import styles from "../services/services.module.css"
+import styles from "./services.module.css"
 import {SiteLinkButton} from "@/components/SiteLink";
 import {useUserInfo} from "../../services/services";
 import React from "react";

@@ -3,17 +3,19 @@ import {useState} from "react";
 
 export interface ButtonSelectItem {
   text: string;
-  value: string;
+  value: any;
 }
 
 export interface ButtonSelectProps {
   items: ButtonSelectItem[];
   onChange: (item: ButtonSelectItem) => void;
+  disabled?: boolean;
 }
 
 export function ButtonSelect({
   items,
-  onChange
+  onChange,
+  disabled = false,
 }: ButtonSelectProps) {
   const [selected, setSelected] = useState<ButtonSelectItem>(items[0]);
 
@@ -29,6 +31,7 @@ export function ButtonSelect({
           key={item.value}
           onClick={() => onClick(item)}
           color="white"
+          disabled={disabled}
           bg={selected === item ? '#FBA140' : 'gray.500'}
         >
           {item.text}

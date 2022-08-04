@@ -38,7 +38,6 @@ request.interceptors.request.use((config) => {
 });
 
 request.interceptors.response.use((response) => {
-  console.log(response);
   const newToken = response.headers[SET_API_TOKEN_KEY];
   if (newToken) {
     if (newToken == "") {

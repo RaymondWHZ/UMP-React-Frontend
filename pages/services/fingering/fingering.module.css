@@ -1,0 +1,28 @@
+.cardBg {
+    background: radial-gradient(85.2% 85.2% at 9.34% 11.19%, rgba(255, 255, 255, 0.36) 0%, rgba(255, 255, 255, 0.18) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+    backdrop-filter: blur(12px);
+    border-radius: 15px;
+}
+
+.fileDropZone {
+    box-sizing: border-box;
+
+    width: 100%;
+    height: 221px;
+
+    background: rgba(96, 209, 250, 0.4);
+    border: 3px dashed #60D1FA;
+    border-radius: 15px;
+}
+
+.fileInfo {
+    width: 100%;
+    height: 91px;
+
+    padding: 20px;
+
+    background: radial-gradient(85.2% 85.2% at 9.34% 11.19%, rgba(255, 255, 255, 0.36) 0%, rgba(255, 255, 255, 0.18) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+    backdrop-filter: blur(12px);
+    /* Note: backdrop-filter has minimal browser support */
+    border-radius: 15px;
+}
