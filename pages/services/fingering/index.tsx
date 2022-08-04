@@ -15,14 +15,14 @@ import {
   PopoverContent, PopoverHeader,
   PopoverTrigger,
   Switch,
-  Text, useDisclosure,
+  Text,
   VStack
 } from "@chakra-ui/react";
 import {CheckCircleIcon, QuestionOutlineIcon} from "@chakra-ui/icons";
 import { useDropzone } from "react-dropzone";
-import {useCallback, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import styles from "./fingering.module.css";
-import {sleep} from "@/utils/utils";
+import {dispatch, sleep} from "@/utils/utils";
 import {SiteLinkButton} from "@/components/SiteLink";
 
 const handSizeOptions: ButtonSelectItem[] = [
@@ -199,28 +199,109 @@ const FileProcessModal = ({
   )
 }
 
+const FINGERING_PROCESSING_FILE_KEY = 'fingering-processing-file'
+
+const saveProcessingFileInfo = (file: File) => {
+  const fileInfo = {
+    name: file.name,
+    size: file.size,
+  }
+  localStorage.setItem(FINGERING_PROCESSING_FILE_KEY, JSON.stringify(fileInfo))
+}
+
+const getProcessingFileInfo = () => {
+  const file = localStorage.getItem(FINGERING_PROCESSING_FILE_KEY)
+  if (file) {
+    return JSON.parse(file)
+  }
+  return null
+}
+
+const removeProcessingFileInfo = () => {
+  localStorage.removeItem(FINGERING_PROCESSING_FILE_KEY)
+}
+
 export default function Fingering() {
   const [handSize, setHandSize] = useState<ButtonSelectItem>(handSizeOptions[0])
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const [fileToUpload, setFileToUpload] = useState<File | null>(null)
+  const [watermark, setWatermark] = useState<boolean>(false)
+  const [filenameToMonitor, setFilenameToMonitor] = useState<string | null>(null)
   const [progress, setProgress] = useState<number>(-1)
   const [downloadUrl, setDownloadUrl] = useState<string | null>(null)
-  const onFileSubmit = useCallback(async (file: File, watermark: boolean) => {
-    setDownloadUrl(null)
+
+  const isOpen = Boolean(fileToUpload || filenameToMonitor)
+
+  const onClose = () => {
+    setFileToUpload(null)
+    setFilenameToMonitor(null)
     setProgress(-1)
-    onOpen()
-    await sleep(2000)
-    for (let i = 0; i <= 100; i += 10) {
-      setProgress(i)
-      await sleep(500)
+    setDownloadUrl(null)
+    removeProcessingFileInfo()
+  }
+
+  // this effect uploads the file to the server if there is a file to upload, and then it sets up filename to monitor
+  useEffect(() => {
+    let active = true
+    dispatch(async () => {
+      if (fileToUpload) {
+        await sleep(2000)  // replace with a real uploader
+        if (!active) return
+        saveProcessingFileInfo(fileToUpload)
+        setFilenameToMonitor(fileToUpload.name)
+        setFileToUpload(null)
+      }
+    })
+    return () => {
+      active = false
     }
-    await sleep(500)
-    setDownloadUrl("https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png")
-  }, [onOpen, setDownloadUrl])
+  }, [fileToUpload, watermark, handSize, setFilenameToMonitor])
+
+  // this effect monitors the progress of the process of a file if there is a filename to monitor
+  useEffect(() => {
+    let active = true
+    dispatch(async () => {
+      if (filenameToMonitor) {
+        setDownloadUrl(null)
+        setProgress(-1)
+        await sleep(500)  // replace with a real progress monitor
+        if (!active) return
+        for (let i = 0; i <= 100; i += 10) {
+          setProgress(i)
+          await sleep(500)  // replace with a real progress monitor
+          if (!active) return
+        }
+        await sleep(500)  // replace with a url getter
+        setDownloadUrl("https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png")
+      }
+    })
+    return () => {
+      active = false
+    }
+  }, [filenameToMonitor, setDownloadUrl, setProgress])
+
+  // this effect retrieves the previous uploaded file (mainly to cope with page refreshes)
+  useEffect(() => {
+    const info = getProcessingFileInfo()
+    if (info) {
+      setFilenameToMonitor(info.name)
+    }
+  }, [setFilenameToMonitor])
+
+  const onFileSubmit = useCallback(async (file: File, watermark: boolean) => {
+    setFileToUpload(file)
+    setWatermark(watermark)
+  }, [setFileToUpload])
+
   return (
     <VStack bg="#13253F">
       <HandSizeSelect onChange={setHandSize} />
       <UploadZone onFileSubmit={onFileSubmit} />
-      <FileProcessModal isOpen={isOpen} onClose={onClose} progress={progress} downloadUrl={downloadUrl} />
+      <FileProcessModal
+        isOpen={isOpen}
+        onClose={onClose}
+        progress={progress}
+        downloadUrl={downloadUrl}
+      />
     </VStack>
   )
 }
