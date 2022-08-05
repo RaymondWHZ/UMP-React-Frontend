@@ -4,8 +4,11 @@ const GIS_TOKEN_KEY = "gis-token"
 const API_TOKEN_KEY = "api-token"
 const SET_API_TOKEN_KEY = "set-api-token";
 
+// const API_END_POINT = "http://127.0.0.1:5000/api"
+export const API_END_POINT = "https://www.ultra-music-practice.com/api"
+
 const request = axios.create({
-  baseURL: "http://127.0.0.1:5000/api"
+  baseURL: API_END_POINT
 })
 
 const getGISToken = () => localStorage.getItem(GIS_TOKEN_KEY);

@@ -7,7 +7,7 @@ import {
   HStack,
   Modal,
   ModalBody,
-  ModalContent,
+  ModalContent, ModalHeader,
   ModalOverlay,
   Popover,
   PopoverArrow, PopoverBody,
@@ -15,7 +15,7 @@ import {
   PopoverContent, PopoverHeader,
   PopoverTrigger,
   Switch,
-  Text,
+  Text, useToast,
   VStack
 } from "@chakra-ui/react";
 import {CheckCircleIcon, QuestionOutlineIcon} from "@chakra-ui/icons";
@@ -24,19 +24,20 @@ import {useCallback, useEffect, useState} from "react";
 import styles from "./fingering.module.css";
 import {dispatch, sleep} from "@/utils/utils";
 import {SiteLinkButton} from "@/components/SiteLink";
+import {fingerProgress, fingerUpload, getFingerDownloadUrl, useUserInfo} from "../../../services/services";
 
 const handSizeOptions: ButtonSelectItem[] = [
   {
     text: 'Children Size',
-    value: 'children',
+    value: 0,
   },
   {
     text: 'Average Size',
-    value: 'average',
+    value: 1,
   },
   {
     text: 'Very Big Size',
-    value: 'big',
+    value: 2,
   }
 ]
 
@@ -157,18 +158,21 @@ interface FileProcessModalProps {
   onClose: () => void;
   progress: number;
   downloadUrl: string | null;
+  filename: string;
 }
 
 const FileProcessModal = ({
   isOpen,
   onClose,
   progress,
-  downloadUrl
+  downloadUrl,
+  filename,
 }: FileProcessModalProps) => {
   return (
     <Modal isCentered closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
+        <ModalHeader>{filename}</ModalHeader>
         <ModalBody pt="60px" pb="40px">
           <VStack align="center" spacing="50px">
             {downloadUrl ? (
@@ -178,8 +182,7 @@ const FileProcessModal = ({
                   Processing finished!
                 </Heading>
                 <HStack mt="20px">
-                  <Button onClick={onClose}>Exit</Button>
-                  <SiteLinkButton href={downloadUrl} colorScheme="green">Download</SiteLinkButton>
+                  <SiteLinkButton href={downloadUrl} colorScheme="green" onClick={onClose}>Download file</SiteLinkButton>
                 </HStack>
               </>
             ) : (
@@ -189,7 +192,7 @@ const FileProcessModal = ({
                   Please hold on a second. <br/>
                   We are still processing...
                 </Heading>
-                <Button colorScheme="red" mt="20px" onClick={onClose}>Cancel Task</Button>
+                <Button colorScheme="red" mt="20px" onClick={onClose}>Cancel task</Button>
               </>
             )}
           </VStack>
@@ -201,27 +204,23 @@ const FileProcessModal = ({
 
 const FINGERING_PROCESSING_FILE_KEY = 'fingering-processing-file'
 
-const saveProcessingFileInfo = (file: File) => {
-  const fileInfo = {
-    name: file.name,
-    size: file.size,
-  }
-  localStorage.setItem(FINGERING_PROCESSING_FILE_KEY, JSON.stringify(fileInfo))
+const saveProcessingFileName = (filename: string) => {
+  localStorage.setItem(FINGERING_PROCESSING_FILE_KEY, filename)
 }
 
-const getProcessingFileInfo = () => {
-  const file = localStorage.getItem(FINGERING_PROCESSING_FILE_KEY)
-  if (file) {
-    return JSON.parse(file)
-  }
-  return null
+const getProcessingFileName = (): string | null => {
+  return localStorage.getItem(FINGERING_PROCESSING_FILE_KEY)
 }
 
-const removeProcessingFileInfo = () => {
+const removeProcessingFileName = () => {
   localStorage.removeItem(FINGERING_PROCESSING_FILE_KEY)
 }
 
 export default function Fingering() {
+  const { data: userInfo } = useUserInfo()
+
+  const toast = useToast()
+
   const [handSize, setHandSize] = useState<ButtonSelectItem>(handSizeOptions[0])
   const [fileToUpload, setFileToUpload] = useState<File | null>(null)
   const [watermark, setWatermark] = useState<boolean>(false)
@@ -236,60 +235,78 @@ export default function Fingering() {
     setFilenameToMonitor(null)
     setProgress(-1)
     setDownloadUrl(null)
-    removeProcessingFileInfo()
+    removeProcessingFileName()
   }
 
   // this effect uploads the file to the server if there is a file to upload, and then it sets up filename to monitor
   useEffect(() => {
     let active = true
     dispatch(async () => {
-      if (fileToUpload) {
-        await sleep(2000)  // replace with a real uploader
-        if (!active) return
-        saveProcessingFileInfo(fileToUpload)
-        setFilenameToMonitor(fileToUpload.name)
-        setFileToUpload(null)
+      if (fileToUpload && userInfo) {
+        try {
+          const newFileName = await fingerUpload(
+            fileToUpload,
+            userInfo!.email,
+            handSize.value,
+            watermark ? 'yes' : 'no'
+          )
+          if (!active) return
+          saveProcessingFileName(newFileName)
+          setFilenameToMonitor(newFileName)
+          setFileToUpload(null)
+        } catch (e) {
+          toast({
+            title: 'Failed to upload file.',
+            description: "Please try again.",
+            status: 'error'
+          })
+          setFileToUpload(null)
+          throw e
+        }
       }
     })
     return () => {
       active = false
     }
-  }, [fileToUpload, watermark, handSize, setFilenameToMonitor])
+  }, [fileToUpload, watermark, handSize, setFilenameToMonitor, userInfo, toast])
 
   // this effect monitors the progress of the process of a file if there is a filename to monitor
   useEffect(() => {
     let active = true
     dispatch(async () => {
-      if (filenameToMonitor) {
+      if (filenameToMonitor && userInfo) {
         setDownloadUrl(null)
         setProgress(-1)
-        await sleep(500)  // replace with a real progress monitor
-        if (!active) return
-        for (let i = 0; i <= 100; i += 10) {
-          setProgress(i)
-          await sleep(500)  // replace with a real progress monitor
+        while (true) {
+          const progress = await fingerProgress(filenameToMonitor, userInfo.email)
+          if (!active) return
+          setProgress(progress * 100)
+          if (progress == 1) {
+            break
+          }
+          await sleep(5000)
           if (!active) return
         }
-        await sleep(500)  // replace with a url getter
-        setDownloadUrl("https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png")
+        const downloadUrl = getFingerDownloadUrl(filenameToMonitor, userInfo.email)
+        setDownloadUrl(downloadUrl)
       }
     })
     return () => {
       active = false
     }
-  }, [filenameToMonitor, setDownloadUrl, setProgress])
+  }, [filenameToMonitor, setDownloadUrl, setProgress, userInfo])
 
   // this effect retrieves the previous uploaded file (mainly to cope with page refreshes)
   useEffect(() => {
-    const info = getProcessingFileInfo()
-    if (info) {
-      setFilenameToMonitor(info.name)
+    const filename = getProcessingFileName()
+    if (filename) {
+      setFilenameToMonitor(filename)
     }
   }, [setFilenameToMonitor])
 
   const onFileSubmit = useCallback(async (file: File, watermark: boolean) => {
-    setFileToUpload(file)
     setWatermark(watermark)
+    setFileToUpload(file)
   }, [setFileToUpload])
 
   return (
@@ -301,6 +318,7 @@ export default function Fingering() {
         onClose={onClose}
         progress={progress}
         downloadUrl={downloadUrl}
+        filename={filenameToMonitor ?? fileToUpload?.name ?? ''}
       />
     </VStack>
   )
