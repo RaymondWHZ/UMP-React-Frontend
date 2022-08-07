@@ -23,3 +23,12 @@
   margin-bottom: -170px;
   margin-left: -35px;
 }
+
+.displayText {
+    font-family: Inika, serif;
+    font-size: 55px;
+    font-weight: 700;
+    line-height: 72px;
+    letter-spacing: 0em;
+    text-align: left;
+}

@@ -6,14 +6,12 @@ import {
   Stack,
   Collapse,
   Icon,
-  Link,
   Popover,
   PopoverTrigger,
   PopoverContent,
   useColorModeValue,
-  useBreakpointValue,
   useDisclosure,
-  Button, Menu, MenuButton, MenuList, MenuItem, MenuGroup, MenuDivider, Avatar
+  Button, Menu, MenuButton, MenuList, MenuItem, MenuGroup, MenuDivider, Avatar, Spacer
 } from '@chakra-ui/react';
 import {
   HamburgerIcon,
@@ -23,7 +21,6 @@ import {
 } from '@chakra-ui/icons';
 import {SiteLink} from "@/components/SiteLink";
 import React from "react";
-import {useScrollPosition} from "@/utils/hooks";
 import Script from "next/script";
 import {useUserInfo} from "../../services/services";
 
@@ -87,9 +84,9 @@ function LoginAvatar() {
   }
 
   return (
-    <Menu>
-      <MenuButton ml={30} as={Avatar} colorScheme='pink' size='sm' src={userData.picture} showBorder />
-      <MenuList>
+    <Menu >
+      <MenuButton as={Avatar} colorScheme='pink' size='sm' src={userData.picture} showBorder />
+      <MenuList color="gray.600">
         <MenuItem closeOnSelect={false}>{userData.email}</MenuItem>
         <MenuDivider />
         <MenuGroup title='Subscription'>
@@ -109,32 +106,28 @@ function LoginAvatar() {
   )
 }
 
-export function NavBar({ title, items, opacity, height }: NavBarProps) {
+export function NavBar({ title, items, height }: NavBarProps) {
   const { isOpen, onToggle } = useDisclosure();
-  const atPageTop = useScrollPosition() <= 0;
 
   return (
-    <Box>
+    <Box
+      position={"fixed"}
+      width={'100%'}
+      zIndex={1000}
+      top={0}
+    >
       <Flex
-        bg={useColorModeValue('white', 'gray.800')}
-        color={useColorModeValue('gray.600', 'white')}
-        opacity={opacity ?? 0.95}
+        bg="#13253F"
+        color="white"
         minH={height}
-        py={{ base: 2 }}
-        px={{ base: 4 }}
-        borderBottom={atPageTop ? 0 : 1}
+        borderBottom={1}
         borderStyle={'solid'}
-        borderColor={useColorModeValue('gray.200', 'gray.900')}
+        borderColor="gray.600"
         align={'center'}
-        position={"fixed"}
-        width={'100%'}
-        zIndex={1000}
-        top={0}
         pl={30}
         pr={30}
       >
-        <Flex
-          flex={{ base: 1, md: 'auto' }}
+        <Flex  // menu bar in mobile mode
           ml={{ base: -2 }}
           display={{ base: 'flex', md: 'none' }}>
           <IconButton
@@ -146,30 +139,30 @@ export function NavBar({ title, items, opacity, height }: NavBarProps) {
             aria-label={'Toggle Navigation'}
           />
         </Flex>
-        <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
+
+        <Spacer display={{ base: 'flex', md: 'none' }}/>
+
+        <Flex>
           <SiteLink
-            textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
             fontFamily={'heading'}
-            color={useColorModeValue('gray.800', 'white')}
             href={'/'}
           >
             <b>{title}</b>
           </SiteLink>
         </Flex>
 
-        <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'end' }}>
-          <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
-            <DesktopNav items={items} />
-          </Flex>
+        <Spacer />
+
+        <Flex
+            display={{ base: 'none', md: 'flex' }}
+            flex={{ base: 1 }}
+            justify={{ base: 'center', md: 'end' }}
+            mr={30}
+        >
+          <DesktopNav items={items} />
         </Flex>
 
-        <Stack
-            flex={{ base: 1, md: 0 }}
-            justify={'flex-end'}
-            direction={'row'}
-            spacing={6}>
-          <LoginAvatar/>
-        </Stack>
+        <LoginAvatar/>
       </Flex>
 
       <Collapse in={isOpen} animateOpacity>
@@ -180,9 +173,9 @@ export function NavBar({ title, items, opacity, height }: NavBarProps) {
 }
 
 const DesktopNav = ({ items }: { items: NavItem[] }) => {
-  const linkColor = useColorModeValue('gray.600', 'gray.200');
-  const linkHoverColor = useColorModeValue('gray.800', 'white');
-  const popoverContentBgColor = useColorModeValue('white', 'gray.800');
+  const linkColor = "white";
+  const linkHoverColor = "gray.400";
+  const popoverContentBgColor = "#13253F";
 
   return (
     <Stack direction={'row'} spacing={4}>
@@ -197,9 +190,10 @@ const DesktopNav = ({ items }: { items: NavItem[] }) => {
                 fontWeight={500}
                 color={linkColor}
                 _hover={{
-                  textDecoration: 'none',
+                  textDecoration: 'underline',
                   color: linkHoverColor,
-                }}>
+                }}
+              >
                 {navItem.label}
               </SiteLink>
             </PopoverTrigger>
@@ -263,7 +257,7 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
 const MobileNav = ({ items }: { items: NavItem[] }) => {
   return (
     <Stack
-      bg={useColorModeValue('white', 'gray.800')}
+      bg="#13253F"
       p={4}
       display={{ md: 'none' }}>
       {items.map((navItem) => (
@@ -280,16 +274,18 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
     <Stack spacing={4} onClick={children && onToggle}>
       <Flex
         py={2}
-        as={Link}
+        as={SiteLink}
         href={href ?? '#'}
         justify={'space-between'}
         align={'center'}
         _hover={{
           textDecoration: 'none',
-        }}>
+        }}
+      >
         <Text
           fontWeight={600}
-          color={useColorModeValue('gray.600', 'gray.200')}>
+          color="white"
+        >
           {label}
         </Text>
         {children && (

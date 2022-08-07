@@ -2,7 +2,7 @@ import {ButtonSelect, ButtonSelectItem} from "@/components/ButtonSelect";
 import {
   Box,
   Button,
-  CircularProgress,
+  CircularProgress, CloseButton, Flex,
   Heading,
   HStack,
   Modal,
@@ -13,12 +13,12 @@ import {
   PopoverArrow, PopoverBody,
   PopoverCloseButton,
   PopoverContent, PopoverHeader,
-  PopoverTrigger,
+  PopoverTrigger, Spacer,
   Switch,
   Text, useToast,
   VStack
 } from "@chakra-ui/react";
-import {CheckCircleIcon, QuestionOutlineIcon} from "@chakra-ui/icons";
+import {AttachmentIcon, CheckCircleIcon, QuestionOutlineIcon} from "@chakra-ui/icons";
 import { useDropzone } from "react-dropzone";
 import {useCallback, useEffect, useState} from "react";
 import styles from "./fingering.module.css";
@@ -48,7 +48,7 @@ interface HandSizeSelectProps {
 
 function HandSizeSelect({ onChange, disabled }: HandSizeSelectProps) {
   return (
-    <VStack w="100%" align="left" pl="50px" pt="30px">
+    <VStack w="100%" maxW="1200px" align="left" pl="50px" pt="30px">
       <Text fontSize="35px" pt={4} color={'#FBA140'}>
         Choose Your Hand Size
       </Text>
@@ -94,25 +94,23 @@ const FileDropZone = ({ onDrop }: FileDropZoneProps) => {
   })
 
   return (
-    <Box width="100%" pl="60px" pr="60px">
-      <VStack
-        className={styles.fileDropZone}
-        justify="center"
-        align="center"
-        textAlign="center"
-        p="30px"
-        {...getRootProps()}
-      >
-        <input {...getInputProps()} />
-        {isDragActive ? (
-          <Text fontSize="30px" color="white">Drop here...</Text>
-        ) : (
-          <>
-            <Text fontSize="30px" color="white">Drag Your File Here or Browse</Text>
-          </>
-        )}
-      </VStack>
-    </Box>
+    <VStack
+      className={styles.fileDropZone}
+      justify="center"
+      align="center"
+      textAlign="center"
+      p="30px"
+      {...getRootProps()}
+    >
+      <input {...getInputProps()} />
+      {isDragActive ? (
+        <Text fontSize="30px" color="white">Drop here...</Text>
+      ) : (
+        <>
+          <Text fontSize="30px" color="white">Drag Your File Here or Browse</Text>
+        </>
+      )}
+    </VStack>
   )
 }
 
@@ -124,16 +122,19 @@ const UploadZone = ({ onFileSubmit }: UploadZoneProps) => {
   const [file, setFile] = useState<File | null>(null);
   const [watermark, setWatermark] = useState<boolean>(false);
   return (
-    <Box width="100%" pl="40px" pr="40px" pb="40px" pt="20px">
+    <Box width="100%" maxW="1200px" pl="40px" pr="40px" pb="40px" pt="20px">
       <VStack className={styles.cardBg} p="40px" spacing="20px">
         <FileDropZone onDrop={files => setFile(files[0])} />
         {file && (
-          <HStack className={styles.fileInfo} spacing="30px">
+          <Flex className={styles.fileInfo} alignItems="center">
+            <AttachmentIcon color="white" boxSize="30px" mr="14px"/>
             <Text color="white">
               {file.name} <br/>
               {file.size} bytes <br/>
             </Text>
-          </HStack>
+            <Spacer/>
+            <CloseButton color="white" onClick={() => setFile(null)}/>
+          </Flex>
         )}
         <VStack>
           <Button
@@ -310,7 +311,7 @@ export default function Fingering() {
   }, [setFileToUpload])
 
   return (
-    <VStack bg="#13253F">
+    <VStack bg="#13253F" height="800px">
       <HandSizeSelect onChange={setHandSize} />
       <UploadZone onFileSubmit={onFileSubmit} />
       <FileProcessModal

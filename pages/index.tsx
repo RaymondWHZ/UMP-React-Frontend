@@ -13,21 +13,18 @@ import styles from "pages/home.module.css"
 
 
 const TitleSection = () => (
-  <Stack bg={'#4073A2'} className={styles.skewed_container} style={{"marginTop": "-200px", "height":"800px"}} pt={100}  direction={{ base: 'column', md: 'row' }}>
-    <Stack className={styles.content_wrapper} style={{"height":"700px"}} direction={{ base: 'column', md: 'row' }}>
+  <Stack bg={'#4073A2'} className={styles.skewed_container} style={{"marginTop": "-200px", "height":"800px"}} pt={100} direction={{ base: 'column', md: 'row' }}>
+    <Stack className={styles.content_wrapper} style={{"height":"700px"}} direction={{ base: 'column', md: 'row' }} spacing="40px">
       <Flex flex={1} align={"center"} justify={"right"} style={{"WebkitJustifyContent": "flex-end"}}>
         <VStack spacing={4} align={"left"}>
-          <Heading fontStyle={'bold'} fontSize={"6xl"} color={"white"}>
-            Piano Fingering 
-            <br/>
-            Generator & 
-            <br/>
-            Sight Reading 
-            <br/>
+          <Heading fontStyle={'bold'} fontSize={"5xl"} color={"white"}>
+            Piano Fingering <br/>
+            Generator & <br/>
+            Sight Reading <br/>
             Assistance
           </Heading>
           <Text fontStyle={'bold'} fontSize={"3xl"} color={'#FBA140'} textAlign={"right"}>
-              Best Music Practice Software For Free
+            Best Music Practice Software For Free
           </Text>
           <Button
               size={"lg"}
@@ -36,11 +33,11 @@ const TitleSection = () => (
               width={150}
               _hover={{
                 bg: '#FBA140',
-              }} style={{"fontSize": "20px"}}>
-              Get Started
+              }} style={{"fontSize": "20px"}}
+          >
+            Get Started
           </Button>
         </VStack>
-
       </Flex>
       <Flex flex={1} align={'center'}>
         <Image src="/home_piano.jpg" alt='Home Piano' width="580" height="550">
@@ -72,10 +69,10 @@ const FingeringSection = () => (
       </Flex>
       <Flex flex={3} align={'end'}  pl={40} overflow="hidden" style={{"WebkitAlignItems":"flex-end"}}>
         <Box height={400} width={250} className={styles.fingeringBefore}>
-          <Image src="/fingering_before.png"layout='fill'></Image>
+          <Image src="/fingering_before.png" layout='fill'></Image>
         </Box>
         <Box height={700} width={550} marginBottom={-170} style={{"transform": "skewY(-6deg) rotate(-5deg)"}} >
-          <Image src="/fingering_after2.png"layout='fill'></Image>
+          <Image src="/fingering_after2.png" layout='fill'></Image>
         </Box>
       </Flex>
     </Stack>
@@ -107,7 +104,7 @@ const SightReadingSection = () => (
       </Flex>
       <Flex flex={3} align={'end'}  pl={40} overflow="hidden" style={{"WebkitAlignItems":"flex-end"}}>
         <Box height={700} width={550} marginBottom={-170} style={{"transform": "skewY(-6deg) rotate(15deg)"}} >
-          <Image src="/sightReading.png"layout='fill'></Image>
+          <Image src="/sightReading.png" layout='fill'></Image>
         </Box>
       </Flex>
     </Stack>

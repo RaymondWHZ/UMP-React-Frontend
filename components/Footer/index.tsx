@@ -1,4 +1,4 @@
-import { Box, Container, SimpleGrid, Stack, Text, useColorModeValue } from "@chakra-ui/react";
+import { Box, Container, SimpleGrid, Stack, Text } from "@chakra-ui/react";
 import React from "react";
 
 // const ListHeader = ({ children }: { children: ReactNode }) => {
@@ -16,8 +16,13 @@ import React from "react";
 export function Footer() {
   return (
     <Box
-      bg={useColorModeValue('gray.50', 'gray.900')}
-      color={useColorModeValue('gray.700', 'gray.200')}>
+      bg="#13253F"
+      color="white"
+      borderTop={1}
+      borderStyle={'solid'}
+      borderColor="gray.600"
+      pb="30px"
+    >
       <Container as={Stack} maxW={'6xl'} py={10}>
         <SimpleGrid
           templateColumns={{ sm: '1fr 1fr', md: '2fr 1fr 1fr 1fr 1fr' }}
