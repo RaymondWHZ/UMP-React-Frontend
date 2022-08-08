@@ -1,10 +1,11 @@
 import {ButtonSelect, ButtonSelectItem} from "@/components/ButtonSelect";
 import {
   Box,
-  Button,
+  Button, ButtonGroup,
   CircularProgress, CloseButton, Flex,
   Heading,
   HStack,
+  IconButton,
   Modal,
   ModalBody,
   ModalContent, ModalHeader,
@@ -12,17 +13,17 @@ import {
   Popover,
   PopoverArrow, PopoverBody,
   PopoverCloseButton,
-  PopoverContent, PopoverHeader,
+  PopoverContent, PopoverFooter, PopoverHeader,
   PopoverTrigger, Spacer,
   Switch,
-  Text, useToast,
+  Text, useDisclosure, useToast,
   VStack
 } from "@chakra-ui/react";
-import {AttachmentIcon, CheckCircleIcon, QuestionOutlineIcon} from "@chakra-ui/icons";
+import {AttachmentIcon, CheckCircleIcon, CloseIcon, QuestionOutlineIcon} from "@chakra-ui/icons";
 import { useDropzone } from "react-dropzone";
 import {useCallback, useEffect, useState} from "react";
 import styles from "./fingering.module.css";
-import {dispatch, sleep} from "@/utils/utils";
+import {arrayWithoutItem, dispatch, sleep} from "@/utils/utils";
 import {SiteLinkButton} from "@/components/SiteLink";
 import {fingerProgress, fingerUpload, getFingerDownloadUrl, useUserInfo} from "../../../services/services";
 
@@ -48,7 +49,7 @@ interface HandSizeSelectProps {
 
 function HandSizeSelect({ onChange, disabled }: HandSizeSelectProps) {
   return (
-    <VStack w="100%" maxW="1200px" align="left" pl="50px" pt="30px">
+    <VStack w="100%" maxW="1200px" align="left" pl="50px">
       <Text fontSize="35px" pt={4} color={'#FBA140'}>
         Choose Your Hand Size
       </Text>
@@ -122,7 +123,7 @@ const UploadZone = ({ onFileSubmit }: UploadZoneProps) => {
   const [file, setFile] = useState<File | null>(null);
   const [watermark, setWatermark] = useState<boolean>(false);
   return (
-    <Box width="100%" maxW="1200px" pl="40px" pr="40px" pb="40px" pt="20px">
+    <Box width="100%" maxW="1200px" pl="40px" pr="40px">
       <VStack className={styles.cardBg} p="40px" spacing="20px">
         <FileDropZone onDrop={files => setFile(files[0])} />
         {file && (
@@ -154,9 +155,74 @@ const UploadZone = ({ onFileSubmit }: UploadZoneProps) => {
   )
 }
 
+interface UploadHistoryZoneProps {
+  filenames: string[]
+  onDeleteFilename: (filename: string) => void
+  onClickFilename: (filename: string) => void
+}
+
+const UploadHistoryZone = ({filenames, onDeleteFilename, onClickFilename}: UploadHistoryZoneProps) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  return (
+    <Box width="100%" maxW="1200px" pl="40px" pr="40px">
+      <VStack className={styles.cardBg} p="40px" spacing="20px" align={'left'}>
+        <Text color="white"><b>Files being processed</b></Text>
+        <HStack width="100%">
+          {filenames.map(filename => (
+            <ButtonGroup key={filename} isAttached>
+              <Button
+                onClick={() => onClickFilename(filename)}
+              >
+                {filename}
+              </Button>
+              <Popover
+                isOpen={isOpen}
+                onOpen={onOpen}
+                onClose={onClose}
+              >
+                <PopoverTrigger>
+                  <IconButton
+                    aria-label='Delete'
+                    icon={<CloseIcon/>}
+                  />
+                </PopoverTrigger>
+                <PopoverContent>
+                  <PopoverArrow />
+                  <PopoverHeader>Delete processing file</PopoverHeader>
+                  <PopoverCloseButton />
+                  <PopoverBody>
+                    Are you sure you want to delete this file record? You have no way to track this file again.
+                  </PopoverBody>
+                  <PopoverFooter>
+                    <HStack spacing="10px" justify="right">
+                      <Button size="sm" onClick={onClose}>Cancel</Button>
+                      <Button
+                        size="sm"
+                        colorScheme='red'
+                        onClick={() => {
+                          onClose()
+                          onDeleteFilename(filename)
+                        }}
+                      >
+                        Delete
+                      </Button>
+                    </HStack>
+                  </PopoverFooter>
+                </PopoverContent>
+              </Popover>
+
+            </ButtonGroup>
+          ))}
+        </HStack>
+      </VStack>
+    </Box>
+  )
+}
+
 interface FileProcessModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onDownload: () => void;
   progress: number;
   downloadUrl: string | null;
   filename: string;
@@ -165,6 +231,7 @@ interface FileProcessModalProps {
 const FileProcessModal = ({
   isOpen,
   onClose,
+  onDownload,
   progress,
   downloadUrl,
   filename,
@@ -183,7 +250,12 @@ const FileProcessModal = ({
                   Processing finished!
                 </Heading>
                 <HStack mt="20px">
-                  <SiteLinkButton href={downloadUrl} colorScheme="green" onClick={onClose}>Download file</SiteLinkButton>
+                  <Button onClick={onClose}>
+                    Close window
+                  </Button>
+                  <SiteLinkButton href={downloadUrl} colorScheme="green" onClick={onDownload}>
+                    Download file
+                  </SiteLinkButton>
                 </HStack>
               </>
             ) : (
@@ -193,7 +265,9 @@ const FileProcessModal = ({
                   Please hold on a second. <br/>
                   We are still processing...
                 </Heading>
-                <Button colorScheme="red" mt="20px" onClick={onClose}>Cancel task</Button>
+                <Button mt="20px" onClick={onClose}>
+                  Close window
+                </Button>
               </>
             )}
           </VStack>
@@ -217,6 +291,17 @@ const removeProcessingFileName = () => {
   localStorage.removeItem(FINGERING_PROCESSING_FILE_KEY)
 }
 
+const UPLOADED_FILES_KEY = 'uploaded-files'
+
+const getUploadedFiles = (): string[] => {
+  const uploadedFiles = localStorage.getItem(UPLOADED_FILES_KEY)
+  return uploadedFiles ? JSON.parse(uploadedFiles) : []
+}
+
+const saveUploadedFiles = (filenames: string[]) => {
+  localStorage.setItem(UPLOADED_FILES_KEY, JSON.stringify(filenames))
+}
+
 export default function Fingering() {
   const { data: userInfo } = useUserInfo()
 
@@ -228,16 +313,31 @@ export default function Fingering() {
   const [filenameToMonitor, setFilenameToMonitor] = useState<string | null>(null)
   const [progress, setProgress] = useState<number>(-1)
   const [downloadUrl, setDownloadUrl] = useState<string | null>(null)
+  const [uploadedFilenames, setUploadedFilenames] = useState<string[]>([])
 
   const isOpen = Boolean(fileToUpload || filenameToMonitor)
 
-  const onClose = () => {
+  const onClose = useCallback(() => {
     setFileToUpload(null)
     setFilenameToMonitor(null)
     setProgress(-1)
     setDownloadUrl(null)
     removeProcessingFileName()
-  }
+  }, [setFileToUpload, setFilenameToMonitor, setProgress, setDownloadUrl])
+
+  const onFileSubmit = useCallback(async (file: File, watermark: boolean) => {
+    setWatermark(watermark)
+    setFileToUpload(file)
+  }, [setFileToUpload])
+
+  const onUploadedFilesChange = useCallback((filenames: string[]) => {
+    setUploadedFilenames(filenames)
+    saveUploadedFiles(filenames)
+  }, [setUploadedFilenames])
+
+  const onDeleteUploadedFilename = useCallback((filename: string) => {
+    onUploadedFilesChange(arrayWithoutItem(uploadedFilenames, filename))
+  }, [onUploadedFilesChange, uploadedFilenames])
 
   // this effect uploads the file to the server if there is a file to upload, and then it sets up filename to monitor
   useEffect(() => {
@@ -254,6 +354,9 @@ export default function Fingering() {
           if (!active) return
           saveProcessingFileName(newFileName)
           setFilenameToMonitor(newFileName)
+          if (!uploadedFilenames.includes(newFileName)) {
+            onUploadedFilesChange([...uploadedFilenames, newFileName])
+          }
           setFileToUpload(null)
         } catch (e) {
           toast({
@@ -269,7 +372,16 @@ export default function Fingering() {
     return () => {
       active = false
     }
-  }, [fileToUpload, watermark, handSize, setFilenameToMonitor, userInfo, toast])
+  }, [
+    fileToUpload,
+    userInfo,
+    watermark,
+    handSize,
+    setFilenameToMonitor,
+    toast,
+    onUploadedFilesChange,
+    uploadedFilenames
+  ])
 
   // this effect monitors the progress of the process of a file if there is a filename to monitor
   useEffect(() => {
@@ -303,20 +415,27 @@ export default function Fingering() {
     if (filename) {
       setFilenameToMonitor(filename)
     }
+    setUploadedFilenames(getUploadedFiles())
   }, [setFilenameToMonitor])
 
-  const onFileSubmit = useCallback(async (file: File, watermark: boolean) => {
-    setWatermark(watermark)
-    setFileToUpload(file)
-  }, [setFileToUpload])
-
   return (
-    <VStack bg="#13253F" height="800px">
+    <VStack bg="#13253F" minH="800px" spacing="20px" pt="30px" pb="50px">
       <HandSizeSelect onChange={setHandSize} />
       <UploadZone onFileSubmit={onFileSubmit} />
+      {uploadedFilenames.length > 0 &&
+        <UploadHistoryZone
+          filenames={uploadedFilenames}
+          onDeleteFilename={onDeleteUploadedFilename}
+          onClickFilename={setFilenameToMonitor}
+        />
+      }
       <FileProcessModal
         isOpen={isOpen}
         onClose={onClose}
+        onDownload={() => {
+          onClose()
+          onDeleteUploadedFilename(filenameToMonitor!)
+        }}
         progress={progress}
         downloadUrl={downloadUrl}
         filename={filenameToMonitor ?? fileToUpload?.name ?? ''}
