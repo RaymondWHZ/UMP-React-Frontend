@@ -18,17 +18,42 @@
 }
 
 .fingeringBefore {
-  transform: skewY(-6deg) rotate(-15deg);
-  -webkit-transform: skewY(-6deg) rotate(-15deg);
+  transform: rotate(-15deg);
+  -webkit-transform: rotate(-15deg);
   margin-bottom: -170px;
   margin-left: -35px;
 }
 
-.displayText {
+.displayTitle {
     font-family: Inika, serif;
     font-size: 55px;
     font-weight: 700;
     line-height: 72px;
-    letter-spacing: 0em;
+    letter-spacing: 0;
+    text-align: left;
+}
+
+.displayTitle2 {
+    font-family: Inika, serif;
+    font-size: 46px;
+    font-weight: 700;
+    line-height: 66px;
+    letter-spacing: 0;
+    text-align: left;
+}
+
+.displaySubtitle {
+    font-family: Inika, serif;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 39px;
+    letter-spacing: 0;
+    text-align: left;
+}
+
+.displayText {
+    font-size: 24px;
+    line-height: 35px;
+    letter-spacing: 0;
     text-align: left;
 }

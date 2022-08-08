@@ -11,7 +11,8 @@ import {
   AlertDialogContent,
   AlertDialogHeader,
   AlertDialogBody,
-  AlertDialogFooter
+  AlertDialogFooter,
+  Spacer
 } from '@chakra-ui/react';
 import Image from 'next/image'
 import styles from "./services.module.css"
@@ -78,10 +79,11 @@ interface ServiceCardProps {
 }
 
 const ServiceCard = ({image, title, description, url}: ServiceCardProps) => (
-  <VStack flex={1} width={400} className={styles.cardBg} p={10} style={{"textAlign": "center"}} spacing={5}>
+  <VStack width="500px" height="600px" className={styles.cardBg} p={10} style={{"textAlign": "center"}} spacing={5}>
     <Image alt="" src={image} height={300} width={800} style={{"borderRadius":"16px"}}/>
     <Heading color={"white"}>{title}</Heading>
     <Text style={{"whiteSpace": "pre-line"}} color={"white"} fontSize={"2xl"} mt={5}>{description}</Text>
+    <Spacer/>
     <AuthorizeButton
       href={url}
       size={"lg"}
@@ -103,8 +105,7 @@ const cardData: ServiceCardProps[] = [
   {
     image: "/service_fingering.png",
     title: "Ultra Fingering",
-    description: `Ultra Music Practice generates best piano fingering automatically based on different hand sizes
-                  and Annotate the fingerings tailored for you`,
+    description: `Ultra Music Practice generates best piano fingering automatically based on different hand sizes and Annotate the fingerings tailored for you`,
     url: "/services/fingering"
   },
   {
@@ -119,7 +120,7 @@ const cardData: ServiceCardProps[] = [
 ]
 
 const ServiceWrapper = () => (
-  <HStack className={styles.ServiceWrapper} bg={"#13253F"} px={60} spacing={60}>
+  <HStack className={styles.ServiceWrapper} bg={"#13253F"} spacing="150px" justify="center">
     {
       cardData.map(obj => <ServiceCard {...obj} key={obj.url}/>)
     }
@@ -129,14 +130,6 @@ const ServiceWrapper = () => (
 
 const Services: NextPage = () => 
 <>
-  {/* <Link href="/services/fingering">
-    <Button>
-      Select 1
-    </Button>
-  </Link>
-  <Button>
-    Select 2
-  </Button> */}
   <ServiceWrapper/>
 </>
 

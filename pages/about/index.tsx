@@ -25,13 +25,13 @@ interface settingP {
 interface cardInfo {
   data: string,
   title: string,
-  explaination: string
+  explanation: string
 }
 
 interface reasonInfo {
   icon: string,
   title: string,
-  explaination: string
+  explanation: string
 }
 
 interface memberInfo {
@@ -43,17 +43,6 @@ interface memberInfo {
   major2: string,
   email: string
 }
-
-const cardInfo1 = [
-  { data: "16000+" , title:"Website Traffic", explaination:`Our app are now very popular among piano beginers and major & non-major piano players`},
-  {data: "200%", title:"Efficency Imporved", explaination:"According to survey, users’ efficency of learning new music score is increased by 200%"},
-  {data: "6000+", title:"Users Registered", explaination:"Our app are popular and trusted by many users who are not only piano beginers but also piano players"}
-]
-const cardInfo2 = [
-  {data: "4.8/5", title:"Reats in Feedback", explaination:"Customners are very satisfied about our services"},
-  {data: "95.5%", title:"Get Unlimited Plan", explaination:"Our unlimited plan provides most enjoyable at very cost-effective price"},
-  {data: "69.1%", title:"Recognize the Role", explaination:"Based on report, 69.1% customners believe ultra music practice help them learn instrument much faster"},
-]
 
 const HeadingSection = () => (
   <Stack className={styles.HeadingWrapper} bg={"#13253F"} direction={{ base: 'column', md: 'row' }}>
@@ -73,8 +62,7 @@ const HeadingSection = () => (
           <br/>
           It can also highlight all the sharp & flat nots in a music scroe to help you sight-read any piece you want to play
         </Text>
-        <Button 
-          
+        <Button
           size={"lg"}
           bg={'#FBA140'}
           color={'white'}
@@ -96,7 +84,19 @@ const HeadingSection = () => (
   </Stack>
 )
 
-const OutcomesCard = ({data, title, explaination}: cardInfo) => (
+const cardInfo1: cardInfo[] = [
+  {data: "16000+" , title:"Website Traffic", explanation:`Our app are now very popular among piano beginers and major & non-major piano players`},
+  {data: "200%", title:"Efficency Imporved", explanation:"According to survey, users’ efficency of learning new music score is increased by 200%"},
+  {data: "6000+", title:"Users Registered", explanation:"Our app are popular and trusted by many users who are not only piano beginers but also piano players"}
+]
+
+const cardInfo2: cardInfo[] = [
+  {data: "4.8/5", title:"Reats in Feedback", explanation:"Customners are very satisfied about our services"},
+  {data: "95.5%", title:"Get Unlimited Plan", explanation:"Our unlimited plan provides most enjoyable at very cost-effective price"},
+  {data: "69.1%", title:"Recognize the Role", explanation:"Based on report, 69.1% customners believe ultra music practice help them learn instrument much faster"},
+]
+
+const OutcomesCard = ({data, title, explanation}: cardInfo) => (
   <VStack flex={1} className={styles.OutcomesCard} justifyContent={"center"} p={"30"} minW={"300"}>
     <Heading fontSize="7xl" fontStyle={'bold'} color={"#FBA140"}>
       {data}
@@ -105,7 +105,7 @@ const OutcomesCard = ({data, title, explaination}: cardInfo) => (
       {title}
     </Text>
     <Text fontSize={"xl"} textAlign="center">
-      {explaination}
+      {explanation}
     </Text>
   </VStack>
 )
@@ -132,30 +132,30 @@ const OutcomesSection = () => (
   </Stack>
 )
 
-const reasonInfo1 = [
-  {icon: "/icons/thumb.png", title: "First & Best Music Practice Software", explaination:`This is the first music software ever developed with user-oriented design.
+const reasonInfo1: reasonInfo[] = [
+  {icon: "/icons/thumb.png", title: "First & Best Music Practice Software", explanation:`This is the first music software ever developed with user-oriented design.
   Everything it does is to help you practice music much more easily.
   For your convenience, it can accept PDF & Image Files of music scores.`},
-  {icon: "/icons/tick.png", title: "Generate Piano Fingering and Annotate Directly", explaination:`Upload your PRINTED piano score to our website.
+  {icon: "/icons/tick.png", title: "Generate Piano Fingering and Annotate Directly", explanation:`Upload your PRINTED piano score to our website.
   Then it automatically generates the best fingering tailored for you, with all the piano fingering techniques incorporated.
   Most importantly, it saves you a lot amount of time.`},
-  {icon: "/icons/music.png", title: "Highlight Flat & Sharp Notes for Sight-Reading", explaination:`Sometimes you always forgot a note should be flattened or sharpened?
+  {icon: "/icons/music.png", title: "Highlight Flat & Sharp Notes for Sight-Reading", explanation:`Sometimes you always forgot a note should be flattened or sharpened?
   You want to learn a piece much faster without making so many mistakes?
   Upload you score to our website, and all the special notes are highlighted with different colors`},
 ]
 
-const reasonInfo2 = [
-  {icon: "/icons/devices.png", title: "Advanced Algorithm with Machine Learning", explaination:`The Fingering behind each output piano score is supported by advanced algorithm developed with Machine Learning and years of Piano Performance Experiences.
+const reasonInfo2: reasonInfo[] = [
+  {icon: "/icons/devices.png", title: "Advanced Algorithm with Machine Learning", explanation:`The Fingering behind each output piano score is supported by advanced algorithm developed with Machine Learning and years of Piano Performance Experiences.
   Ensure you are playing in the most comfortable way.`},
-  {icon: "/icons/team.png", title: "Community of 5K+ Users", explaination:`You are not alone!
+  {icon: "/icons/team.png", title: "Community of 5K+ Users", explanation:`You are not alone!
   Join our community of over five thousand users. More and more people are using our product to learn playing a music piece much faster.
   We are dedicated to improving your practice experience and create an evolution in music practicing`},
-  {icon: "/icons/lol.png", title: "Saves you a lot of Money", explaination:`Previously people spend thousands dollars in learning how to play one music instrument
+  {icon: "/icons/lol.png", title: "Saves you a lot of Money", explanation:`Previously people spend thousands dollars in learning how to play one music instrument
   Now comes the solutions that only cost you a few pennies !
   With only a click, you will enjoy practicing music throughout your life !`},
 ]
 
-const ReasonCard = ({icon, title, explaination}: reasonInfo) => (
+const ReasonCard = ({icon, title, explanation}: reasonInfo) => (
   <Box flex={1} className={`${styles.ReasonCardBg} ${styles.ReasonAnimation}`} justifyContent={"center"} p={"30"} minW={"250"} h={500}>
     <Flex justify={"center"} mb={5}>
       <Image alt="" src={icon} height={50} width={50}/>
@@ -164,7 +164,7 @@ const ReasonCard = ({icon, title, explaination}: reasonInfo) => (
       {title}
     </Heading>
     <Text fontSize={"xl"} textAlign="center" color={"white"} style={{"fontWeight":"bold"}}>
-      {explaination}
+      {explanation}
     </Text>
   </Box>
 )
