@@ -1,29 +1,6 @@
-import {useToast} from "@chakra-ui/react";
-import useSWR from "swr";
 import request, {API_END_POINT} from "@/utils/request";
 
-export function useUserInfo() {
-  const toast = useToast();
-  const { data, error } = useSWR('/user-info', async () => {
-    try {
-      const res = await request.post('/user-info');
-      return res.data;
-    } catch (e) {
-      toast({
-        title: 'Failed to load user data.',
-        description: "Please reload the page to try again.",
-        status: 'error'
-      })
-    }
-  })
-  return {
-    data,
-    error,
-    loading: !data && !error
-  }
-}
-
-export async function fingerUpload(file: File, email: string, handSize: number, watermark: string): Promise<string> {
+export async function fingerUpload(file: File, email: string, handSize: number, watermark: string, abortController?: AbortController): Promise<string> {
   const newFileName = file.name.replaceAll(' ', '-')
   const formData = new FormData()
   file = new File([file], newFileName, {type: "application/octet-stream"})
@@ -34,7 +11,9 @@ export async function fingerUpload(file: File, email: string, handSize: number, 
     watermark
   })], { type: "application/json" })
   formData.append("json", jsonBlob, 'some-json')
-  await request.post('/finger_upload', formData)
+  await request.post('/finger_upload', formData, {
+    signal: abortController?.signal
+  })
   return newFileName
 }
 

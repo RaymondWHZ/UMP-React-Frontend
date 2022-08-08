@@ -16,7 +16,7 @@ import {
 import Image from 'next/image'
 import styles from "./services.module.css"
 import {SiteLinkButton} from "@/components/SiteLink";
-import {useUserInfo} from "../../services/services";
+import {useUserInfo} from "@/services/user";
 import React from "react";
 import {FocusableElement} from "@chakra-ui/utils";
 

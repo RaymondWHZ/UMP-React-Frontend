@@ -11,7 +11,7 @@ import {
   PopoverContent,
   useColorModeValue,
   useDisclosure,
-  Button, Menu, MenuButton, MenuList, MenuItem, MenuGroup, MenuDivider, Avatar, Spacer, Center
+  Button, Menu, MenuButton, MenuList, MenuItem, MenuGroup, MenuDivider, Avatar, Spacer,
 } from '@chakra-ui/react';
 import {
   HamburgerIcon,
@@ -22,8 +22,7 @@ import {
 import {SiteLink} from "@/components/SiteLink";
 import React from "react";
 import Script from "next/script";
-import {useUserInfo} from "../../services/services";
-import {inspect} from "util";
+import {useUserInfo} from "@/services/user";
 import styles from "./navbar.module.css";
 
 export type NavItem = {

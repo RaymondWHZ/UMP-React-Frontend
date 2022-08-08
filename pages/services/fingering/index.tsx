@@ -1,15 +1,12 @@
 import {ButtonSelect, ButtonSelectItem} from "@/components/ButtonSelect";
 import {
   Box,
-  Button, ButtonGroup,
-  CircularProgress, CloseButton, Flex,
-  Heading,
+  Button,
+  ButtonGroup,
+  CloseButton,
+  Flex,
   HStack,
   IconButton,
-  Modal,
-  ModalBody,
-  ModalContent, ModalHeader,
-  ModalOverlay,
   Popover,
   PopoverArrow, PopoverBody,
   PopoverCloseButton,
@@ -19,13 +16,14 @@ import {
   Text, useDisclosure, useToast,
   VStack
 } from "@chakra-ui/react";
-import {AttachmentIcon, CheckCircleIcon, CloseIcon, QuestionOutlineIcon} from "@chakra-ui/icons";
+import {AttachmentIcon, CloseIcon, QuestionOutlineIcon} from "@chakra-ui/icons";
 import { useDropzone } from "react-dropzone";
 import {useCallback, useEffect, useState} from "react";
 import styles from "./fingering.module.css";
 import {arrayWithoutItem, dispatch, sleep} from "@/utils/utils";
-import {SiteLinkButton} from "@/components/SiteLink";
-import {fingerProgress, fingerUpload, getFingerDownloadUrl, useUserInfo} from "../../../services/services";
+import {useUserInfo} from "@/services/user";
+import {fingerProgress, fingerUpload, getFingerDownloadUrl} from "@/services/finger";
+import { FileProcessModal } from "@/components/FileProcessModal";
 
 const handSizeOptions: ButtonSelectItem[] = [
   {
@@ -219,64 +217,6 @@ const UploadHistoryZone = ({filenames, onDeleteFilename, onClickFilename}: Uploa
   )
 }
 
-interface FileProcessModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onDownload: () => void;
-  progress: number;
-  downloadUrl: string | null;
-  filename: string;
-}
-
-const FileProcessModal = ({
-  isOpen,
-  onClose,
-  onDownload,
-  progress,
-  downloadUrl,
-  filename,
-}: FileProcessModalProps) => {
-  return (
-    <Modal isCentered closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}>
-      <ModalOverlay />
-      <ModalContent>
-        <ModalHeader>{filename}</ModalHeader>
-        <ModalBody pt="60px" pb="40px">
-          <VStack align="center" spacing="50px">
-            {downloadUrl ? (
-              <>
-                <CheckCircleIcon boxSize="60px" color="green" />
-                <Heading size="md">
-                  Processing finished!
-                </Heading>
-                <HStack mt="20px">
-                  <Button onClick={onClose}>
-                    Close window
-                  </Button>
-                  <SiteLinkButton href={downloadUrl} colorScheme="green" onClick={onDownload}>
-                    Download file
-                  </SiteLinkButton>
-                </HStack>
-              </>
-            ) : (
-              <>
-                <CircularProgress size="60px" value={progress == -1 ? 0 : progress} isIndeterminate={progress == -1}/>
-                <Heading size="md">
-                  Please hold on a second. <br/>
-                  We are still processing...
-                </Heading>
-                <Button mt="20px" onClick={onClose}>
-                  Close window
-                </Button>
-              </>
-            )}
-          </VStack>
-        </ModalBody>
-      </ModalContent>
-    </Modal>
-  )
-}
-
 const FINGERING_PROCESSING_FILE_KEY = 'fingering-processing-file'
 
 const saveProcessingFileName = (filename: string) => {
@@ -291,15 +231,15 @@ const removeProcessingFileName = () => {
   localStorage.removeItem(FINGERING_PROCESSING_FILE_KEY)
 }
 
-const UPLOADED_FILES_KEY = 'uploaded-files'
+const FINGERING_UPLOADED_FILES_KEY = 'fingering-uploaded-files'
 
 const getUploadedFiles = (): string[] => {
-  const uploadedFiles = localStorage.getItem(UPLOADED_FILES_KEY)
+  const uploadedFiles = localStorage.getItem(FINGERING_UPLOADED_FILES_KEY)
   return uploadedFiles ? JSON.parse(uploadedFiles) : []
 }
 
 const saveUploadedFiles = (filenames: string[]) => {
-  localStorage.setItem(UPLOADED_FILES_KEY, JSON.stringify(filenames))
+  localStorage.setItem(FINGERING_UPLOADED_FILES_KEY, JSON.stringify(filenames))
 }
 
 export default function Fingering() {
@@ -326,6 +266,7 @@ export default function Fingering() {
   }, [setFileToUpload, setFilenameToMonitor, setProgress, setDownloadUrl])
 
   const onFileSubmit = useCallback(async (file: File, watermark: boolean) => {
+    setProgress(-2)
     setWatermark(watermark)
     setFileToUpload(file)
   }, [setFileToUpload])
@@ -426,7 +367,10 @@ export default function Fingering() {
         <UploadHistoryZone
           filenames={uploadedFilenames}
           onDeleteFilename={onDeleteUploadedFilename}
-          onClickFilename={setFilenameToMonitor}
+          onClickFilename={filename => {
+            setFilenameToMonitor(filename)
+            saveProcessingFileName(filename)
+          }}
         />
       }
       <FileProcessModal
