@@ -4,7 +4,7 @@ import {
   Stack,
   Text,
   Box,
-  VStack, Spacer, ChakraProps
+  VStack, Spacer, ChakraProps, UnorderedList, ListItem
 } from '@chakra-ui/react';
 import Image from 'next/image'
 import styles from "pages/home.module.css"
@@ -43,17 +43,17 @@ const TitleSection = () => (
   <SkewedTwoColumnLayout
     bg={'#4073A2'}
     mt="-200px"
-    h="800px"
+    h="900px"
     pt="100px"
     leftChildren={
-      <VStack align={"left"} spacing="10px">
+      <VStack align={"left"} spacing="20px">
         <Text className={styles.displayTitle} fontStyle="bold" color={"white"}>
           Piano Fingering <br/>
           Generator & <br/>
           Sight Reading <br/>
           Assistance
         </Text>
-        <Text className={styles.displaySubtitle} fontStyle={'bold'} color={'#FBA140'}>
+        <Text className={styles.displaySubtitle} color={'#FBA140'}>
           Best Music Practice Software For Free
         </Text>
         <Spacer/>
@@ -93,7 +93,7 @@ const FingeringSection = () => (
       </>
     }
     rightChildren={
-      <VStack spacing={6} align={"left"}>
+      <VStack spacing="20px" align={"left"} mt={10}>
         <Box height={100} width={100} style={{"transform": "rotate(15deg)", "WebkitTransform":"rotate(15deg)"}}>
           <Image src="/home_music1.png" alt='home music icon' layout='intrinsic' height={100} width={100} />
         </Box>
@@ -102,9 +102,8 @@ const FingeringSection = () => (
           For Beginer?
         </Text>
         <Text className={styles.displayText} color={'white'}>
-          Ultra Music Practice generates best piano <br/>
-          fingering automatically based on <br/>
-          differnt hand sizes
+          Ultra Music Practice generates best piano fingering <br/>
+          automatically based on different hand sizes<br/>
         </Text>
       </VStack>
     }
@@ -116,7 +115,7 @@ const SightReadingSection = () => (
     bg={'#4073A2'}
     h="600px"
     leftChildren={
-      <VStack spacing={6} align={"left"} mt={-110}>
+      <VStack spacing="20px" align={"left"} mt={-110}>
         <Box height={100} width={100} style={{"transform": "rotate(15deg)", "WebkitTransform":"rotate(15deg)"}}>
           <Image src="/home_music2.png" alt='home music icon' layout='intrinsic' height={100} width={100}>
           </Image>
@@ -126,12 +125,14 @@ const SightReadingSection = () => (
           Sight-Reading?
         </Text>
         <Text className={styles.displayText} color={'white'}>
-          Ultra Music Practice helps distiguish different notes <br/>
-          by three colors: <br/>
-          Flat Note - Red <br/>
-          Sharp Note - Greeen <br/>
-          Nautrual Note - Yellow <br/>
+          Ultra Music Practice helps distinguish different notes <br/>
+          by three colors:
         </Text>
+        <UnorderedList className={styles.displayText} pl="20px">
+          <ListItem color="red.400">Flat Note - Red</ListItem>
+          <ListItem color="green.300">Sharp Note - Green</ListItem>
+          <ListItem color="yellow.400">Natural Note - Yellow</ListItem>
+        </UnorderedList>
       </VStack>
     }
     rightChildren={

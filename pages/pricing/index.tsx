@@ -68,7 +68,7 @@ const PricingSection = () => (
         <Image alt="" src="/pricingImage.png" height={1000} width={1000} />
       </Box>
       <VStack align={"left"} justify={"center"} spacing="30px">
-        <Heading textColor={"white"} fontSize={"5xl"} fontWeight={"bold"} fontFamily={"Inika"}>Enjoy Your Full Service By Today!</Heading>
+        <Heading textColor={"white"} fontSize={"5xl"} fontWeight={"bold"} fontFamily={"Arima"}>Enjoy Your Full Service By Today!</Heading>
         <UnorderedList spacing={2} fontSize={"xl"} color={"white"} style={{"marginLeft": "30px"}}>
           <ListItem>generates best piano fingering automatically based on different hand sizes</ListItem>
           <ListItem>helps distinguish different notes by three colors</ListItem>

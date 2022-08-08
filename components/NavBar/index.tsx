@@ -190,13 +190,13 @@ const DesktopNav = ({ items }: { items: NavItem[] }) => {
               <SiteLink
                 p={2}
                 href={navItem.href}
-                fontSize={'sm'}
                 fontWeight={500}
                 color={linkColor}
                 _hover={{
                   textDecoration: 'underline',
                   color: linkHoverColor,
                 }}
+                fontFamily={'Inder'}
               >
                 {navItem.label}
               </SiteLink>

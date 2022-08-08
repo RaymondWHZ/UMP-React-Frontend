@@ -79,10 +79,10 @@ interface ServiceCardProps {
 }
 
 const ServiceCard = ({image, title, description, url}: ServiceCardProps) => (
-  <VStack width="500px" height="600px" className={styles.cardBg} p={10} style={{"textAlign": "center"}} spacing={5}>
+  <VStack width="450px" height="500px" className={styles.cardBg} p={10} style={{"textAlign": "center"}} spacing={5}>
     <Image alt="" src={image} height={300} width={800} style={{"borderRadius":"16px"}}/>
-    <Heading color={"white"}>{title}</Heading>
-    <Text style={{"whiteSpace": "pre-line"}} color={"white"} fontSize={"2xl"} mt={5}>{description}</Text>
+    <Heading fontFamily={"Arima"} color={"white"}>{title}</Heading>
+    <Text style={{"whiteSpace": "pre-line"}} color={"white"} fontSize={"16px"} mt={5} textAlign={'left'} w="300px">{description}</Text>
     <Spacer/>
     <AuthorizeButton
       href={url}
@@ -105,7 +105,8 @@ const cardData: ServiceCardProps[] = [
   {
     image: "/service_fingering.png",
     title: "Ultra Fingering",
-    description: `Ultra Music Practice generates best piano fingering automatically based on different hand sizes and Annotate the fingerings tailored for you`,
+    description: `Ultra Music Practice generates best piano fingering automatically based on different hand sizes and \
+                  annotate the fingerings tailored for you`,
     url: "/services/fingering"
   },
   {
@@ -120,7 +121,7 @@ const cardData: ServiceCardProps[] = [
 ]
 
 const ServiceWrapper = () => (
-  <HStack className={styles.ServiceWrapper} bg={"#13253F"} spacing="150px" justify="center">
+  <HStack className={styles.ServiceWrapper} bg={"#13253F"} spacing="120px" justify="center">
     {
       cardData.map(obj => <ServiceCard {...obj} key={obj.url}/>)
     }
