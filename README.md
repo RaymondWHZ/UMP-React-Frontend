@@ -13,7 +13,7 @@ NEXT_PUBLIC_APT_END_POINT=https://www.example.com/path
 ```
 
 Replace https://www.example.com/path with the actual host name and api path of backend server.
-The file .env.local will not be uploaded to GitHub, and the variable will be set automatically during depolyment.
+The file .env.local will not be uploaded to GitHub, and the variable should be set during deployment.
 
 This project is initialized with PNPM. To install all dependencies, run:
 
@@ -27,10 +27,14 @@ To start the development server, run:
 pnpm run dev
 ```
 
-To produce a static production build, run:
+The project does not support static build. To create an optimized production build, run:
 
 ```shell
 pnpm run build
 ```
 
-Static build can be found in directory named 'out'.
+Then run the following command to start the production server:
+
+```shell
+pnpm run start
+```

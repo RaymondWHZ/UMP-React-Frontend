@@ -121,12 +121,12 @@ const OutcomesSection = () => (
     </Flex>
     <HStack width={"100%"} spacing="3">
       {
-        cardInfo1.map(obj => <OutcomesCard {...obj}/>)
+        cardInfo1.map((obj, index) => <OutcomesCard key={index} {...obj}/>)
       }
     </HStack>
     <HStack width={"100%"} spacing="3">
       {
-        cardInfo2.map(obj => <OutcomesCard {...obj}/>)
+        cardInfo2.map((obj, index) => <OutcomesCard key={index} {...obj}/>)
       }
     </HStack>
   </Stack>
@@ -158,7 +158,7 @@ const reasonInfo2 = [
 const ReasonCard = ({icon, title, explaination}: reasonInfo) => (
   <Box flex={1} className={`${styles.ReasonCardBg} ${styles.ReasonAnimation}`} justifyContent={"center"} p={"30"} minW={"250"} h={500}>
     <Flex justify={"center"} mb={5}>
-      <Image src={icon} height={50} width={50}/>
+      <Image alt="" src={icon} height={50} width={50}/>
     </Flex>
     <Heading fontSize="3xl" fontStyle={'bold'} color={"#60D1FA"} textAlign="center" mb={3}>
       {title}
@@ -180,12 +180,12 @@ const ReasonSection = () => (
     </Flex>
     <HStack width={"100%"} spacing="20">
       {
-        reasonInfo1.map(obj => <ReasonCard {...obj}/>)
+        reasonInfo1.map((obj, index) => <ReasonCard key={index} {...obj}/>)
       }
     </HStack>
     <HStack width={"100%"} spacing="20">
       { 
-        reasonInfo2.map(obj => <ReasonCard {...obj}/>)
+        reasonInfo2.map((obj, index) => <ReasonCard key={index} {...obj}/>)
       }
     </HStack>
   </Stack>
@@ -193,7 +193,7 @@ const ReasonSection = () => (
 
 const WaveLine = ({p}:settingP) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" width="100%" preserveAspectRatio="none" height="300px">
-    <path fill="#13253F" fill-opacity="1" d={p}>
+    <path fill="#13253F" d={p}>
     </path>
   </svg>
 )
@@ -325,7 +325,7 @@ And after hundreds of times of correctly practicing a piece, you become a wonder
 const FAQSection = () => (
   <Box className={styles.FAQWrapper} bg={"white"} px={160}>
     <Flex align={"center"} mb={10}>
-      <Image src={"/FAQ.png"} height="150" width="150"/>
+      <Image alt="" src={"/FAQ.png"} height="150" width="150"/>
       <Heading fontStyle={'bold'} fontSize={{ base: 'xl', md: '4xl', lg: '6xl' }} color={"#13253F"} ml={10}>
         FAQs
       </Heading>
@@ -345,7 +345,7 @@ const FAQSection = () => (
       option for a user-oriented music software that can provide you with an ultra efficient music practice experience, right here and right now !
     </Box>
     <Box className={styles.workingImg}>
-      <Image src="/working.png" width={"400"} height={"400"}></Image>
+      <Image alt="" src="/working.png" width={"400"} height={"400"}></Image>
     </Box>
   </Box>
 )
@@ -370,12 +370,12 @@ const MemberCard = ({position, avatar, firstName, lastName, major1, major2, emai
       <Text fontSize={"xl"} fontWeight="bold" color={"white"}>{position}</Text>
     </Flex>
     <Box height={175} width={175} className={styles.avatarWrapper}>
-      <Image src={avatar} width={175} height={175}></Image>
+      <Image alt="" src={avatar} width={175} height={175}></Image>
     </Box>
     <Text fontSize={"2xl"} fontWeight="bold" color={"white"}>{firstName}</Text>
     <Text fontSize={"2xl"} fontWeight="bold" color={"white"}>{lastName}</Text>
     <Box className={styles.plusIcon} width={50} height={50} onClick={() => setExpand(!isExpand)}>
-      <Image src={`${isExpand ? "/icons/minus.png" : "/icons/plus.png"}`} width={50} height={50}></Image>
+      <Image alt="" src={`${isExpand ? "/icons/minus.png" : "/icons/plus.png"}`} width={50} height={50}></Image>
     </Box>
     <div className={`${!isExpand ? styles.TeamAfterExpand : styles.TeamBeforeExpand}`}>
       <Flex justify={"center"} flexDirection="column" justifyContent={"center"}>
