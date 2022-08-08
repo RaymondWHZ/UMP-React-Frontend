@@ -10,38 +10,40 @@ import {
 } from '@chakra-ui/react';
 import Image from 'next/image'
 import styles from "pages/home.module.css"
+import {SiteLinkButton} from "@/components/SiteLink";
 
 
 const TitleSection = () => (
   <Stack bg={'#4073A2'} className={styles.skewed_container} style={{"marginTop": "-200px", "height":"800px"}} pt={100} direction={{ base: 'column', md: 'row' }}>
     <Stack className={styles.content_wrapper} style={{"height":"700px"}} direction={{ base: 'column', md: 'row' }} spacing="40px">
       <Flex flex={1} align={"center"} justify={"right"} style={{"WebkitJustifyContent": "flex-end"}}>
-        <VStack spacing={4} align={"left"}>
-          <Heading fontStyle={'bold'} fontSize={"5xl"} color={"white"}>
+        <VStack align={"left"}>
+          <Text className={styles.displayText} fontStyle="bold" fontSize={"5xl"} color={"white"}>
             Piano Fingering <br/>
             Generator & <br/>
             Sight Reading <br/>
             Assistance
-          </Heading>
-          <Text fontStyle={'bold'} fontSize={"3xl"} color={'#FBA140'} textAlign={"right"}>
+          </Text>
+          <Text className={styles.displayText} fontStyle={'bold'} fontSize={"3xl"} color={'#FBA140'} textAlign={"right"}>
             Best Music Practice Software For Free
           </Text>
-          <Button
-              size={"lg"}
-              bg={'#FBA140'}
-              color={'white'}
-              width={150}
-              _hover={{
-                bg: '#FBA140',
-              }} style={{"fontSize": "20px"}}
+          <SiteLinkButton
+            className={styles.displayText}
+            href={"/services"}
+            size={"lg"}
+            bg={'#FBA140'}
+            color={'white'}
+            width={150}
+            _hover={{
+              bg: '#FBA140',
+            }} style={{"fontSize": "20px"}}
           >
             Get Started
-          </Button>
+          </SiteLinkButton>
         </VStack>
       </Flex>
       <Flex flex={1} align={'center'}>
-        <Image src="/home_piano.jpg" alt='Home Piano' width="580" height="550">
-        </Image>
+        <Image src="/home_piano.jpg" alt='Home Piano' width="580" height="550" style={{transform: "matrix(-1, 0, 0, 1, 0, 0)"}}/>
       </Flex>
     </Stack>
   </Stack>

@@ -11,7 +11,7 @@ import {
   PopoverContent,
   useColorModeValue,
   useDisclosure,
-  Button, Menu, MenuButton, MenuList, MenuItem, MenuGroup, MenuDivider, Avatar, Spacer
+  Button, Menu, MenuButton, MenuList, MenuItem, MenuGroup, MenuDivider, Avatar, Spacer, Center
 } from '@chakra-ui/react';
 import {
   HamburgerIcon,
@@ -23,6 +23,8 @@ import {SiteLink} from "@/components/SiteLink";
 import React from "react";
 import Script from "next/script";
 import {useUserInfo} from "../../services/services";
+import {inspect} from "util";
+import styles from "./navbar.module.css";
 
 export type NavItem = {
   label: string;
@@ -110,19 +112,22 @@ export function NavBar({ title, items, height }: NavBarProps) {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
-    <Box
+    <Flex
+      justify="center"
       position={"fixed"}
       width={'100%'}
       zIndex={1000}
       top={0}
+      bg="#13253F"
+      color="white"
+      h={height}
+      borderBottom={1}
+      borderStyle={'solid'}
+      borderColor="gray.600"
     >
       <Flex
-        bg="#13253F"
-        color="white"
-        minH={height}
-        borderBottom={1}
-        borderStyle={'solid'}
-        borderColor="gray.600"
+        flex={1}
+        h={height}
         align={'center'}
         pl={30}
         pr={30}
@@ -144,7 +149,7 @@ export function NavBar({ title, items, height }: NavBarProps) {
 
         <Flex>
           <SiteLink
-            fontFamily={'heading'}
+            className={styles.siteTitle}
             href={'/'}
           >
             <b>{title}</b>
@@ -168,7 +173,7 @@ export function NavBar({ title, items, height }: NavBarProps) {
       <Collapse in={isOpen} animateOpacity>
         <MobileNav items={items} />
       </Collapse>
-    </Box>
+    </Flex>
   );
 }
 
