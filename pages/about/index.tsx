@@ -161,14 +161,14 @@ const reasonInfo2: reasonInfo[] = [
 ]
 
 const ReasonCard = ({icon, title, explanation}: reasonInfo) => (
-  <VStack className={`${styles.ReasonCardBg} ${styles.ReasonAnimation}`} justifyContent="top" p={"30"} w="350px" h="400px">
-    <Flex justify={"center"}>
+  <VStack className={`${styles.ReasonCardBg} ${styles.ReasonAnimation}`} align="left" justifyContent="top" p={"30"} w="350px" h="400px">
+    <Flex justify={"left"}>
       <Image alt="" src={icon} height={50} width={50}/>
     </Flex>
-    <Heading fontSize="3xl" fontStyle={'bold'} fontFamily="Inika" color={"#60D1FA"} textAlign="center" mb={3}>
+    <Heading fontSize="3xl" fontStyle={'bold'} fontFamily="Inika" color={"#60D1FA"} textAlign="left" mb={3}>
       {title}
     </Heading>
-    <Text fontSize="17px" textAlign="center" color={"white"}>
+    <Text fontSize="17px" textAlign="left" color={"white"}>
       {explanation}
     </Text>
   </VStack>
