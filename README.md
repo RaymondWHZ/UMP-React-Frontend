@@ -9,7 +9,7 @@ This is the frontend of online music practice application "Ultra Music Practice"
 **IMPORTANT: If you need to develop locally, make sure to create a file named .env.local in the root directory to configure API endpoint like this:**
 
 ```shell
-NEXT_PUBLIC_APT_END_POINT=https://www.example.com/path
+NEXT_PUBLIC_API_END_POINT=https://www.example.com/path
 ```
 
 Replace https://www.example.com/path with the actual host name and api path of backend server.
