@@ -78,10 +78,10 @@ const HeadingSection = () => (
         </VStack>
       </Flex>
       <Flex flex={1}>
-        <svg xmlns="http://www.w3.org/2000/svg" width="800" height="700" fill="none" viewBox="0 0 802 682" x="100" className={styles.svgStyle}>
-          <path fill="#fff" stroke="#fff" d="M171.1 209.708C1.879 124.677-50.315 78.213 56.582 1h944.388v498.505c1.53 14.971-54.206 38.995-54.206 38.995s-177.667 63.832-270.261 62.479c-92.593-1.353-343.561-56.842-321.412-62.479-184.114-55.206-225.786-88.658-133.604-155.091 0 0 108.41-79.318 70.238-114.767-38.173-35.449-120.625-58.934-120.625-58.934Z"/>
-          <image href='about_piano.png' x={-900} y={170} height={350} width={600} style={{"transform": "scaleX(-1)"}}></image>
-        </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="616" height="702" fill="none" viewBox="0 0 616 702">
+        <path fill="#fff" stroke="#fff" d="M75.615 600.818C-9.835 536.874-9.161 493.88 15.19 413.792c0 0 226.134-409.944 283.356-412.778 57.221-2.833 307.618 412.778 307.618 412.778 25.652 51.348-10.987 120.433-28.382 142.631-17.395 22.197-181.891 162.65-279.236 142.63-97.346-20.02-222.931-98.235-222.931-98.235Z"/>
+        <image href='about_piano.png' x={-580} y={210} height={350} width={540} style={{"transform": "scaleX(-1)"}}></image>
+      </svg>
       </Flex>
     </HStack>
   </Center>
@@ -162,13 +162,13 @@ const reasonInfo2: reasonInfo[] = [
 
 const ReasonCard = ({icon, title, explanation}: reasonInfo) => (
   <VStack className={`${styles.ReasonCardBg} ${styles.ReasonAnimation}`} align="left" justifyContent="top" p={"30"} w="350px" h="400px">
-    <Flex justify={"left"}>
+    <Flex justify={"center"}>
       <Image alt="" src={icon} height={50} width={50}/>
     </Flex>
-    <Heading fontSize="3xl" fontStyle={'bold'} fontFamily="Inika" color={"#60D1FA"} textAlign="left" mb={3}>
+    <Heading fontSize="3xl" fontStyle={'bold'} fontFamily="Inika" color={"#60D1FA"} textAlign="center" mb={3}>
       {title}
     </Heading>
-    <Text fontSize="17px" textAlign="left" color={"white"}>
+    <Text fontSize="17px" textAlign="center" color={"white"}>
       {explanation}
     </Text>
   </VStack>
@@ -353,8 +353,8 @@ const memberInfo = [
   {position:"ASSISTANT DEVELOPER", avatar:"/TeamMember/Victoria.jpg", firstName:"Victoria", lastName:"Hu", major1:"Computer Science", major2: "Communication", email:"runzhao3@illinois.edu"},
   {position:"MARKETING CONSULTANT", avatar:"/TeamMember/Linda.jpeg", firstName:"Linda", lastName:"Luo", major1:"Finance", major2: "Accounting", email:"rluo7@illinois.edu"},
   {position:"FRONTEND DEVELOPER", avatar:"/TeamMember/Raymond.jpg", firstName:"Raymond", lastName:"Wu", major1:"Computer Science", major2: "Information Science", email:"haozhen6@illinois.edu"},
-  {position:"UI DESIGNER & DEVELOPER", avatar:"/TeamMember/Sarah.jpg", firstName:"Sarah", lastName:"Wang", major1:"Computer Science", major2: "Mathematics", email:"peiranw3@illinois.edu"},
-  {position:"UI DESIGNER", avatar:"/TeamMember/Annie.jpg", firstName:"Annie", lastName:"Sun", major1:"Inforation Science", major2: "Data Science", email:"qingyue7@illinois.edu"}
+  {position:"UI DESIGNER & DEVELOPER", avatar:"/TeamMember/Sarah.png", firstName:"Sarah", lastName:"Wang", major1:"Computer Science", major2: "Mathematics", email:"peiranw3@illinois.edu"},
+  {position:"UI DESIGNER", avatar:"/TeamMember/Annie.png", firstName:"Annie", lastName:"Sun", major1:"Inforation Science", major2: "Data Science", email:"qingyue7@illinois.edu"}
 ]
 
 const MemberCard = ({position, avatar, firstName, lastName, major1, major2, email}: memberInfo) => {
