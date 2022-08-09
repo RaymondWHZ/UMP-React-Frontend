@@ -57,6 +57,7 @@ const TitleSection = () => (
         <Text className={styles.displaySubtitle} color={'#FBA140'}>
           Best Music Practice Software For Free
         </Text>
+        <Spacer/>
         <SiteLinkButton
           href={"/services"}
           bg={'#FBA140'}
@@ -66,7 +67,7 @@ const TitleSection = () => (
           _hover={{
             bg: '#FBA140',
           }}
-          fontSize={'20px'}
+          fontSize={'17px'}
           rightIcon={<ArrowForwardIcon />}
         >
           Get Started
@@ -95,9 +96,10 @@ const FingeringSection = () => (
     }
     rightChildren={
       <VStack spacing="20px" align={"left"} mt={10}>
-        <Box height={100} width={100} style={{"transform": "rotate(15deg)", "WebkitTransform":"rotate(15deg)"}}>
+        <Box height={100} width={100} ml="8px" style={{"transform": "rotate(15deg)", "WebkitTransform":"rotate(15deg)"}}>
           <Image src="/home_music1.png" alt='home music icon' layout='intrinsic' height={100} width={100} />
         </Box>
+        <Spacer/>
         <Text className={styles.displayTitle2} color={'#60D1FA'}>
           Troubling in Fingering <br/>
           For Beginer?
@@ -117,23 +119,25 @@ const SightReadingSection = () => (
     h="600px"
     leftChildren={
       <VStack spacing="20px" align={"left"} mt={-110}>
-        <Box height={100} width={100} style={{"transform": "rotate(15deg)", "WebkitTransform":"rotate(15deg)"}}>
-          <Image src="/home_music2.png" alt='home music icon' layout='intrinsic' height={100} width={100}>
-          </Image>
+        <Box height={100} width={100} ml="10px" style={{"transform": "rotate(15deg)", "WebkitTransform":"rotate(15deg)"}}>
+          <Image src="/home_music2.png" alt='home music icon' layout='intrinsic' height={100} width={100}/>
         </Box>
+        <Spacer/>
         <Text className={styles.displayTitle2} color={'#FBA140'}>
           Having Hardship Doing <br/>
           Sight-Reading?
         </Text>
-        <Text className={styles.displayText} color="white">
-          Ultra Music Practice helps distinguish different notes <br/>
-          by three colors:
-        </Text>
-        <UnorderedList className={styles.displayText} pl="20px" color="white">
-          <ListItem>Flat Note - Red</ListItem>
-          <ListItem>Sharp Note - Green</ListItem>
-          <ListItem>Natural Note - Yellow</ListItem>
-        </UnorderedList>
+        <VStack align="left" spacing="9px">
+          <Text className={styles.displayText} color="white">
+            Ultra Music Practice helps distinguish different notes <br/>
+            by three colors:
+          </Text>
+          <UnorderedList className={styles.displayText} pl="19px" color="white">
+            <ListItem>Flat Note - Red</ListItem>
+            <ListItem>Sharp Note - Green</ListItem>
+            <ListItem>Natural Note - Yellow</ListItem>
+          </UnorderedList>
+        </VStack>
       </VStack>
     }
     rightChildren={
@@ -161,8 +165,8 @@ const HelloSection = () => (
             <Image alt="" src="/hello_sign.png" height={100} width={100}/>
           </Box>
           <VStack spacing={4}>
-            <Text className={styles.displayTitle} color={"#60D1FA"}>Try Ultra Muisc Practice Today</Text>
-            <Text className={styles.displaySubtitle} color={"white"}>Geting Start For Free</Text>
+            <Text className={styles.displayTitle} color={"#60D1FA"}>Try Ultra Music Practice Today</Text>
+            <Text className={styles.displaySubtitle} color={"white"}>Getting Start For Free</Text>
             <Spacer/>
             <SiteLinkButton
               href={'/services'}
@@ -172,9 +176,10 @@ const HelloSection = () => (
               _hover={{
                 bg: '#FBA140',
               }}
-              fontSize="20px"
+              fontSize="17px"
+              rightIcon={<ArrowForwardIcon />}
             >
-              Try Now!
+              Try Now
             </SiteLinkButton>
           </VStack>
         </VStack>

@@ -3,7 +3,6 @@ import {
   Button,
   Flex,
   Heading,
-  Stack,
   Text,
   VStack,
   Box,
@@ -12,11 +11,12 @@ import {
   AccordionItem,
   AccordionButton,
   AccordionPanel,
-  AccordionIcon,
+  AccordionIcon, Center, Spacer, SimpleGrid,
 } from '@chakra-ui/react';
 import Image from 'next/image'
 import styles from "../about/about.module.css"
-import {useState} from 'react'
+import React from 'react'
+import {SiteLinkButton} from "@/components/SiteLink";
 
 interface settingP {
   p: string
@@ -45,43 +45,46 @@ interface memberInfo {
 }
 
 const HeadingSection = () => (
-  <Stack className={styles.HeadingWrapper} bg={"#13253F"} direction={{ base: 'column', md: 'row' }}>
-    <Flex flex={1}>
-      <VStack align={"left"} pl={45} pt={75}>
-        <Heading fontStyle={'bold'} fontSize={{ base: 'xl', md: '5xl', lg: '6xl' }}>
-          <Text color={'white'} as={'span'}>
-            About Ultra Music <br/>
-            Practice
+  <Center bg={"#13253F"}>
+    <HStack className={styles.HeadingWrapper} maxW="1250px">
+      <Flex flex={1}>
+        <VStack align={"left"} pl={45} pt="70px">
+          <Heading fontStyle={'bold'} fontSize="5xl">
+            <Text fontFamily="Inika" color={'white'} as={'span'}>
+              About <br/>
+              Ultra Music Practice
+            </Text>
+          </Heading>
+          <br/>
+          <Text fontSize="17px" color={'white'} mb={10}>
+            Ultra-Music-Practice is developed by a group of students<br/>
+            from University of Illinois at Urbana-Champaign<br/>
+            It is the <Text fontStyle={'bold'} fontSize={{ base: 'xl', lg: '3xl' }} as={"span"} color={"#60D1FA"}>FIRST</Text> Music Software that can generate very good fingerings <br/>
+            for piano scores. It can also highlight all the sharp & flat notes in a music<br/>
+            score to help you sight-read any piece you want to play
           </Text>
-        </Heading>
-        <br/>
-        <Text fontSize={{ base: 'md', lg: '2xl' }} color={'white'} mb={10}>
-           Ultra-Music-Practice is developed by a group of students from University of Illinois at Urbana-Champaign
-          <br/>
-          It is the <Text fontStyle={'bold'} fontSize={{ base: 'xl', lg: '3xl' }} as={"span"} color={"#60D1FA"}>FIRST</Text> Music Software that can generate very good fingerings for piano scores
-          <br/>
-          It can also highlight all the sharp & flat nots in a music scroe to help you sight-read any piece you want to play
-        </Text>
-        <Button
-          size={"lg"}
-          bg={'#FBA140'}
-          color={'white'}
-          _hover={{
-            bg: '#FBA140',
-          }} 
-          width={"40"}
-          style={{"fontSize": "20px","marginTop": "30px", "marginLeft": "50px"}}>
-              Try Today!
-        </Button>
-      </VStack>
-    </Flex>
-    <Flex flex={1}> 
-      <svg xmlns="http://www.w3.org/2000/svg" width="1002" height="700" fill="none" viewBox="0 0 802 682" x="100" className={styles.svgStyle}>
-        <path fill="#fff" stroke="#fff" d="M171.1 209.708C1.879 124.677-50.315 78.213 56.582 1h944.388v498.505c1.53 14.971-54.206 38.995-54.206 38.995s-177.667 63.832-270.261 62.479c-92.593-1.353-343.561-56.842-321.412-62.479-184.114-55.206-225.786-88.658-133.604-155.091 0 0 108.41-79.318 70.238-114.767-38.173-35.449-120.625-58.934-120.625-58.934Z"/>
-        <image href='about_piano.png' x={-900} y={170} height={350} width={600} style={{"transform": "scaleX(-1)"}}></image>
-      </svg>
-    </Flex>
-  </Stack>
+          <SiteLinkButton
+            href={"/services"}
+            size={"lg"}
+            bg={'#FBA140'}
+            color={'white'}
+            _hover={{
+              bg: '#FBA140',
+            }}
+            width={"40"}
+            style={{"fontSize": "17px","marginTop": "40px"}}>
+            Try Today!
+          </SiteLinkButton>
+        </VStack>
+      </Flex>
+      <Flex flex={1}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="800" height="700" fill="none" viewBox="0 0 802 682" x="100" className={styles.svgStyle}>
+          <path fill="#fff" stroke="#fff" d="M171.1 209.708C1.879 124.677-50.315 78.213 56.582 1h944.388v498.505c1.53 14.971-54.206 38.995-54.206 38.995s-177.667 63.832-270.261 62.479c-92.593-1.353-343.561-56.842-321.412-62.479-184.114-55.206-225.786-88.658-133.604-155.091 0 0 108.41-79.318 70.238-114.767-38.173-35.449-120.625-58.934-120.625-58.934Z"/>
+          <image href='about_piano.png' x={-900} y={170} height={350} width={600} style={{"transform": "scaleX(-1)"}}></image>
+        </svg>
+      </Flex>
+    </HStack>
+  </Center>
 )
 
 const cardInfo1: cardInfo[] = [
@@ -97,39 +100,41 @@ const cardInfo2: cardInfo[] = [
 ]
 
 const OutcomesCard = ({data, title, explanation}: cardInfo) => (
-  <VStack flex={1} className={styles.OutcomesCard} justifyContent={"center"} p={"30"} minW={"300"}>
+  <VStack flex={1} justifyContent={"top"} p="30px" w="300px" h="250px">
     <Heading fontSize="7xl" fontStyle={'bold'} color={"#FBA140"}>
       {data}
     </Heading>
-    <Text fontSize={"4xl"} style={{"fontWeight":"bold"}} color={"#13253F"}>
+    <Text fontSize={"4xl"} fontFamily="Inika" style={{"fontWeight":"bold"}} color={"#13253F"}>
       {title}
     </Text>
-    <Text fontSize={"xl"} textAlign="center">
+    <Text fontSize={"17px"} textAlign="center">
       {explanation}
     </Text>
   </VStack>
 )
 
 const OutcomesSection = () => (
-  <Stack className={styles.OutcomesWrapper} direction={"column"} px={160} spacing="10">
-    <Flex justify="center" mb={15}> 
-      <Heading fontStyle={'bold'} fontSize={{ base: 'xl', md: '4xl', lg: '5xl' }}>
-        <Text color={'#13253F'} as={'span'}>
-          Drive Outcomes Across Our App
-        </Text>
-      </Heading>
-    </Flex>
-    <HStack width={"100%"} spacing="3">
-      {
-        cardInfo1.map((obj, index) => <OutcomesCard key={index} {...obj}/>)
-      }
-    </HStack>
-    <HStack width={"100%"} spacing="3">
-      {
-        cardInfo2.map((obj, index) => <OutcomesCard key={index} {...obj}/>)
-      }
-    </HStack>
-  </Stack>
+  <Center>
+    <VStack className={styles.OutcomesWrapper} spacing="20px" maxW="1200px">
+      <Flex justify="center" mb={15}>
+        <Heading fontStyle={'bold'} fontSize={{ base: 'xl', md: '4xl', lg: '5xl' }}>
+          <Text color={'#13253F'} as={'span'} fontFamily="Inika">
+            Drive Outcomes Across Our App
+          </Text>
+        </Heading>
+      </Flex>
+      <HStack width={"100%"} spacing="4px">
+        {
+          cardInfo1.map((obj, index) => <OutcomesCard key={index} {...obj}/>)
+        }
+      </HStack>
+      <HStack width={"100%"} spacing="4px">
+        {
+          cardInfo2.map((obj, index) => <OutcomesCard key={index} {...obj}/>)
+        }
+      </HStack>
+    </VStack>
+  </Center>
 )
 
 const reasonInfo1: reasonInfo[] = [
@@ -156,39 +161,41 @@ const reasonInfo2: reasonInfo[] = [
 ]
 
 const ReasonCard = ({icon, title, explanation}: reasonInfo) => (
-  <Box flex={1} className={`${styles.ReasonCardBg} ${styles.ReasonAnimation}`} justifyContent={"center"} p={"30"} minW={"250"} h={500}>
-    <Flex justify={"center"} mb={5}>
+  <VStack className={`${styles.ReasonCardBg} ${styles.ReasonAnimation}`} justifyContent="top" p={"30"} w="350px" h="400px">
+    <Flex justify={"center"}>
       <Image alt="" src={icon} height={50} width={50}/>
     </Flex>
-    <Heading fontSize="3xl" fontStyle={'bold'} color={"#60D1FA"} textAlign="center" mb={3}>
+    <Heading fontSize="3xl" fontStyle={'bold'} fontFamily="Inika" color={"#60D1FA"} textAlign="center" mb={3}>
       {title}
     </Heading>
-    <Text fontSize={"xl"} textAlign="center" color={"white"} style={{"fontWeight":"bold"}}>
+    <Text fontSize="17px" textAlign="center" color={"white"}>
       {explanation}
     </Text>
-  </Box>
+  </VStack>
 )
 
 const ReasonSection = () => (
-  <Stack className={styles.ReasonWrapper} bg={"#13253F"} direction={"column"} px={160} spacing="10">
-    <Flex justify="center" mb={15}> 
-      <Heading fontStyle={'bold'} fontSize={{ base: 'xl', md: '4xl', lg: '5xl' }}>
-        <Text color={'white'} as={'span'}>
-          Reasons to Choose Us
-        </Text>
-      </Heading>
-    </Flex>
-    <HStack width={"100%"} spacing="20">
-      {
-        reasonInfo1.map((obj, index) => <ReasonCard key={index} {...obj}/>)
-      }
-    </HStack>
-    <HStack width={"100%"} spacing="20">
-      { 
-        reasonInfo2.map((obj, index) => <ReasonCard key={index} {...obj}/>)
-      }
-    </HStack>
-  </Stack>
+  <Center className={styles.ReasonWrapper} bg={"#13253F"}>
+    <VStack spacing="40px" maxW="1200px">
+      <Flex justify="center" mb={15}>
+        <Heading fontStyle={'bold'} fontSize={{ base: 'xl', md: '4xl', lg: '5xl' }}>
+          <Text color={'white'} fontFamily="Inika" as={'span'}>
+            Reasons to Choose Us
+          </Text>
+        </Heading>
+      </Flex>
+      <HStack width={"100%"} spacing="30px">
+        {
+          reasonInfo1.map((obj, index) => <ReasonCard key={index} {...obj}/>)
+        }
+      </HStack>
+      <HStack width={"100%"} spacing="30px">
+        {
+          reasonInfo2.map((obj, index) => <ReasonCard key={index} {...obj}/>)
+        }
+      </HStack>
+    </VStack>
+  </Center>
 )
 
 const WaveLine = ({p}:settingP) => (
@@ -198,236 +205,210 @@ const WaveLine = ({p}:settingP) => (
   </svg>
 )
 
+interface FAQItemProps {
+  title: React.ReactNode;
+  explanation: React.ReactNode;
+}
+
+const FAQItem = ({title, explanation}: FAQItemProps) => (
+  <AccordionItem>
+    <h1>
+      <AccordionButton _expanded={{color: '#FBA140' }}>
+        <Box fontFamily="Inika" flex='1' textAlign='left' fontSize={"2xl"} style={{"fontWeight": "bold"}}>
+          {title}
+        </Box>
+        <AccordionIcon />
+      </AccordionButton>
+    </h1>
+    <AccordionPanel pb={4} fontSize={"17px"}>
+      {explanation}
+    </AccordionPanel>
+  </AccordionItem>
+)
+
+const faqList: FAQItemProps[] = [
+  {
+    title: "How much does Ultra Music Practice cost?",
+    explanation: (
+      <>
+        It is FREE for everyone who wants to give it a try.
+        <br/>
+        You will enjoy practicing piano everyday and sightreading for free !
+        <br/>
+        And you can also get a discount or even FREE Unlimited Access if you recommend Ultra Music Practice to your friends.
+        <br/>
+        After the free trial period, it only costs one purchase starting at $ 7.99, and that's it !
+        <br/>
+        No extra cost , No extra contracts.
+      </>
+    )
+  },
+  {
+    title: "Why the piano fingering placement from Ultra Music Practice is good?",
+    explanation: (
+      <>
+        All the piano fingering techniques come from years of experiences of both professional and non-professional piano players.
+        <br/>
+        Supported by Machine Learning and advanced computer algorithms, the piano finger number on each note is tailored best to your handsize, incorporating every single one of popular piano finger patterns.
+        <br/>
+        Thus ensuring that you will be playing in the most comfortable way, with correct and efficient keyboard fingering exercise.
+      </>
+    )
+  },
+  {
+    title: "What format of music scores does Ultra Music Practice accept?",
+    explanation: (
+      <>
+        Nowadays almost all the music scores are in digital printed format, so Ultra Music Practice accepts any format of PDF, PNG and JPG music scores as long as they are in PRINTED form.
+        <br/>
+        We feel really sorry that we are not able to do anything to Scanned or Hand-Written version of music scores.
+        <br/>
+        However, if your score is not in digital printed format, we encourage you to find scores of the same piece in such format from other websites, such as the Musescore community: <a href='https://musescore.com/community' color='#FBA140'>click here</a>
+      </>
+    )
+  },
+  {
+    title: "How does Ultra Music Practice help me sightread the score I want to play?",
+    explanation: (
+      <>
+        It would be pretty awesome if you can play at the first sight of any music score. But to achieve this, people used to spend years and years on sightreading practice.
+        <br/>
+        Now with Ultra Music Practice, you can do that ULTRA FAST!
+        <br/>
+        All the special notes (flat / sharp / natural) notes are marked with different colors, so you can quickly find what notes you are going to play next. And this function applies not only to sightreading piano, but to sightreading a wide range of music instruments.
+        <br/>
+        Upload a printed music score, and congratulations, you will enjoy the sightreading game!
+      </>
+    )
+  },
+  {
+    title: "What can I expect to benefit from Ultra Music Practice?",
+    explanation: (
+      <>
+        If you are someone who just started learning to play the piano, Ultra Music Practice can give you a boost start with the best piano finger placement for beginners.
+        <br/>
+        If you have been playing the piano for a while, Ultra Music Practice will let you experience the best of practicing piano by removing a lot of redundancies when picking up a new piece.
+        <br/>
+        No matter what instrument are you practicing, with the help of Ultra Music Practice, you will grow into a master in practicing music ULTRA FAST !
+        <br/>
+        In short, it's the good deal of buying yourself much more time when practicing music.
+      </>
+    )
+  },
+  {
+    title: "Is Ultra Music Practice good for everyone?",
+    explanation: (
+      <>
+        Yes ! Absolutely !
+        <br/>
+        Fingering is one of the fundamentals for learning piano. That's why we have different hand-size options to annotate the fingerings of any piano score just tailored to your hand and to your skills.
+        <br/>
+        No matter what instrument you are practicing, you don't want to play any wrong notes. Now comes the Sight Reading tools from Ultra Music Practice, which helps you resolve the biggest factor of playing a wrong note while practicing.
+        <br/>
+        And after hundreds of times of correctly practicing a piece, you become a wonderful performer for that piece you like.
+      </>
+    )
+  }
+]
+
 const FAQs = () => (
   <Accordion>
-  <AccordionItem>
-    <h1>
-      <AccordionButton _expanded={{color: '#FBA140' }}>
-        <Box flex='1' textAlign='left' fontSize={"2xl"} style={{"fontWeight": "bold"}}>
-        How much does Ultra Music Practice cost?
-        </Box>
-        <AccordionIcon />
-      </AccordionButton>
-    </h1>
-    <AccordionPanel pb={4} fontSize={"xl"}>
-      It is FREE for everyone who wants to give it a try.
-      <br/>
-      You will enjoy practicing piano everyday and sightreading for free !
-      <br/>
-      And you can also get a discount or even FREE Unlimited Access if you recommend Ultra Music Practice to your friends.
-      <br/>
-      After the free trial period, it only costs one purchase starting at $ 7.99, and that's it !
-      <br/>
-      No extra cost , No extra contracts.
-    </AccordionPanel>
-  </AccordionItem>
-  <AccordionItem>
-    <h1>
-      <AccordionButton _expanded={{color: '#FBA140' }}>
-        <Box flex='1' textAlign='left' fontSize={"2xl"} style={{"fontWeight": "bold"}}>
-        Why the piano fingering placement from Ultra Music Practice is good ?
-        </Box>
-        <AccordionIcon />
-      </AccordionButton>
-    </h1>
-    <AccordionPanel pb={4} fontSize={"xl"}>
-      All the piano fingering techniques come from years of experiences of both professional and non-professional piano players.
-      <br/>
-      Supported by Machine Learning and advanced computer algorithms, the piano finger number on each note is tailored best to your handsize, incorporating every single one of popular piano finger patterns.
-      <br/>
-      Thus ensuring that you will be playing in the most comfortable way, with correct and efficient keyboard fingering exercise.
-    </AccordionPanel>
-  </AccordionItem>
-  <AccordionItem>
-    <h1>
-      <AccordionButton _expanded={{color: '#FBA140' }}>
-        <Box flex='1' textAlign='left' fontSize={"2xl"} style={{"fontWeight": "bold"}}>
-        What format of music scores does Ultra Music Practice accept?
-        </Box>
-        <AccordionIcon />
-      </AccordionButton>
-    </h1>
-    <AccordionPanel pb={4} fontSize={"xl"}>
-    Nowadays almost all the music scores are in digital printed format, so Ultra Music Practice accepts any format of PDF, PNG and JPG music scores as long as they are in PRINTED form.
-      <br/>
-      We feel really sorry that we are not able to do anything to Scanned or Hand-Written version of music scores.
-      <br/>
-      However, if your score is not in digital printed format, we encourage you to find scores of the same piece in such format from other websites, such as the Musescore community: <a href='https://musescore.com/community' color='#FBA140'>click here</a>
-    </AccordionPanel>
-  </AccordionItem>
-  <AccordionItem>
-    <h1>
-      <AccordionButton _expanded={{color: '#FBA140' }}>
-        <Box flex='1' textAlign='left' fontSize={"2xl"} style={{"fontWeight": "bold"}}>
-        How does Ultra Music Practice help me sightread the score I want to play?
-        </Box>
-        <AccordionIcon />
-      </AccordionButton>
-    </h1>
-    <AccordionPanel pb={4} fontSize={"xl"}>
-    It would be pretty awesome if you can play at the first sight of any music score. But to achieve this, people used to spend years and years on sightreading practice.
-      <br/>
-      Now with Ultra Music Practice, you can do that ULTRA FAST!
-      <br/>
-      All the special notes (flat / sharp / natural) notes are marked with different colors, so you can quickly find what notes you are going to play next. And this function applies not only to sightreading piano, but to sightreading a wide range of music instruments.
-      <br/>
-      Upload a printed music score, and congratulations, you will enjoy the sightreading game!
-
-
-    </AccordionPanel>
-  </AccordionItem>
-  <AccordionItem>
-    <h1>
-      <AccordionButton _expanded={{color: '#FBA140' }}>
-        <Box flex='1' textAlign='left' fontSize={"2xl"} style={{"fontWeight": "bold"}}>
-        What can I expect to benefit from Ultra Music Practice?
-        </Box>
-        <AccordionIcon />
-      </AccordionButton>
-    </h1>
-    <AccordionPanel pb={4} fontSize={"xl"}>
-    If you are someone who just started learning to play the piano, Ultra Music Practice can give you a boost start with the best piano finger placement for beginners.
-      <br/>
-      If you have been playing the piano for a while, Ultra Music Practice will let you experience the best of practicing piano by removing a lot of redundancies when picking up a new piece.
-      <br/>
-      No matter what instrument are you practicing, with the help of Ultra Music Practice, you will grow into a master in practicing music ULTRA FAST !
-      <br/>
-      In short, it's the good deal of buying yourself much more time when practicing music.
-
-
-    </AccordionPanel>
-  </AccordionItem>
-  <AccordionItem>
-    <h1>
-      <AccordionButton _expanded={{color: '#FBA140' }}>
-        <Box flex='1' textAlign='left' fontSize={"2xl"} style={{"fontWeight": "bold"}}>
-        Is Ultra Music Practice good for everyone?
-        </Box>
-        <AccordionIcon />
-      </AccordionButton>
-    </h1>
-    <AccordionPanel pb={4} fontSize={"xl"}>
-    Yes ! Absolutely !
-      <br/>
-      Fingering is one of the fundamentals for learning piano. That's why we have different hand-size options to annotate the fingerings of any piano score just tailored to your hand and to your skills.
-      <br/>
-      No matter what instrument you are practicing, you don't want to play any wrong notes. Now comes the Sight Reading tools from Ultra Music Practice, which helps you resolve the biggest factor of playing a wrong note while practicing.
-      <br/>
-      
-And after hundreds of times of correctly practicing a piece, you become a wonderful performer for that piece you like.
-
-    </AccordionPanel>
-  </AccordionItem>
-  
-</Accordion>
+    {faqList.map((item, index) => <FAQItem key={index} {...item}/>)}
+  </Accordion>
 )
 
 const FAQSection = () => (
-  <Box className={styles.FAQWrapper} bg={"white"} px={160}>
-    <Flex align={"center"} mb={10}>
-      <Image alt="" src={"/FAQ.png"} height="150" width="150"/>
-      <Heading fontStyle={'bold'} fontSize={{ base: 'xl', md: '4xl', lg: '6xl' }} color={"#13253F"} ml={10}>
-        FAQs
-      </Heading>
-    </Flex>
-    <FAQs/>
-    <Box bg={"#13253F"} mt={"50px"} className={styles.ackownledgeCard} fontSize="xl" py={35} px={30} mb={10}>
-      We do acknowledge that there are indeed many similar products to Ultra Music Practice.
-      <br/><br/>
-      For example, another popular product for generating piano fingering is the Python Piano Player, which is a GitHub piano repo that takes XML format of piano scores and annotate fingering numbers with their algorithm: https://github.com/marcomusy/pianoplayer
-      <br/><br/>
-      And some people would also choose the Sight Reading Factory, which builds up your sightreading skills step by step on music scores from their website : https://www.sightreadingfactory.com
-      <br/><br/>
-      BUT !!! Ultra Music Practice is the 
-      <Text fontSize={"2xl"} as="span" color={"#60D1FA"} fontWeight="bold"> FIRST</Text>
-      , the <Text fontSize={"2xl"} as="span" color={"#60D1FA"} fontWeight="bold"> ONLY</Text>, and the 
-      <Text fontSize={"2xl"} as="span" color={"#60D1FA"} fontWeight="bold"> BEST</Text> 
-      option for a user-oriented music software that can provide you with an ultra efficient music practice experience, right here and right now !
+  <Center>
+    <Box className={styles.FAQWrapper} bg={"white"} maxW="1100px">
+      <Flex align={"center"} mb={10}>
+        <Image alt="" src={"/FAQ.png"} height="150" width="150"/>
+        <Heading fontFamily="Inika" fontStyle={'bold'} fontSize={{ base: 'xl', md: '4xl', lg: '6xl' }} color={"#13253F"} ml={10}>
+          FAQs
+        </Heading>
+      </Flex>
+      <FAQs/>
+      <Box bg={"#13253F"} mt={"50px"} className={styles.ackownledgeCard} fontSize="17px" py={35} px={30} mb={10}>
+        We do acknowledge that there are indeed many similar products to Ultra Music Practice.
+        <br/><br/>
+        For example, another popular product for generating piano fingering is the Python Piano Player, which is a GitHub piano repo that takes XML format of piano scores and annotate fingering numbers with their algorithm: https://github.com/marcomusy/pianoplayer
+        <br/><br/>
+        And some people would also choose the Sight Reading Factory, which builds up your sightreading skills step by step on music scores from their website : https://www.sightreadingfactory.com
+        <br/><br/>
+        BUT !!! Ultra Music Practice is the
+        <Text fontSize={"2xl"} as="span" color={"#60D1FA"} fontWeight="bold"> FIRST</Text>
+        , the <Text fontSize={"2xl"} as="span" color={"#60D1FA"} fontWeight="bold"> ONLY</Text>, and the
+        <Text fontSize={"2xl"} as="span" color={"#60D1FA"} fontWeight="bold"> BEST</Text>
+        option for a user-oriented music software that can provide you with an ultra efficient music practice experience, right here and right now !
+      </Box>
+      <Box className={styles.workingImg}>
+        <Image alt="" src="/working.png" width={"400"} height={"400"}></Image>
+      </Box>
     </Box>
-    <Box className={styles.workingImg}>
-      <Image alt="" src="/working.png" width={"400"} height={"400"}></Image>
-    </Box>
-  </Box>
+  </Center>
 )
 
-const memberInfo1 = [
+const memberInfo = [
   {position:"CEO - FOUNDER", avatar:"/TeamMember/tommy.png", firstName:"Haoxiang", lastName:"Sun", major1:"Computer Science", major2:"Piano Performance", email:"hs23@illinois.edu"},
-  {position:"CEO - FOUNDER", avatar:"/TeamMember/vivek.png", firstName:"Vivek", lastName:"Bhookya", major1:"Computer Science &", major2:"Astronomy", email:"v.bhookya98@gmail.com"},
-  {position:"ASSISTANT DEVELOPER", avatar:"/TeamMember/Victoria.jpg", firstName:"Victoria", lastName:"Hu", major1:"Computer Science", major2: "Communication", email:"runzhao3@illinois.edu"}
-]
-
-const memberInfo2 = [
-  {position:"MARKETING CONSULTANT", avatar:"/TeamMember/Linda.jpeg", firstName:"Linda", lastName:"Luo", major1:"Finance", major2: "Accounting", email:"rluo7@illinois.edu"}
+  {position:"CEO - FOUNDER", avatar:"/TeamMember/vivek.png", firstName:"Vivek", lastName:"Bhookya", major1:"Computer Science", major2:"Astronomy", email:"v.bhookya98@gmail.com"},
+  {position:"ASSISTANT DEVELOPER", avatar:"/TeamMember/Victoria.jpg", firstName:"Victoria", lastName:"Hu", major1:"Computer Science", major2: "Communication", email:"runzhao3@illinois.edu"},
+  {position:"MARKETING CONSULTANT", avatar:"/TeamMember/Linda.jpeg", firstName:"Linda", lastName:"Luo", major1:"Finance", major2: "Accounting", email:"rluo7@illinois.edu"},
+  {position:"FRONTEND DEVELOPER", avatar:"/TeamMember/Raymond.jpg", firstName:"Raymond", lastName:"Wu", major1:"Computer Science", major2: "Information Science", email:"haozhen6@illinois.edu"},
+  {position:"UI DESIGNER & DEVELOPER", avatar:"/TeamMember/Sarah.jpg", firstName:"Sarah", lastName:"Wang", major1:"Computer Science", major2: "Mathematics", email:"peiranw3@illinois.edu"},
+  {position:"UI DESIGNER", avatar:"/TeamMember/Annie.jpg", firstName:"Annie", lastName:"Sun", major1:"Inforation Science", major2: "Data Science", email:"qingyue7@illinois.edu"}
 ]
 
 const MemberCard = ({position, avatar, firstName, lastName, major1, major2, email}: memberInfo) => {
-  
-  const [isExpand, setExpand] = useState(false)
-  
   return (
-  <Box className={`${styles.ReasonCardBg} ${styles.memberCard}`} p={"30"} style={{"width":"350px", "flexGrow":"1"}} maxW={350} flex={1}>
-    <Flex justify={"left"}>
-      <Text fontSize={"xl"} fontWeight="bold" color={"white"}>{position}</Text>
-    </Flex>
+  <VStack className={`${styles.ReasonCardBg} ${styles.memberCard}`} p="40px" pt="25px" w="350px" align="left" spacing="6px">
     <Box height={175} width={175} className={styles.avatarWrapper}>
       <Image alt="" src={avatar} width={175} height={175}></Image>
     </Box>
-    <Text fontSize={"2xl"} fontWeight="bold" color={"white"}>{firstName}</Text>
-    <Text fontSize={"2xl"} fontWeight="bold" color={"white"}>{lastName}</Text>
-    <Box className={styles.plusIcon} width={50} height={50} onClick={() => setExpand(!isExpand)}>
-      <Image alt="" src={`${isExpand ? "/icons/minus.png" : "/icons/plus.png"}`} width={50} height={50}></Image>
-    </Box>
-    <div className={`${!isExpand ? styles.TeamAfterExpand : styles.TeamBeforeExpand}`}>
-      <Flex justify={"center"} flexDirection="column" justifyContent={"center"}>
-        <Text fontSize={"xl"} fontWeight="bold" color={"white"}>{major1}</Text>
-        <Text fontSize={"xl"} fontWeight="bold" color={"white"}>{major2}</Text>
-        <Text fontSize={"xl"} fontWeight="bold" color={"white"}>{email}</Text>
-      </Flex>
-    </div>
-  </Box>
+    <Text fontFamily="Inika" fontSize={"3xl"} fontWeight="bold" color={"white"}>{firstName} {lastName}</Text>
+    <Flex justify={"left"}>
+      <Text fontSize={"18px"} fontWeight="bold" color={"white"}>{position}</Text>
+    </Flex>
+    <Spacer/>
+    <Text fontSize="17px" color={"white"}>{major1} & <br/> {major2}</Text>
+    <Text fontSize="17px" color={"white"}>{email}</Text>
+  </VStack>
   )
 }
 
 const TeamSection = () => (
-  <Stack className={styles.TeamWrapper} bg={"#13253F"} direction={"column"} px={160} spacing="10">
-    <Flex justify="center" mb={15}> 
-      <Heading fontStyle={'bold'} fontSize={{ base: 'xl', md: '4xl', lg: '5xl' }}>
-        <Text color={'white'} as={'span'}>
+  <Center className={styles.TeamWrapper} bg={"#13253F"} pb="100px">
+    <VStack spacing="10" maxW="1100px">
+      <Flex justify="center" mb={15}>
+        <Heading fontStyle={'bold'} fontFamily="Inika" fontSize={{ base: 'xl', md: '4xl', lg: '5xl' }} color="white">
           Our Team Members
-        </Text>
-      </Heading>
-    </Flex>
-    <div className={styles.TeamMemberLayout}>
+        </Heading>
+      </Flex>
+      <SimpleGrid columns={3} spacing="30px">
         {
-          memberInfo1.map((obj, index) => <MemberCard {...obj} key={index}/>)
+          memberInfo.map((obj, index) => <MemberCard {...obj} key={index}/>)
         }
-    </div>
-    <div className={styles.TeamMemberLayout}>
-        {
-          memberInfo2.map((obj, index) => <MemberCard {...obj} key={index}/>)
-        }
-        <Box flex={2} className={styles.ReasonCardBg} py={10} px={50} maxW={770}>
-          <Heading fontSize={"4xl"} fontWeight="bold" color={"white"} my={5}>We Value Your Feedback</Heading>
-          <Text fontSize={"xl"} color={"white"}>To be the first such kind of software, we have a lot to improve.
-          Please give us any suggestions you may have about this website.</Text>
-          <Button 
-          
-          size={"lg"}
-          bg={'#FBA140'}
-          color={'white'}
-          _hover={{
-            bg: '#FBA140',
-          }} 
-          width={"40"}
-          px={20}
-          style={{"fontSize": "20px","marginTop": "30px",}}>
-              Feedback Form
-        </Button>
-        </Box>
-    </div>
-  </Stack>
+        <VStack className={styles.ReasonCardBg} py={10} px={50} w="730px" align="left" justify="center">
+          <Heading fontFamily="Inika" fontSize={"4xl"} fontWeight="bold" color={"white"}>We Value Your Feedback</Heading>
+          <Text fontSize="17px" color={"white"}>
+            To be the first such kind of software, we have a lot to improve.
+            Please give us any suggestions you may have about this website.
+          </Text>
+          <Button
+            size={"lg"}
+            bg={'#FBA140'}
+            color={'white'}
+            _hover={{
+              bg: '#FBA140',
+            }}
+            width={"40"}
+            px={20}
+            style={{"fontSize": "17px","marginTop": "30px",}}>
+            Feedback Form
+          </Button>
+        </VStack>
+      </SimpleGrid>
+    </VStack>
+  </Center>
 )
-
 
 const About: NextPage = () => (
   <>

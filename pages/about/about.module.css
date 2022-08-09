@@ -6,7 +6,7 @@
 
 .OutcomesWrapper {
   width: 100%;
-  height: 800px;
+  height: 620px;
   position: relative;
 }
 
@@ -20,7 +20,7 @@
 
 .ReasonWrapper {
   width: 100%;
-  height: 1200px;
+  height: 1000px;
   position: relative;
 }
 
@@ -53,14 +53,14 @@
 
 .workingImg {
   position: absolute;
-  right: 3%;
-  bottom: -230px;
-  transform: scaleX(-1);
+  right: -80px;
+  bottom: -110px;
+  transform: scaleX(-1) scale(0.7);
 }
 
 .TeamWrapper {
   width: 100%;
-  height: 1000px;
+  height: 1600px;
   position: relative;
 }
 

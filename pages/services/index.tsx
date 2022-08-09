@@ -76,10 +76,10 @@ interface ServiceCardProps {
 }
 
 const ServiceCard = ({image, title, description, url}: ServiceCardProps) => (
-  <VStack width="450px" height="500px" className={styles.cardBg} p={10} style={{"textAlign": "center"}} spacing={5}>
+  <VStack width="450px" height="500px" className={styles.cardBg} p={10} align="center" spacing={5}>
     <Image alt="" src={image} height={300} width={800} style={{"borderRadius":"16px"}}/>
-    <Heading fontFamily={"Arima"} color={"white"}>{title}</Heading>
-    <Text style={{"whiteSpace": "pre-line"}} color={"white"} fontSize={"16px"} mt={5} textAlign={'left'} w="300px">{description}</Text>
+    <Heading fontFamily={"Inika"} color={"white"}>{title}</Heading>
+    <Text style={{"whiteSpace": "pre-line"}} color={"white"} fontSize={"16px"} mt={5} textAlign={'center'} w="300px">{description}</Text>
     <Spacer/>
     <AuthorizeButton
       href={url}
@@ -91,7 +91,7 @@ const ServiceCard = ({image, title, description, url}: ServiceCardProps) => (
       }}
       width={"40"}
       px={20}
-      style={{"fontSize": "20px","marginTop": "30px",}}
+      style={{"fontSize": "17px","marginTop": "30px",}}
     >
       Select
     </AuthorizeButton>
@@ -108,7 +108,7 @@ const cardData: ServiceCardProps[] = [
   },
   {
     image: "/service_sightreading.png",
-    title: "Ultra SightReading",
+    title: "Ultra Sight-Reading",
     description: `The BEST assistance for Sight-Reading
                   Flat notes -- RED
                   Sharp notes -- GREEN
