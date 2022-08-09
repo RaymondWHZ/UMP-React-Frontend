@@ -62,10 +62,7 @@ const LoginPromptButton = (props: React.ComponentProps<typeof Button>) => {
 
 const AuthorizeButton = (props: React.ComponentProps<typeof Button>) => {
   const { data: userData, loading } = useUserInfo()
-  if (loading) {
-    return <></>
-  }
-  if (userData.email) {
+  if (!loading && userData.email) {
     return <SiteLinkButton {...props}>{props.children}</SiteLinkButton>
   }
   return <LoginPromptButton {...props}>{props.children}</LoginPromptButton>

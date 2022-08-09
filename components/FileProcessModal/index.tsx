@@ -1,5 +1,6 @@
 import {
   Button, CircularProgress,
+  CircularProgressLabel,
   Heading,
   HStack,
   Modal,
@@ -53,19 +54,29 @@ export function FileProcessModal({
               </>
             ) : (
               <>
-                <CircularProgress size="60px" value={progress < 0 ? 0 : progress} isIndeterminate={progress < 0}/>
-                <Heading size="md">
-                  Please hold on a second. <br/>
-                  We are still processing...
-                </Heading>
+                <CircularProgress size="70px" isIndeterminate>
+                  <CircularProgressLabel>{progress >= 0 && `${progress}%`}</CircularProgressLabel>
+                </CircularProgress>
                 {progress == -2 ? (
-                  <Button colorScheme="red" mt="20px" onClick={onClose}>
-                    Cancel
-                  </Button>
+                  <>
+                    <Heading size="md">
+                      Uploading file...
+                    </Heading>
+                    <Button colorScheme="red" mt="20px" onClick={onClose}>
+                      Cancel
+                    </Button>
+                  </>
                 ) : (
-                  <Button mt="20px" onClick={onClose}>
-                    Close window
-                  </Button>
+                  <>
+                    <Heading size="md">
+                      Please hold on a second. <br/>
+                      It takes about 30 seconds to <br/>
+                      process each page.
+                    </Heading>
+                    <Button mt="20px" onClick={onClose}>
+                      Close window
+                    </Button>
+                  </>
                 )}
               </>
             )}

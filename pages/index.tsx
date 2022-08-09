@@ -10,6 +10,7 @@ import Image from 'next/image'
 import styles from "pages/home.module.css"
 import {SiteLinkButton} from "@/components/SiteLink";
 import React from "react";
+import {ArrowForwardIcon} from "@chakra-ui/icons";
 
 interface TwoColumnLayoutProps extends ChakraProps {
   leftChildren: React.ReactNode;
@@ -56,17 +57,17 @@ const TitleSection = () => (
         <Text className={styles.displaySubtitle} color={'#FBA140'}>
           Best Music Practice Software For Free
         </Text>
-        <Spacer/>
         <SiteLinkButton
           href={"/services"}
-          size={"lg"}
           bg={'#FBA140'}
           color={'white'}
-          width={150}
+          w={170}
+          h={50}
           _hover={{
             bg: '#FBA140',
           }}
           fontSize={'20px'}
+          rightIcon={<ArrowForwardIcon />}
         >
           Get Started
         </SiteLinkButton>
@@ -124,14 +125,14 @@ const SightReadingSection = () => (
           Having Hardship Doing <br/>
           Sight-Reading?
         </Text>
-        <Text className={styles.displayText} color={'white'}>
+        <Text className={styles.displayText} color="white">
           Ultra Music Practice helps distinguish different notes <br/>
           by three colors:
         </Text>
-        <UnorderedList className={styles.displayText} pl="20px">
-          <ListItem color="red.400">Flat Note - Red</ListItem>
-          <ListItem color="green.300">Sharp Note - Green</ListItem>
-          <ListItem color="yellow.400">Natural Note - Yellow</ListItem>
+        <UnorderedList className={styles.displayText} pl="20px" color="white">
+          <ListItem>Flat Note - Red</ListItem>
+          <ListItem>Sharp Note - Green</ListItem>
+          <ListItem>Natural Note - Yellow</ListItem>
         </UnorderedList>
       </VStack>
     }

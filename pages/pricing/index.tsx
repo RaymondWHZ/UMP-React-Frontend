@@ -47,6 +47,7 @@ const PriceCard = ({oldPrice, newPrice, time}: priceInfo) => {
           width={"20"}
           fontSize={"2xl"}
           px={20}
+          isDisabled
         >
           Select
         </Button>
@@ -56,20 +57,20 @@ const PriceCard = ({oldPrice, newPrice, time}: priceInfo) => {
 }
 
 const priceData = [
-  {newPrice: "Free", oldPrice: "$7.99", time: "One Month"},
-  {newPrice: "Free", oldPrice: "$8.99", time: "One Year"},
-  {newPrice: "Free", oldPrice: "$9.99", time: "Forever"}
+  {newPrice: "Free", oldPrice: "$27.99", time: "One Month"},
+  {newPrice: "Free", oldPrice: "$28.99", time: "One Year"},
+  {newPrice: "Free", oldPrice: "$29.99", time: "Forever"}
 ]
 
 const PricingSection = () => (
   <Center className={styles.PricingWrapper} bg={"#13253F"}>
     <HStack w="100%" maxW="1400px" pr="60px">
-      <Box mt="-70px">
+      <Box ml="-60px" mt="-70px" mr="-50px" maxW="600px">
         <Image alt="" src="/pricingImage.png" height={1000} width={1000} />
       </Box>
-      <VStack align={"left"} justify={"center"} spacing="30px">
+      <VStack align={"left"} justify={"center"} spacing="30px" w="700px">
         <Heading textColor={"white"} fontSize={"5xl"} fontWeight={"bold"} fontFamily={"Arima"}>Enjoy Your Full Service By Today!</Heading>
-        <UnorderedList spacing={2} fontSize={"xl"} color={"white"} style={{"marginLeft": "30px"}}>
+        <UnorderedList spacing={2} fontSize={"17px"} color={"white"} style={{"marginLeft": "30px"}}>
           <ListItem>generates best piano fingering automatically based on different hand sizes</ListItem>
           <ListItem>helps distinguish different notes by three colors</ListItem>
           <ListItem>remove watermark from music score</ListItem>
