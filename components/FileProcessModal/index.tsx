@@ -1,5 +1,5 @@
 import {
-  Button, CircularProgress,
+  Button, Center, CircularProgress,
   CircularProgressLabel,
   Heading,
   HStack,
@@ -7,7 +7,7 @@ import {
   ModalBody,
   ModalContent,
   ModalHeader,
-  ModalOverlay,
+  ModalOverlay, Text,
   VStack
 } from "@chakra-ui/react";
 import {CheckCircleIcon} from "@chakra-ui/icons";
@@ -34,7 +34,11 @@ export function FileProcessModal({
     <Modal isCentered closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>{filename}</ModalHeader>
+        <ModalHeader>
+          <Center>
+            {filename}
+          </Center>
+        </ModalHeader>
         <ModalBody pt="60px" pb="40px">
           <VStack align="center" spacing="50px">
             {downloadUrl ? (
@@ -55,11 +59,11 @@ export function FileProcessModal({
             ) : (
               <>
                 <CircularProgress size="70px" isIndeterminate>
-                  <CircularProgressLabel>{progress >= 0 && `${progress}%`}</CircularProgressLabel>
+                  <CircularProgressLabel>{progress >= 0 && `${Math.round(progress)}%`}</CircularProgressLabel>
                 </CircularProgress>
                 {progress == -2 ? (
                   <>
-                    <Heading size="md">
+                    <Heading size="md" textAlign="center">
                       Uploading file...
                     </Heading>
                     <Button colorScheme="red" mt="20px" onClick={onClose}>
@@ -68,11 +72,14 @@ export function FileProcessModal({
                   </>
                 ) : (
                   <>
-                    <Heading size="md">
-                      Please hold on a second. <br/>
-                      It takes about 30 seconds to <br/>
-                      process each page.
-                    </Heading>
+                    <Text fontSize="17px" textAlign="center">
+                      <Heading size="md" mb="10px">
+                        We are processing your file...
+                      </Heading>
+                      It takes about 30 seconds to process <br/>
+                      each page. You may leave this view <br/>
+                      and come back later.
+                    </Text>
                     <Button mt="20px" onClick={onClose}>
                       Close window
                     </Button>

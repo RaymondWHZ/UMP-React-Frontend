@@ -21,7 +21,7 @@ interface TwoColumnLayoutProps extends ChakraProps {
 const SkewedTwoColumnLayout = (props: TwoColumnLayoutProps) => {
   const { leftChildren, rightChildren, columnSpacing } = props;
   return (
-    <Box className={styles.skewed_container} {...props}>
+    <Box className={styles.skewed_container} {...{...props, leftChildren: undefined, rightChildren: undefined, columnSpacing: undefined}}>
       <Stack
         className={styles.content_wrapper}
         justify="center"
