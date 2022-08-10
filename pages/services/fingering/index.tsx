@@ -1,9 +1,9 @@
 import {ButtonSelect, ButtonSelectItem} from "@/components/ButtonSelect";
 import {
-  Box,
   Button,
-  ButtonGroup,
+  ButtonGroup, Center,
   CloseButton,
+  Divider,
   Flex,
   HStack,
   IconButton,
@@ -16,7 +16,7 @@ import {
   Text, useDisclosure, useToast,
   VStack
 } from "@chakra-ui/react";
-import {AttachmentIcon, CloseIcon, QuestionOutlineIcon} from "@chakra-ui/icons";
+import {ArrowLeftIcon, AttachmentIcon, CloseIcon, QuestionOutlineIcon} from "@chakra-ui/icons";
 import { useDropzone } from "react-dropzone";
 import {useCallback, useEffect, useState} from "react";
 import styles from "./fingering.module.css";
@@ -24,6 +24,7 @@ import {arrayWithoutItem, dispatch, sleep} from "@/utils/utils";
 import {useUserInfo} from "@/services/user";
 import {fingerProgress, fingerUpload, getFingerDownloadUrl} from "@/services/finger";
 import { FileProcessModal } from "@/components/FileProcessModal";
+import {SiteLinkIconButton} from "@/components/SiteLink";
 
 const handSizeOptions: ButtonSelectItem[] = [
   {
@@ -47,11 +48,24 @@ interface HandSizeSelectProps {
 
 function HandSizeSelect({ onChange, disabled }: HandSizeSelectProps) {
   return (
-    <VStack w="100%" maxW="1200px" align="left" pl="50px">
-      <Text fontSize="35px" pt={4} color={'#FBA140'}>
-        Choose Your Hand Size
+    <VStack w="100%" align="left" spacing="20px">
+      <Text fontSize="35px" fontFamily="Inika" pt={4} color="white">
+        <SiteLinkIconButton
+          href={"/services"}
+          colorScheme='white'
+          aria-label='Back to previous'
+          icon={<ArrowLeftIcon />}
+          ml="-11px"
+          mb="6px"
+          mr="5px"
+        />
+        Ultra Fingering
       </Text>
-      <HStack spacing="24px">
+      <Divider />
+      <HStack spacing="24px" align="center">
+        <Text fontSize="20px" fontWeight="bold" color={'#FBA140'}>
+          Choose Your Hand Size:
+        </Text>
         <ButtonSelect
           items={handSizeOptions}
           onChange={item => onChange(item)}
@@ -121,35 +135,33 @@ const UploadZone = ({ onFileSubmit }: UploadZoneProps) => {
   const [file, setFile] = useState<File | null>(null);
   const [watermark, setWatermark] = useState<boolean>(false);
   return (
-    <Box width="100%" maxW="1200px" pl="40px" pr="40px">
-      <VStack className={styles.cardBg} p="40px" spacing="20px">
-        <FileDropZone onDrop={files => setFile(files[0])} />
-        {file && (
-          <Flex className={styles.fileInfo} alignItems="center">
-            <AttachmentIcon color="white" boxSize="30px" mr="14px"/>
-            <Text color="white">
-              {file.name} <br/>
-              {file.size} bytes <br/>
-            </Text>
-            <Spacer/>
-            <CloseButton color="white" onClick={() => setFile(null)}/>
-          </Flex>
-        )}
-        <VStack>
-          <Button
-            color="white"
-            bg="#60D1FA"
-            disabled={!file}
-            onClick={() => onFileSubmit && onFileSubmit(file!, watermark)}
-          >
-            Upload & Process
-          </Button>
-        </VStack>
-        <Text fontSize="16px" color="white">
-          Watermark <Switch onChange={event => setWatermark(event.target.checked)} size='lg' />
-        </Text>
+    <VStack width="100%" className={styles.cardBg} p="40px" spacing="20px">
+      <FileDropZone onDrop={files => setFile(files[0])} />
+      {file && (
+        <Flex className={styles.fileInfo} alignItems="center">
+          <AttachmentIcon color="white" boxSize="30px" mr="14px"/>
+          <Text color="white">
+            {file.name} <br/>
+            {file.size} bytes <br/>
+          </Text>
+          <Spacer/>
+          <CloseButton color="white" onClick={() => setFile(null)}/>
+        </Flex>
+      )}
+      <VStack>
+        <Button
+          color="white"
+          bg="#60D1FA"
+          disabled={!file}
+          onClick={() => onFileSubmit && onFileSubmit(file!, watermark)}
+        >
+          Upload & Process
+        </Button>
       </VStack>
-    </Box>
+      <Text fontSize="16px" color="white">
+        Watermark <Switch onChange={event => setWatermark(event.target.checked)} size='lg' />
+      </Text>
+    </VStack>
   )
 }
 
@@ -162,58 +174,55 @@ interface UploadHistoryZoneProps {
 const UploadHistoryZone = ({filenames, onDeleteFilename, onClickFilename}: UploadHistoryZoneProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Box width="100%" maxW="1200px" pl="40px" pr="40px">
-      <VStack className={styles.cardBg} p="40px" spacing="20px" align={'left'}>
-        <Text color="white"><b>Files being processed</b></Text>
-        <HStack width="100%">
-          {filenames.map(filename => (
-            <ButtonGroup key={filename} isAttached>
-              <Button
-                onClick={() => onClickFilename(filename)}
-              >
-                {filename}
-              </Button>
-              <Popover
-                isOpen={isOpen}
-                onOpen={onOpen}
-                onClose={onClose}
-              >
-                <PopoverTrigger>
-                  <IconButton
-                    aria-label='Delete'
-                    icon={<CloseIcon/>}
-                  />
-                </PopoverTrigger>
-                <PopoverContent>
-                  <PopoverArrow />
-                  <PopoverHeader>Delete processing file</PopoverHeader>
-                  <PopoverCloseButton />
-                  <PopoverBody>
-                    Are you sure you want to delete this file record? You have no way to track this file again.
-                  </PopoverBody>
-                  <PopoverFooter>
-                    <HStack spacing="10px" justify="right">
-                      <Button size="sm" onClick={onClose}>Cancel</Button>
-                      <Button
-                        size="sm"
-                        colorScheme='red'
-                        onClick={() => {
-                          onClose()
-                          onDeleteFilename(filename)
-                        }}
-                      >
-                        Delete
-                      </Button>
-                    </HStack>
-                  </PopoverFooter>
-                </PopoverContent>
-              </Popover>
-
-            </ButtonGroup>
-          ))}
-        </HStack>
-      </VStack>
-    </Box>
+    <VStack className={styles.cardBg} width="100%" p="40px" spacing="20px" align={'left'}>
+      <Text color="white"><b>Files being processed</b></Text>
+      <HStack width="100%">
+        {filenames.map(filename => (
+          <ButtonGroup key={filename} isAttached>
+            <Button
+              onClick={() => onClickFilename(filename)}
+            >
+              {filename}
+            </Button>
+            <Popover
+              isOpen={isOpen}
+              onOpen={onOpen}
+              onClose={onClose}
+            >
+              <PopoverTrigger>
+                <IconButton
+                  aria-label='Delete'
+                  icon={<CloseIcon/>}
+                />
+              </PopoverTrigger>
+              <PopoverContent>
+                <PopoverArrow />
+                <PopoverHeader>Delete processing file</PopoverHeader>
+                <PopoverCloseButton />
+                <PopoverBody>
+                  Are you sure you want to delete this file record? You have no way to track this file again.
+                </PopoverBody>
+                <PopoverFooter>
+                  <HStack spacing="10px" justify="right">
+                    <Button size="sm" onClick={onClose}>Cancel</Button>
+                    <Button
+                      size="sm"
+                      colorScheme='red'
+                      onClick={() => {
+                        onClose()
+                        onDeleteFilename(filename)
+                      }}
+                    >
+                      Delete
+                    </Button>
+                  </HStack>
+                </PopoverFooter>
+              </PopoverContent>
+            </Popover>
+          </ButtonGroup>
+        ))}
+      </HStack>
+    </VStack>
   )
 }
 
@@ -360,30 +369,32 @@ export default function Fingering() {
   }, [setFilenameToMonitor])
 
   return (
-    <VStack bg="#13253F" minH="800px" spacing="20px" pt="30px" pb="50px">
-      <HandSizeSelect onChange={setHandSize} />
-      <UploadZone onFileSubmit={onFileSubmit} />
-      {uploadedFilenames.length > 0 &&
-        <UploadHistoryZone
-          filenames={uploadedFilenames}
-          onDeleteFilename={onDeleteUploadedFilename}
-          onClickFilename={filename => {
-            setFilenameToMonitor(filename)
-            saveProcessingFileName(filename)
+    <Center bg="#13253F">
+      <VStack w="100%" minH="800px" maxW="1100px" spacing="20px" pt="30px" pb="50px" mx="50px">
+        <HandSizeSelect onChange={setHandSize} />
+        <UploadZone onFileSubmit={onFileSubmit} />
+        {uploadedFilenames.length > 0 &&
+            <UploadHistoryZone
+                filenames={uploadedFilenames}
+                onDeleteFilename={onDeleteUploadedFilename}
+                onClickFilename={filename => {
+                  setFilenameToMonitor(filename)
+                  saveProcessingFileName(filename)
+                }}
+            />
+        }
+        <FileProcessModal
+          isOpen={isOpen}
+          onClose={onClose}
+          onDownload={() => {
+            onClose()
+            onDeleteUploadedFilename(filenameToMonitor!)
           }}
+          progress={progress}
+          downloadUrl={downloadUrl}
+          filename={filenameToMonitor ?? fileToUpload?.name ?? ''}
         />
-      }
-      <FileProcessModal
-        isOpen={isOpen}
-        onClose={onClose}
-        onDownload={() => {
-          onClose()
-          onDeleteUploadedFilename(filenameToMonitor!)
-        }}
-        progress={progress}
-        downloadUrl={downloadUrl}
-        filename={filenameToMonitor ?? fileToUpload?.name ?? ''}
-      />
-    </VStack>
+      </VStack>
+    </Center>
   )
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Link} from "@chakra-ui/react";
+import {Button, IconButton, Link} from "@chakra-ui/react";
 import NextLink from "next/link";
 
 export const SiteLink: React.FC<
@@ -18,6 +18,16 @@ export const SiteLinkButton: React.FC<
   return (
     <NextLink href={props.href ?? '#'} passHref>
       <Button as="a" {...{...props, href: undefined }} />
+    </NextLink>
+  );
+};
+
+export const SiteLinkIconButton: React.FC<
+  React.ComponentProps<typeof IconButton>
+  > = (props) => {
+  return (
+    <NextLink href={props.href ?? '#'} passHref>
+      <IconButton as="a" {...{...props, href: undefined }} />
     </NextLink>
   );
 };

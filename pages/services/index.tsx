@@ -118,7 +118,7 @@ const cardData: ServiceCardProps[] = [
 ]
 
 const ServiceWrapper = () => (
-  <HStack className={styles.ServiceWrapper} bg={"#13253F"} spacing="120px" justify="center">
+  <HStack className={styles.ServiceWrapper} bg={"#13253F"} spacing="120px" align="top" pt="70px" justify="center">
     {
       cardData.map(obj => <ServiceCard {...obj} key={obj.url}/>)
     }

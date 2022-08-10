@@ -17,6 +17,7 @@ import Image from 'next/image'
 import styles from "../about/about.module.css"
 import React from 'react'
 import {SiteLinkButton} from "@/components/SiteLink";
+import {ArrowForwardIcon} from "@chakra-ui/icons";
 
 interface settingP {
   p: string
@@ -45,10 +46,10 @@ interface memberInfo {
 }
 
 const HeadingSection = () => (
-  <Center bg={"#13253F"}>
-    <HStack className={styles.HeadingWrapper} maxW="1250px">
+  <Center bg={"#13253F"} pt="20px">
+    <HStack className={styles.HeadingWrapper} maxW="1200px">
       <Flex flex={1}>
-        <VStack align={"left"} pl={45} pt="70px">
+        <VStack align={"left"} pl={45} pt="10px">
           <Heading fontStyle={'bold'} fontSize="5xl">
             <Text fontFamily="Inika" color={'white'} as={'span'}>
               About <br/>
@@ -59,9 +60,10 @@ const HeadingSection = () => (
           <Text fontSize="17px" color={'white'} mb={10}>
             Ultra-Music-Practice is developed by a group of students<br/>
             from University of Illinois at Urbana-Champaign<br/>
-            It is the <Text fontStyle={'bold'} fontSize={{ base: 'xl', lg: '3xl' }} as={"span"} color={"#60D1FA"}>FIRST</Text> Music Software that can generate very good fingerings <br/>
-            for piano scores. It can also highlight all the sharp & flat notes in a music<br/>
-            score to help you sight-read any piece you want to play
+            It is the <Text fontStyle={'bold'} fontSize={{ base: 'xl', lg: '3xl' }} as={"span"} color={"#60D1FA"}>FIRST</Text> Music Software that can generate very <br/>
+            good fingerings for piano scores. It can also highlight all<br/>
+            the sharp & flat notes in a music score to help you sight-read<br/>
+            any piece you want to play
           </Text>
           <SiteLinkButton
             href={"/services"}
@@ -72,16 +74,18 @@ const HeadingSection = () => (
               bg: '#FBA140',
             }}
             width={"40"}
-            style={{"fontSize": "17px","marginTop": "40px"}}>
-            Try Today!
+            style={{"fontSize": "17px","marginTop": "40px"}}
+            rightIcon={<ArrowForwardIcon/>}
+          >
+            Try Today
           </SiteLinkButton>
         </VStack>
       </Flex>
       <Flex flex={1}>
-      <svg xmlns="http://www.w3.org/2000/svg" width="616" height="702" fill="none" viewBox="0 0 616 702">
-        <path fill="#fff" stroke="#fff" d="M75.615 600.818C-9.835 536.874-9.161 493.88 15.19 413.792c0 0 226.134-409.944 283.356-412.778 57.221-2.833 307.618 412.778 307.618 412.778 25.652 51.348-10.987 120.433-28.382 142.631-17.395 22.197-181.891 162.65-279.236 142.63-97.346-20.02-222.931-98.235-222.931-98.235Z"/>
-        <image href='about_piano.png' x={-580} y={210} height={350} width={540} style={{"transform": "scaleX(-1)"}}></image>
-      </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="616" height="702" fill="none" viewBox="0 0 616 702">
+          <path fill="#fff" stroke="#fff" d="M75.615 600.818C-9.835 536.874-9.161 493.88 15.19 413.792c0 0 226.134-409.944 283.356-412.778 57.221-2.833 307.618 412.778 307.618 412.778 25.652 51.348-10.987 120.433-28.382 142.631-17.395 22.197-181.891 162.65-279.236 142.63-97.346-20.02-222.931-98.235-222.931-98.235Z"/>
+          <image href='about_piano.png' x={-580} y={210} height={350} width={540} style={{"transform": "scaleX(-1)"}}></image>
+        </svg>
       </Flex>
     </HStack>
   </Center>
@@ -101,10 +105,10 @@ const cardInfo2: cardInfo[] = [
 
 const OutcomesCard = ({data, title, explanation}: cardInfo) => (
   <VStack flex={1} justifyContent={"top"} p="30px" w="300px" h="250px">
-    <Heading fontSize="7xl" fontStyle={'bold'} color={"#FBA140"}>
+    <Heading fontSize="6xl" fontStyle={'bold'} color={"#FBA140"}>
       {data}
     </Heading>
-    <Text fontSize={"4xl"} fontFamily="Inika" style={{"fontWeight":"bold"}} color={"#13253F"}>
+    <Text fontSize={"3xl"} fontFamily="Inika" style={{"fontWeight":"bold"}} color={"#13253F"}>
       {title}
     </Text>
     <Text fontSize={"17px"} textAlign="center">
@@ -328,7 +332,7 @@ const FAQSection = () => (
       </Flex>
       <FAQs/>
       <Box bg={"#13253F"} mt={"50px"} className={styles.ackownledgeCard} fontSize="17px" py={35} px={30} mb={10}>
-        We do acknowledge that there are indeed many similar products to Ultra Music Practice.
+        We do acknowledge that there are many similar products to Ultra Music Practice.
         <br/><br/>
         For example, another popular product for generating piano fingering is the Python Piano Player, which is a GitHub piano repo that takes XML format of piano scores and annotate fingering numbers with their algorithm: https://github.com/marcomusy/pianoplayer
         <br/><br/>
