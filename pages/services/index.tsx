@@ -91,7 +91,9 @@ const ServiceCard = ({image, title, description, url}: ServiceCardProps) => (
       }}
       width={"40"}
       px={20}
-      style={{"fontSize": "17px","marginTop": "30px",}}
+      fontSize={'17px'}
+      fontWeight={'bold'}
+      mt="30px"
     >
       Select
     </AuthorizeButton>

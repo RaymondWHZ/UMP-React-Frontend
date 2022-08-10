@@ -35,6 +35,15 @@
 
 .displayTitle2 {
     font-family: Inika, serif;
+    font-size: 46px;
+    font-weight: 700;
+    line-height: 54px;
+    letter-spacing: 0;
+    text-align: left;
+}
+
+.displayTitle3 {
+    font-family: Inika, serif;
     font-size: 36px;
     font-weight: 700;
     line-height: 54px;
@@ -45,7 +54,7 @@
 .displaySubtitle {
     font-family: Inika, serif;
     font-size: 28px;
-    font-weight: 400;
+    font-weight: bold;
     line-height: 39px;
     letter-spacing: 0;
     text-align: left;

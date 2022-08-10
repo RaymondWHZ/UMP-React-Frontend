@@ -68,6 +68,7 @@ const TitleSection = () => (
             bg: '#FBA140',
           }}
           fontSize={'17px'}
+          fontWeight={'bold'}
           rightIcon={<ArrowForwardIcon />}
         >
           Get Started
@@ -100,7 +101,7 @@ const FingeringSection = () => (
           <Image src="/home_music1.png" alt='home music icon' layout='intrinsic' height={100} width={100} />
         </Box>
         <Spacer/>
-        <Text className={styles.displayTitle2} color={'#60D1FA'}>
+        <Text className={styles.displayTitle3} color={'#60D1FA'}>
           Troubling in Fingering <br/>
           For Beginer?
         </Text>
@@ -123,7 +124,7 @@ const SightReadingSection = () => (
           <Image src="/home_music2.png" alt='home music icon' layout='intrinsic' height={100} width={100}/>
         </Box>
         <Spacer/>
-        <Text className={styles.displayTitle2} color={'#FBA140'}>
+        <Text className={styles.displayTitle3} color={'#FBA140'}>
           Having Hardship Doing <br/>
           Sight-Reading?
         </Text>
@@ -165,8 +166,8 @@ const HelloSection = () => (
             <Image alt="" src="/hello_sign.png" height={100} width={100}/>
           </Box>
           <VStack spacing={4}>
-            <Text className={styles.displayTitle} color={"#60D1FA"}>Try Ultra Music Practice Today</Text>
-            <Text className={styles.displaySubtitle} color={"white"}>Getting Start For Free</Text>
+            <Text className={styles.displayTitle2} color={"#60D1FA"}>Try Ultra Music Practice Today!</Text>
+            <Text className={styles.displaySubtitle} color={"white"}>Get Started For Free</Text>
             <Spacer/>
             <SiteLinkButton
               href={'/services'}
@@ -177,6 +178,7 @@ const HelloSection = () => (
                 bg: '#FBA140',
               }}
               fontSize="17px"
+              fontWeight={'bold'}
               rightIcon={<ArrowForwardIcon />}
             >
               Try Now
