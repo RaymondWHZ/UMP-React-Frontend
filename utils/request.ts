@@ -27,7 +27,6 @@ request.interceptors.request.use((config) => {
       config.headers = {};
     }
     config.headers[GIS_TOKEN_KEY] = gisToken;
-    removeGISToken();
   }
   const apiToken = getAPIToken();
   if (apiToken) {
@@ -45,6 +44,7 @@ request.interceptors.response.use((response) => {
     if (newToken == "") {
       removeAPIToken();
     } else {
+      removeGISToken();
       setAPIToken(newToken);
     }
   }
