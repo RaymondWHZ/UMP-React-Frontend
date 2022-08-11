@@ -75,6 +75,7 @@ const HeadingSection = () => (
             }}
             width={"40"}
             style={{"fontSize": "17px","marginTop": "40px"}}
+            fontWeight={'bold'}
             rightIcon={<ArrowForwardIcon/>}
           >
             Try Today

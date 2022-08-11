@@ -91,13 +91,13 @@ function LoginAvatar() {
         <MenuItem closeOnSelect={false}>{userData.email}</MenuItem>
         <MenuDivider />
         <MenuGroup title='Subscription'>
-          <MenuItem closeOnSelect={false}>Expiration date: 2099</MenuItem>
+          <MenuItem closeOnSelect={false}>Free subscription</MenuItem>
         </MenuGroup>
         <MenuDivider />
         <MenuItem
           onClick={async () => {
             localStorage.removeItem('api-token');
-            location.reload()
+            location.replace('/');
           }}
         >
           Logout

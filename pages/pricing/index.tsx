@@ -13,6 +13,7 @@ import {
 import Image from 'next/image'
 import styles from "../pricing/pricing.module.css"
 import {useState} from 'react'
+import {useCountdown} from "@/utils/hooks";
 
 interface priceInfo {
   oldPrice: string,
@@ -20,11 +21,16 @@ interface priceInfo {
   time: string
 }
 
-const LabelSection = () => (
-  <Box bg={"#60D1FA"} className={styles.labelWrapper}>
-    <Text textColor={"white"} fontSize={"3xl"} fontWeight={"bold"} textAlign="center">We are now FREE until Sep 13th</Text>
-  </Box>
-)
+const LabelSection = () => {
+  const [days, hours, minutes, seconds] = useCountdown(new Date(2022, 8, 13))  // 2022-09-13 (month in js is 0-11)
+  return (
+    <Box bg={"#60D1FA"} className={styles.labelWrapper}>
+      <Text textColor={"white"} fontSize={"3xl"} fontWeight={"bold"} textAlign="center">
+        We are now FREE until Sep 13th. Remaining time: {days} d {hours} h {minutes} m {seconds} s
+      </Text>
+    </Box>
+  )
+}
 
 const PriceCard = ({oldPrice, newPrice, time}: priceInfo) => {
 
@@ -45,8 +51,10 @@ const PriceCard = ({oldPrice, newPrice, time}: priceInfo) => {
             bg: '#66b6d4',
           }}
           width={"20"}
-          fontSize={"2xl"}
+          fontSize={"17px"}
+          fontWeight={'bold'}
           px={20}
+          mt="20px"
           isDisabled
         >
           Select
