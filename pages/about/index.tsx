@@ -317,8 +317,8 @@ const faqList: FAQItemProps[] = [
 ]
 
 const FAQs = () => (
-  <Accordion>
-    {faqList.map((item, index) => <FAQItem key={index} {...item}/>)}
+  <Accordion defaultIndex={[0]} allowMultiple>
+    {faqList.map((item, index) => <FAQItem key={index + 1} {...item}/>)}
   </Accordion>
 )
 
