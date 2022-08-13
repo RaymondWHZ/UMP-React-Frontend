@@ -1,6 +1,8 @@
 .ServiceWrapper {
+  position: relative;
   width: 100%;
-  height: 800px;
+  height: 700px;
+  overflow: hidden;
 }
 
 .cardBg {
@@ -9,4 +11,12 @@
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(15.8px);
   -webkit-backdrop-filter: blur(15.8px);
+  z-index: 99;
+}
+
+.circleStyle {
+  position: absolute;
+  z-index: 0;
+  filter: blur(30px);
+  border-radius: 100%;
 }

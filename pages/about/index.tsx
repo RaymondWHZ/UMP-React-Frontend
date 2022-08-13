@@ -93,15 +93,15 @@ const HeadingSection = () => (
 )
 
 const cardInfo1: cardInfo[] = [
-  {data: "16000+" , title:"Website Traffic", explanation:`Our app are now very popular among piano beginers and major & non-major piano players`},
-  {data: "200%", title:"Efficency Imporved", explanation:"According to survey, users’ efficency of learning new music score is increased by 200%"},
-  {data: "6000+", title:"Users Registered", explanation:"Our app are popular and trusted by many users who are not only piano beginers but also piano players"}
+  {data: "16000+" , title:"Website Traffic", explanation:`Our app are now very popular among piano beginners and major & non-major piano players`},
+  {data: "200%", title:"Efficiency Improved", explanation:"According to survey, users’ efficency of learning new music score is increased by 200%"},
+  {data: "6000+", title:"Users Registered", explanation:"Our app is popular and trusted by more and more users who are piano players from all levels"}
 ]
 
 const cardInfo2: cardInfo[] = [
-  {data: "4.8/5", title:"Reats in Feedback", explanation:"Customners are very satisfied about our services"},
+  {data: "4.8/5", title:"Reats in Feedback", explanation:"Customers are very satisfied about our services"},
   {data: "95.5%", title:"Get Unlimited Plan", explanation:"Our unlimited plan provides most enjoyable at very cost-effective price"},
-  {data: "69.1%", title:"Recognize the Role", explanation:"Based on report, 69.1% customners believe ultra music practice help them learn instrument much faster"},
+  {data: "69.1%", title:"Recognize the Role", explanation:"Based on report, 69.1% Customers believe ultra music practice help them learn instrument much faster"},
 ]
 
 const OutcomesCard = ({data, title, explanation}: cardInfo) => (
@@ -143,10 +143,10 @@ const OutcomesSection = () => (
 )
 
 const reasonInfo1: reasonInfo[] = [
-  {icon: "/icons/thumb.png", title: "First & Best Music Practice Software", explanation:`This is the first music software ever developed with user-oriented design.
-  Everything it does is to help you practice music much more easily.
-  For your convenience, it can accept PDF & Image Files of music scores.`},
-  {icon: "/icons/tick.png", title: "Generate Piano Fingering and Annotate Directly", explanation:`Upload your PRINTED piano score to our website.
+  {icon: "/icons/thumb.png", title: "First & Best Music Practice Software", explanation:`This is the first music software ever developed with user-oriented 
+  design. Everything it does is to help you practice music much more 
+  easily. For your convenience, it can accept PDF & Image Files of music scores.`},
+  {icon: "/icons/tick.png", title: "Generate Piano Fingering and Annotate Directly", explanation:`Upload your DIGITAL PRINTED piano score to our website.
   Then it automatically generates the best fingering tailored for you, with all the piano fingering techniques incorporated.
   Most importantly, it saves you a lot amount of time.`},
   {icon: "/icons/music.png", title: "Highlight Flat & Sharp Notes for Sight-Reading", explanation:`Sometimes you always forgot a note should be flattened or sharpened?
@@ -157,8 +157,9 @@ const reasonInfo1: reasonInfo[] = [
 const reasonInfo2: reasonInfo[] = [
   {icon: "/icons/devices.png", title: "Advanced Algorithm with Machine Learning", explanation:`The Fingering behind each output piano score is supported by advanced algorithm developed with Machine Learning and years of Piano Performance Experiences.
   Ensure you are playing in the most comfortable way.`},
-  {icon: "/icons/team.png", title: "Community of 5K+ Users", explanation:`You are not alone!
-  Join our community of over five thousand users. More and more people are using our product to learn playing a music piece much faster.
+  {icon: "/icons/team.png", title: "Community of 6K+ Users", explanation:`You are not alone!
+  Join our community of over five thousand users. 
+  More and more people are using our product to learn playing a music piece much faster.
   We are dedicated to improving your practice experience and create an evolution in music practicing`},
   {icon: "/icons/lol.png", title: "Saves you a lot of Money", explanation:`Previously people spend thousands dollars in learning how to play one music instrument
   Now comes the solutions that only cost you a few pennies !
@@ -166,14 +167,14 @@ const reasonInfo2: reasonInfo[] = [
 ]
 
 const ReasonCard = ({icon, title, explanation}: reasonInfo) => (
-  <VStack className={`${styles.ReasonCardBg} ${styles.ReasonAnimation}`} align="left" justifyContent="top" p={"30"} w="350px" h="400px">
+  <VStack className={`${styles.ReasonCardBg} ${styles.ReasonAnimation}`} align="left" justifyContent="top" p={"30"} w="350px" h="450px">
     <Flex justify={"center"}>
       <Image alt="" src={icon} height={50} width={50}/>
     </Flex>
     <Heading fontSize="3xl" fontStyle={'bold'} fontFamily="Inika" color={"#60D1FA"} textAlign="center" mb={3}>
       {title}
     </Heading>
-    <Text fontSize="17px" textAlign="center" color={"white"}>
+    <Text fontSize="17px" textAlign="center" color={"white"} style={{"whiteSpace": "pre-line"}}>
       {explanation}
     </Text>
   </VStack>
@@ -242,7 +243,7 @@ const faqList: FAQItemProps[] = [
         <br/>
         And you can also get a discount or even FREE Unlimited Access if you recommend Ultra Music Practice to your friends.
         <br/>
-        After the free trial period, it only costs one purchase starting at $ 7.99, and that's it !
+        After the free trial period, it only costs one purchase starting at $ 27.99, and that's it !
         <br/>
         No extra cost , No extra contracts.
       </>
@@ -335,9 +336,11 @@ const FAQSection = () => (
       <Box bg={"#13253F"} mt={"50px"} className={styles.ackownledgeCard} fontSize="17px" py={35} px={30} mb={10}>
         We do acknowledge that there are many similar products to Ultra Music Practice.
         <br/><br/>
-        For example, another popular product for generating piano fingering is the Python Piano Player, which is a GitHub piano repo that takes XML format of piano scores and annotate fingering numbers with their algorithm: https://github.com/marcomusy/pianoplayer
+        For example, another popular product for generating piano fingering is the Python Piano Player, which is a GitHub piano repo that takes XML format of piano scores and annotate fingering numbers with their algorithm: 
+        <a style={{"color": "#60D1FA"}} href='https://github.com/marcomusy/pianoplayer'>https://github.com/marcomusy/pianoplayer</a>
         <br/><br/>
-        And some people would also choose the Sight Reading Factory, which builds up your sightreading skills step by step on music scores from their website : https://www.sightreadingfactory.com
+        And some people would also choose the Sight Reading Factory, which builds up your sightreading skills step by step on music scores from their website : 
+        <a style={{"color": "#60D1FA"}} href="https://www.sightreadingfactory.com">https://www.sightreadingfactory.com</a>
         <br/><br/>
         BUT !!! Ultra Music Practice is the
         <Text fontSize={"2xl"} as="span" color={"#60D1FA"} fontWeight="bold"> FIRST</Text>
@@ -354,8 +357,8 @@ const FAQSection = () => (
 
 const memberInfo = [
   {position:"CEO - FOUNDER", avatar:"/TeamMember/tommy.png", firstName:"Haoxiang", lastName:"Sun", major1:"Computer Science", major2:"Piano Performance", email:"hs23@illinois.edu"},
-  {position:"CEO - FOUNDER", avatar:"/TeamMember/vivek.png", firstName:"Vivek", lastName:"Bhookya", major1:"Computer Science", major2:"Astronomy", email:"v.bhookya98@gmail.com"},
-  {position:"ASSISTANT DEVELOPER", avatar:"/TeamMember/Victoria.jpg", firstName:"Victoria", lastName:"Hu", major1:"Computer Science", major2: "Communication", email:"runzhao3@illinois.edu"},
+  {position:"CFO - FOUNDER", avatar:"/TeamMember/vivek.png", firstName:"Vivek", lastName:"Bhookya", major1:"Computer Science", major2:"Astronomy", email:"v.bhookya98@gmail.com"},
+  {position:"ASSISTANT DEVELOPER", avatar:"/TeamMember/Victoria.png", firstName:"Victoria", lastName:"Hu", major1:"Computer Science", major2: "Communication", email:"runzhao3@illinois.edu"},
   {position:"MARKETING CONSULTANT", avatar:"/TeamMember/Linda.jpeg", firstName:"Linda", lastName:"Luo", major1:"Finance", major2: "Accounting", email:"rluo7@illinois.edu"},
   {position:"FRONTEND DEVELOPER", avatar:"/TeamMember/Raymond.jpg", firstName:"Raymond", lastName:"Wu", major1:"Computer Science", major2: "Information Science", email:"haozhen6@illinois.edu"},
   {position:"UI DESIGNER & DEVELOPER", avatar:"/TeamMember/Sarah.png", firstName:"Sarah", lastName:"Wang", major1:"Computer Science", major2: "Mathematics", email:"peiranw3@illinois.edu"},
@@ -397,6 +400,7 @@ const TeamSection = () => (
             To be the first such kind of software, we have a lot to improve.
             Please give us any suggestions you may have about this website.
           </Text>
+          <a href='https://docs.google.com/forms/d/1dsyPPGlc0JSHk7ec1gx-mNRUD5Qx1epxtsEJy6UFTEY'>
           <Button
             size={"lg"}
             bg={'#FBA140'}
@@ -409,6 +413,7 @@ const TeamSection = () => (
             style={{"fontSize": "17px","marginTop": "30px",}}>
             Feedback Form
           </Button>
+          </a>
         </VStack>
       </SimpleGrid>
     </VStack>

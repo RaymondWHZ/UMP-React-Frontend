@@ -12,7 +12,8 @@ import {
   AlertDialogHeader,
   AlertDialogBody,
   AlertDialogFooter,
-  Spacer
+  Spacer,
+  Box
 } from '@chakra-ui/react';
 import Image from 'next/image'
 import styles from "./services.module.css"
@@ -75,31 +76,6 @@ interface ServiceCardProps {
   url: string
 }
 
-const ServiceCard = ({image, title, description, url}: ServiceCardProps) => (
-  <VStack width="450px" height="500px" className={styles.cardBg} p={10} align="center" spacing={5}>
-    <Image alt="" src={image} height={300} width={800} style={{"borderRadius":"16px"}}/>
-    <Heading fontFamily={"Inika"} color={"white"}>{title}</Heading>
-    <Text style={{"whiteSpace": "pre-line"}} color={"white"} fontSize={"16px"} mt={5} textAlign={'center'} w="300px">{description}</Text>
-    <Spacer/>
-    <AuthorizeButton
-      href={url}
-      size={"lg"}
-      bg={'#FBA140'}
-      color={'white'}
-      _hover={{
-        bg: '#FBA140',
-      }}
-      width={"40"}
-      px={20}
-      fontSize={'17px'}
-      fontWeight={'bold'}
-      mt="30px"
-    >
-      Select
-    </AuthorizeButton>
-  </VStack>
-)
-
 const cardData: ServiceCardProps[] = [
   {
     image: "/service_fingering.png",
@@ -121,9 +97,104 @@ const cardData: ServiceCardProps[] = [
 
 const ServiceWrapper = () => (
   <HStack className={styles.ServiceWrapper} bg={"#13253F"} spacing="120px" align="top" pt="70px" justify="center">
-    {
-      cardData.map(obj => <ServiceCard {...obj} key={obj.url}/>)
-    }
+    <Box height={335} width={335} bg={"#FBA140"} className={styles.circleStyle}
+        style={{
+          "bottom":"-100px",
+          "left": "-40px"
+    }}></Box>
+    <Box height={120} width={120} bg={"#60D1FA"} className={styles.circleStyle}
+        style={{
+          "bottom":"0px",
+          "left": "100px"
+    }}></Box>
+    <Box height={76} width={76} bg={"#60D1FA"} className={styles.circleStyle}
+        style={{
+          "top":"30px",
+          "left": "-50px"
+    }}></Box>
+    <Box height={100} width={100} bg={"#FBA140"} className={styles.circleStyle}
+        style={{
+          "top":"-20px",
+          "left": "30px"
+    }}></Box>
+    <Box height={100} width={100} bg={"#60D1FA"} className={styles.circleStyle}
+        style={{
+          "bottom":"-30px",
+          "right": "40px"
+    }}></Box>
+    <Box height={250} width={250} bg={"#60D1FA"} className={styles.circleStyle}
+        style={{
+          "top":"0px",
+          "right": "40px"
+    }}></Box>
+    <Box height={100} width={100} bg={"#FBA140"} className={styles.circleStyle}
+        style={{
+          "top":"0px",
+          "right": "40px"
+    }}></Box>
+    <Box height={100} width={100} bg={"#FBA140"} className={styles.circleStyle}
+        style={{
+          "top":"500px",
+          "right": "150px"
+    }}></Box>
+    <Box height={150} width={150} bg={"#60D1FA"} className={styles.circleStyle}
+        style={{
+          "top":"150px",
+          "left": "200px"
+    }}></Box>
+    
+    <VStack width="450px" height="500px" className={styles.cardBg} p={10} align="center" spacing={5}>
+      <Image alt="" src={cardData[0].image} height={300} width={800} style={{"borderRadius":"16px"}}/>
+      <Heading fontFamily={"Inika"} color={"white"}>{cardData[0].title}</Heading>
+      <Text style={{"whiteSpace": "pre-line"}} color={"white"} fontSize={"16px"} mt={5} textAlign={'center'} w="300px">{cardData[0].description}</Text>
+      <Spacer/>
+      <AuthorizeButton
+        href={cardData[0].url}
+        size={"lg"}
+        bg={'#FBA140'}
+        color={'white'}
+        _hover={{
+          bg: '#FBA140',
+        }}
+        width={"40"}
+        px={20}
+        fontSize={'17px'}
+        fontWeight={'bold'}
+        mt="30px"
+      >
+        Select
+      </AuthorizeButton>
+    </VStack>
+    <VStack width="450px" height="500px" className={styles.cardBg} p={10} align="center" spacing={5}>
+      <Image alt="" src={cardData[1].image} height={300} width={800} style={{"borderRadius":"16px"}}/>
+      <Heading fontFamily={"Inika"} color={"white"}>{cardData[1].title}</Heading>
+      <Text color={"white"} fontSize={"16px"} mt={5} textAlign={'center'} w="300px">
+      The BEST assistance for Sight-Reading
+                  <br/>
+                  Flat notes -- <span style={{"color": "red", "fontWeight": "bold"}}>RED</span>
+                  <br/>
+                  Sharp notes -- <span style={{"color": "#00FF00", "fontWeight": "bold"}}>GREEN</span>
+                  <br/>
+                  Natural notes -- <span style={{"color": "yellow","fontWeight": "bold"}}>YELLOW</span>
+      </Text>
+      <Spacer/>
+      <AuthorizeButton
+        href={cardData[1].url}
+        size={"lg"}
+        bg={'#FBA140'}
+        color={'white'}
+        _hover={{
+          bg: '#FBA140',
+        }}
+        width={"40"}
+        px={20}
+        fontSize={'17px'}
+        fontWeight={'bold'}
+        mt="30px"
+      >
+        Select
+      </AuthorizeButton>
+    </VStack>
   </HStack>
 )
 

@@ -31,7 +31,7 @@ export function Footer() {
             <Box>
             </Box>
             <Text fontSize={'sm'}>
-              2021 © Copyrights Ultra-Music-Practice.com<br/>
+              2022 © Copyrights Ultra-Music-Practice.com<br/>
               All rights reserved.
             </Text>
           </Stack>
