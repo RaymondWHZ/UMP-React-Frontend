@@ -11,7 +11,7 @@ import {
   PopoverContent,
   useColorModeValue,
   useDisclosure,
-  Button, Menu, MenuButton, MenuList, MenuItem, MenuGroup, MenuDivider, Avatar, Spacer,
+  Button, Menu, MenuButton, MenuList, MenuItem, MenuGroup, MenuDivider, Avatar, Spacer, HStack, Center,
 } from '@chakra-ui/react';
 import {
   HamburgerIcon,
@@ -24,6 +24,7 @@ import React from "react";
 import Script from "next/script";
 import {useUserInfo} from "@/services/user";
 import styles from "./navbar.module.css";
+import Image from "next/image";
 
 export type NavItem = {
   label: string;
@@ -146,14 +147,17 @@ export function NavBar({ title, items, height }: NavBarProps) {
 
         <Spacer display={{ base: 'flex', md: 'none' }}/>
 
-        <Flex>
+        <HStack>
+          <Center mr="2px">
+            <Image alt="" src="/icon.png" width="22px" height="38px"/>
+          </Center>
           <SiteLink
             className={styles.siteTitle}
             href={'/'}
           >
             <b>{title}</b>
           </SiteLink>
-        </Flex>
+        </HStack>
 
         <Spacer />
 

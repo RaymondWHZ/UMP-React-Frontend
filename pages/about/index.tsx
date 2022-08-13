@@ -318,7 +318,7 @@ const faqList: FAQItemProps[] = [
 ]
 
 const FAQs = () => (
-  <Accordion defaultIndex={[0]} allowMultiple>
+  <Accordion defaultIndex={[]} allowMultiple>
     {faqList.map((item, index) => <FAQItem key={index + 1} {...item}/>)}
   </Accordion>
 )
@@ -367,18 +367,18 @@ const memberInfo = [
 
 const MemberCard = ({position, avatar, firstName, lastName, major1, major2, email}: memberInfo) => {
   return (
-  <VStack className={`${styles.ReasonCardBg} ${styles.memberCard}`} p="40px" pt="25px" w="350px" align="left" spacing="6px">
-    <Box height={175} width={175} className={styles.avatarWrapper}>
-      <Image alt="" src={avatar} width={175} height={175}></Image>
-    </Box>
-    <Text fontFamily="Inika" fontSize={"3xl"} fontWeight="bold" color={"white"}>{firstName} {lastName}</Text>
-    <Flex justify={"left"}>
-      <Text fontSize={"18px"} fontWeight="bold" color={"white"}>{position}</Text>
-    </Flex>
-    <Spacer/>
-    <Text fontSize="17px" color={"white"}>{major1} & <br/> {major2}</Text>
-    <Text fontSize="17px" color={"white"}>{email}</Text>
-  </VStack>
+    <VStack className={`${styles.ReasonCardBg} ${styles.memberCard}`} p="40px" pt="25px" w="350px" align="left" spacing="6px">
+      <Box height={175} width={175} className={styles.avatarWrapper}>
+        <Image alt="" src={avatar} width={175} height={175}></Image>
+      </Box>
+      <Text fontFamily="Inika" fontSize={"3xl"} fontWeight="bold" color={"white"}>{firstName} {lastName}</Text>
+      <Flex justify={"left"}>
+        <Text fontSize={"18px"} fontWeight="bold" color={"white"}>{position}</Text>
+      </Flex>
+      <Spacer/>
+      <Text fontSize="17px" color={"white"}>{major1} & <br/> {major2}</Text>
+      <Text fontSize="17px" color={"white"}>{email}</Text>
+    </VStack>
   )
 }
 
