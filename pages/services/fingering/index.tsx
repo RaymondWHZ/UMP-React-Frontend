@@ -121,7 +121,7 @@ const FileDropZone = ({ onDrop }: FileDropZoneProps) => {
       ) : (
         <>
           <Text fontSize="30px" color="white">Drag Your File Here or Browse</Text>
-          <Text fontSize="25px" color="white">Please Only Upload Digital Printed Music Score</Text>
+          <Text fontSize="20px" color="white">Please Only Upload Digital Printed Music Score</Text>
         </>
       )}
     </VStack>

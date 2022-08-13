@@ -134,9 +134,9 @@ const SightReadingSection = () => (
             by three colors:
           </Text>
           <UnorderedList className={styles.displayText} pl="19px" color="white">
-            <ListItem>Flat Note - <span style={{"color": "red", "fontWeight": "bold"}}>Red</span></ListItem>
-            <ListItem>Sharp Note - <span style={{"color": "#00FF00", "fontWeight": "bold"}}>Green</span></ListItem>
-            <ListItem>Natural Note - <span style={{"color": "yellow","fontWeight": "bold"}}>Yellow</span></ListItem>
+            <ListItem>Flat Note - <span style={{"color": "#FF420E", "fontWeight": "bold"}}>Red</span></ListItem>
+            <ListItem>Sharp Note - <span style={{"color": "#89DA59", "fontWeight": "bold"}}>Green</span></ListItem>
+            <ListItem>Natural Note - <span style={{"color": "#FFBB00","fontWeight": "bold"}}>Yellow</span></ListItem>
           </UnorderedList>
         </VStack>
       </VStack>

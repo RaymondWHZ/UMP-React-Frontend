@@ -96,7 +96,7 @@ const cardData: ServiceCardProps[] = [
 ]
 
 const ServiceWrapper = () => (
-  <HStack className={styles.ServiceWrapper} bg={"#13253F"} spacing="120px" align="top" pt="70px" justify="center">
+  <HStack className={styles.ServiceWrapper} bg={"#13253F"}>
     <Box height={335} width={335} bg={"#FBA140"} className={styles.circleStyle}
         style={{
           "bottom":"-100px",
@@ -105,19 +105,19 @@ const ServiceWrapper = () => (
     <Box height={120} width={120} bg={"#60D1FA"} className={styles.circleStyle}
         style={{
           "bottom":"0px",
-          "left": "100px"
+          "left": "260px"
     }}></Box>
     <Box height={76} width={76} bg={"#60D1FA"} className={styles.circleStyle}
         style={{
           "top":"30px",
-          "left": "-50px"
+          "left": "-10px"
     }}></Box>
     <Box height={100} width={100} bg={"#FBA140"} className={styles.circleStyle}
         style={{
           "top":"-20px",
-          "left": "30px"
+          "left": "50px"
     }}></Box>
-    <Box height={100} width={100} bg={"#60D1FA"} className={styles.circleStyle}
+    <Box height={160} width={160} bg={"#60D1FA"} className={styles.circleStyle}
         style={{
           "bottom":"-30px",
           "right": "40px"
@@ -142,7 +142,7 @@ const ServiceWrapper = () => (
           "top":"150px",
           "left": "200px"
     }}></Box>
-    
+    <HStack style={{"width":"100%"}} justify="center" spacing="120px">
     <VStack width="450px" height="500px" className={styles.cardBg} p={10} align="center" spacing={5}>
       <Image alt="" src={cardData[0].image} height={300} width={800} style={{"borderRadius":"16px"}}/>
       <Heading fontFamily={"Inika"} color={"white"}>{cardData[0].title}</Heading>
@@ -171,11 +171,11 @@ const ServiceWrapper = () => (
       <Text color={"white"} fontSize={"16px"} mt={5} textAlign={'center'} w="300px">
       The BEST assistance for Sight-Reading
                   <br/>
-                  Flat notes -- <span style={{"color": "red", "fontWeight": "bold"}}>RED</span>
+                  Flat notes -- <span style={{"color": "#FF420E", "fontWeight": "bold"}}>Red</span>
                   <br/>
-                  Sharp notes -- <span style={{"color": "#00FF00", "fontWeight": "bold"}}>GREEN</span>
+                  Sharp notes -- <span style={{"color": "#89DA59", "fontWeight": "bold"}}>Green</span>
                   <br/>
-                  Natural notes -- <span style={{"color": "yellow","fontWeight": "bold"}}>YELLOW</span>
+                  Natural notes -- <span style={{"color": "#FFBB00","fontWeight": "bold"}}>Yellow</span>
       </Text>
       <Spacer/>
       <AuthorizeButton
@@ -195,6 +195,8 @@ const ServiceWrapper = () => (
         Select
       </AuthorizeButton>
     </VStack>
+    </HStack>
+    
   </HStack>
 )
 
