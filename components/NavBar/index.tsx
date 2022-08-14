@@ -148,8 +148,8 @@ export function NavBar({ title, items, height }: NavBarProps) {
         <Spacer display={{ base: 'flex', md: 'none' }}/>
 
         <HStack>
-          <Center mr="2px">
-            <Image alt="" src="/icon.png" width="22px" height="38px"/>
+          <Center ml="-8px" mr="-6px">
+            <Image alt="" src="/icon.png" width="38px" height="38px"/>
           </Center>
           <SiteLink
             className={styles.siteTitle}

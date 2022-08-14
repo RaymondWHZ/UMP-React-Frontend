@@ -10,16 +10,16 @@ const WEBSITE_NAME = "Ultra Music Practice"
 
 const NAV_ITEMS: NavItem[] = [
   {
-      label: 'Home',
-      href: '/',
+    label: 'Home',
+    href: '/',
   },
   {
-      label: 'About',
-      href: '/about',
+    label: 'About',
+    href: '/about',
   },
   {
-      label: 'Services',
-      href: '/services',
+    label: 'Services',
+    href: '/services',
   },
   {
     label: 'Pricing',
@@ -43,6 +43,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
     <ChakraProvider>
       <Head>
         <title>{getPageTitle(router.route)}</title>
+        <link rel="shortcut icon" href="/icon-64x64.png" />
       </Head>
       <NavBar
         title={WEBSITE_NAME}
