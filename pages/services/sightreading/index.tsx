@@ -236,6 +236,12 @@ const saveUploadedFiles = (filenames: string[]) => {
 export default function Sightreading() {
   const { data: userInfo } = useUserInfo()
 
+  useEffect(() => {
+    if (!userInfo) {
+      location.replace('/')
+    }
+  }, [userInfo])
+
   const toast = useToast()
 
   const [clefType, setClefType] = useState<ButtonSelectItem>(clefTypeOptions[0])

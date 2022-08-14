@@ -255,6 +255,12 @@ const saveUploadedFiles = (filenames: string[]) => {
 export default function Fingering() {
   const { data: userInfo } = useUserInfo()
 
+  useEffect(() => {
+    if (!userInfo) {
+      location.replace('/')
+    }
+  }, [userInfo])
+
   const toast = useToast()
 
   const [handSize, setHandSize] = useState<ButtonSelectItem>(handSizeOptions[0])
