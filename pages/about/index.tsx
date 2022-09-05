@@ -362,7 +362,7 @@ const memberInfo = [
   {position:"MARKETING CONSULTANT", avatar:"/TeamMember/Linda.jpeg", firstName:"Linda", lastName:"Luo", major1:"Finance", major2: "Accounting", email:"rluo7@illinois.edu"},
   {position:"FRONTEND DEVELOPER", avatar:"/TeamMember/Raymond.jpg", firstName:"Raymond", lastName:"Wu", major1:"Computer Science", major2: "Information Science", email:"haozhen6@illinois.edu"},
   {position:"UI DESIGNER & DEVELOPER", avatar:"/TeamMember/Sarah.png", firstName:"Sarah", lastName:"Wang", major1:"Computer Science", major2: "Mathematics", email:"peiranw3@illinois.edu"},
-  {position:"UI DESIGNER", avatar:"/TeamMember/Annie.png", firstName:"Annie", lastName:"Sun", major1:"Inforation Science", major2: "Data Science", email:"qingyue7@illinois.edu"}
+  {position:"UI DESIGNER", avatar:"/TeamMember/Annie.png", firstName:"Annie", lastName:"Sun", major1:"Information Science", major2: "Data Science", email:"qingyue7@illinois.edu"}
 ]
 
 const MemberCard = ({position, avatar, firstName, lastName, major1, major2, email}: memberInfo) => {
