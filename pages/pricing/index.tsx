@@ -22,11 +22,11 @@ interface priceInfo {
 }
 
 const LabelSection = () => {
-  const [days, hours, minutes, seconds] = useCountdown(new Date(2022, 8, 13))  // 2022-09-13 (month in js is 0-11)
+  const [days, hours, minutes, seconds] = useCountdown(new Date("2022-10-26"))
   return (
     <Box bg={"#60D1FA"} className={styles.labelWrapper}>
       <Text textColor={"white"} fontSize={"3xl"} fontWeight={"bold"} textAlign="center">
-        We are now FREE until Sep 13th. Remaining time: {days} d {hours} h {minutes} m {seconds} s
+        We are now FREE until Oct 26th. Remaining time: {days} d {hours} h {minutes} m {seconds} s
       </Text>
     </Box>
   )
@@ -91,7 +91,6 @@ const PricingSection = () => (
       </VStack>
     </HStack>
   </Center>
-
 )
 
 const Pricing: NextPage = () => <>
