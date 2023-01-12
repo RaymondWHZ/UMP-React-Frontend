@@ -1,0 +1,6 @@
+.ImageIcon {
+  position: absolute;
+  z-index: 100;
+  left: 150px;
+  top: 250px;
+}

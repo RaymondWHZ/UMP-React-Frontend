@@ -25,6 +25,7 @@ import {getMarkDownloadUrl, markProgress, markUpload} from "@/services/mark";
 import {CanceledError} from "axios";
 import { FileProcessModal } from "@/components/FileProcessModal";
 import {SiteLinkIconButton} from "@/components/SiteLink";
+import {FileTpyeInstruction } from '@/components/FileTypeInstruction';
 
 const clefTypeOptions: ButtonSelectItem[] = [
   {
@@ -143,6 +144,7 @@ const UploadZone = ({ onFileSubmit }: UploadZoneProps) => {
       <Text fontSize="16px" color="white">
         Watermark <Switch onChange={event => setWatermark(event.target.checked)} size='lg' />
       </Text>
+      <FileTpyeInstruction/>
     </VStack>
   )
 }

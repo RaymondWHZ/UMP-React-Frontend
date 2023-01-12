@@ -14,9 +14,10 @@ import {
   PopoverTrigger, Spacer,
   Switch,
   Text, useDisclosure, useToast,
-  VStack
+  VStack,
+  Box
 } from "@chakra-ui/react";
-import {ArrowLeftIcon, AttachmentIcon, CloseIcon, QuestionOutlineIcon} from "@chakra-ui/icons";
+import {ArrowLeftIcon, AttachmentIcon, CloseIcon, QuestionOutlineIcon, CheckIcon} from "@chakra-ui/icons";
 import { useDropzone } from "react-dropzone";
 import {useCallback, useEffect, useState} from "react";
 import styles from "./fingering.module.css";
@@ -25,6 +26,7 @@ import {useUserInfo} from "@/services/user";
 import {fingerProgress, fingerUpload, getFingerDownloadUrl} from "@/services/finger";
 import { FileProcessModal } from "@/components/FileProcessModal";
 import {SiteLinkIconButton} from "@/components/SiteLink";
+import { FileTpyeInstruction } from '@/components/FileTypeInstruction';
 
 const handSizeOptions: ButtonSelectItem[] = [
   {
@@ -162,6 +164,7 @@ const UploadZone = ({ onFileSubmit }: UploadZoneProps) => {
       <Text fontSize="16px" color="white">
         Watermark <Switch onChange={event => setWatermark(event.target.checked)} size='lg' />
       </Text>
+      <FileTpyeInstruction/>
     </VStack>
   )
 }
