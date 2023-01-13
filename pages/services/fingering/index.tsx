@@ -14,12 +14,10 @@ import {
   PopoverTrigger, Spacer,
   Switch,
   Text, useDisclosure, useToast,
-  VStack,
-  Box
+  VStack
 } from "@chakra-ui/react";
-import {ArrowLeftIcon, AttachmentIcon, CloseIcon, QuestionOutlineIcon, CheckIcon} from "@chakra-ui/icons";
-import { useDropzone } from "react-dropzone";
-import {useCallback, useEffect, useState} from "react";
+import {ArrowLeftIcon, AttachmentIcon, CloseIcon, QuestionOutlineIcon} from "@chakra-ui/icons";
+import React, {useCallback, useEffect, useState} from "react";
 import styles from "./fingering.module.css";
 import {arrayWithoutItem, dispatch, sleep} from "@/utils/utils";
 import {useUserInfo} from "@/services/user";
@@ -27,6 +25,7 @@ import {fingerProgress, fingerUpload, getFingerDownloadUrl} from "@/services/fin
 import { FileProcessModal } from "@/components/FileProcessModal";
 import {SiteLinkIconButton} from "@/components/SiteLink";
 import { FileTpyeInstruction } from '@/components/FileTypeInstruction';
+import {FileDropZone} from "@/components/FileDropZone";
 
 const handSizeOptions: ButtonSelectItem[] = [
   {
@@ -89,43 +88,6 @@ function HandSizeSelect({ onChange, disabled }: HandSizeSelectProps) {
           </PopoverContent>
         </Popover>
       </HStack>
-    </VStack>
-  )
-}
-
-interface FileDropZoneProps {
-  onDrop: (acceptedFiles: File[]) => void;
-}
-
-const FileDropZone = ({ onDrop }: FileDropZoneProps) => {
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
-    accept: {
-      'image/png': ['.png'],
-      'image/jpeg': ['.jpg', '.jpeg'],
-      'application/pdf': ['.pdf'],
-    },
-    maxFiles: 1,
-  })
-
-  return (
-    <VStack
-      className={styles.fileDropZone}
-      justify="center"
-      align="center"
-      textAlign="center"
-      p="30px"
-      {...getRootProps()}
-    >
-      <input {...getInputProps()} />
-      {isDragActive ? (
-        <Text fontSize="30px" color="white">Drop here...</Text>
-      ) : (
-        <>
-          <Text fontSize="30px" color="white">Drag Your File Here or Browse</Text>
-          <Text fontSize="20px" color="white">Please Only Upload Digital Printed Music Score</Text>
-        </>
-      )}
     </VStack>
   )
 }
