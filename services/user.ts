@@ -17,7 +17,12 @@ export function useUserInfo() {
     }
   })
   return {
-    data,
+    data: {
+      ...data,
+      freeTrial: data && data["Free Trial"] == "True",
+      expired: data && data["Expired"] == "True",
+      endDate: data && data["End Date"]
+    },
     error,
     loading: !data && !error
   }

@@ -1,31 +1,20 @@
 import {ButtonSelect, ButtonSelectItem} from "@/components/ButtonSelect";
 import {
-  Button,
-  ButtonGroup, Center,
-  CloseButton, Divider,
-  Flex,
+  Center,
+  Divider,
   HStack,
-  IconButton,
-  Popover,
-  PopoverArrow, PopoverBody,
-  PopoverCloseButton,
-  PopoverContent, PopoverFooter, PopoverHeader,
-  PopoverTrigger, Spacer,
-  Switch,
-  Text, useDisclosure, useToast,
+  Text, useToast,
   VStack
 } from "@chakra-ui/react";
-import {ArrowLeftIcon, AttachmentIcon, CloseIcon} from "@chakra-ui/icons";
+import {ArrowLeftIcon} from "@chakra-ui/icons";
 import React, {useCallback, useEffect, useState} from "react";
-import styles from "./signtreading.module.css";
 import {arrayWithoutItem, dispatch, sleep} from "@/utils/utils";
 import {useUserInfo} from "@/services/user";
 import {getMarkDownloadUrl, markProgress, markUpload} from "@/services/mark";
 import {CanceledError} from "axios";
 import { FileProcessModal } from "@/components/FileProcessModal";
 import {SiteLinkIconButton} from "@/components/SiteLink";
-import {FileTpyeInstruction } from '@/components/FileTypeInstruction';
-import {FileDropZone} from "@/components/FileDropZone";
+import {UploadHistoryZone, UploadZone} from "@/components/FileUpload";
 
 const clefTypeOptions: ButtonSelectItem[] = [
   {
@@ -68,106 +57,6 @@ function HandSizeSelect({ onChange, disabled }: ClefTypeProps) {
           onChange={item => onChange(item)}
           disabled={disabled}
         />
-      </HStack>
-    </VStack>
-  )
-}
-
-interface UploadZoneProps {
-  onFileSubmit?: (file: File, watermark: boolean) => void;
-}
-
-const UploadZone = ({ onFileSubmit }: UploadZoneProps) => {
-  const [file, setFile] = useState<File | null>(null);
-  const [watermark, setWatermark] = useState<boolean>(false);
-  return (
-    <VStack width="100%" className={styles.cardBg} p="40px" spacing="20px">
-      <FileDropZone onDrop={files => setFile(files[0])} />
-      {file && (
-        <Flex className={styles.fileInfo} alignItems="center">
-          <AttachmentIcon color="white" boxSize="30px" mr="14px"/>
-          <Text color="white">
-            {file.name} <br/>
-            {file.size} bytes <br/>
-          </Text>
-          <Spacer/>
-          <CloseButton color="white" onClick={() => setFile(null)}/>
-        </Flex>
-      )}
-      <VStack>
-        <Button
-          color="white"
-          bg="#60D1FA"
-          disabled={!file}
-          onClick={() => onFileSubmit && onFileSubmit(file!, watermark)}
-        >
-          Upload & Process
-        </Button>
-      </VStack>
-      <Text fontSize="16px" color="white">
-        Watermark <Switch onChange={event => setWatermark(event.target.checked)} size='lg' />
-      </Text>
-      <FileTpyeInstruction/>
-    </VStack>
-  )
-}
-
-interface UploadHistoryZoneProps {
-  filenames: string[]
-  onDeleteFilename: (filename: string) => void
-  onClickFilename: (filename: string) => void
-}
-
-const UploadHistoryZone = ({filenames, onDeleteFilename, onClickFilename}: UploadHistoryZoneProps) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  return (
-    <VStack className={styles.cardBg} width="100%" p="40px" spacing="20px" align={'left'}>
-      <Text color="white"><b>Files being processed</b></Text>
-      <HStack width="100%">
-        {filenames.map(filename => (
-          <ButtonGroup key={filename} isAttached>
-            <Button
-              onClick={() => onClickFilename(filename)}
-            >
-              {filename}
-            </Button>
-            <Popover
-              isOpen={isOpen}
-              onOpen={onOpen}
-              onClose={onClose}
-            >
-              <PopoverTrigger>
-                <IconButton
-                  aria-label='Delete'
-                  icon={<CloseIcon/>}
-                />
-              </PopoverTrigger>
-              <PopoverContent>
-                <PopoverArrow />
-                <PopoverHeader>Delete processing file</PopoverHeader>
-                <PopoverCloseButton />
-                <PopoverBody>
-                  Are you sure you want to delete this file record? You have no way to track this file again.
-                </PopoverBody>
-                <PopoverFooter>
-                  <HStack spacing="10px" justify="right">
-                    <Button size="sm" onClick={onClose}>Cancel</Button>
-                    <Button
-                      size="sm"
-                      colorScheme='red'
-                      onClick={() => {
-                        onClose()
-                        onDeleteFilename(filename)
-                      }}
-                    >
-                      Delete
-                    </Button>
-                  </HStack>
-                </PopoverFooter>
-              </PopoverContent>
-            </Popover>
-          </ButtonGroup>
-        ))}
       </HStack>
     </VStack>
   )
@@ -331,7 +220,7 @@ export default function Sightreading() {
     <Center bg="#13253F">
       <VStack w="100%" maxW="1100px" minH="800px" spacing="20px" pt="30px" pb="50px">
         <HandSizeSelect onChange={setClefType} />
-        <UploadZone onFileSubmit={onFileSubmit} />
+        <UploadZone onFileSubmit={onFileSubmit} watermarkEnforced={userInfo.freeTrial}/>
         {uploadedFilenames.length > 0 &&
             <UploadHistoryZone
                 filenames={uploadedFilenames}

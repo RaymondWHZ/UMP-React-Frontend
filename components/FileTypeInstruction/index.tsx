@@ -16,7 +16,7 @@ import Image from 'next/image'
 import { useDisclosure } from '@chakra-ui/react'
 import styles from "./FileTypeInstruction.module.css"
 
-export function FileTpyeInstruction() {
+export function FileTypeInstruction() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
