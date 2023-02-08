@@ -92,7 +92,10 @@ function LoginAvatar() {
         <MenuItem closeOnSelect={false}>{userData.email}</MenuItem>
         <MenuDivider />
         <MenuGroup title='Subscription'>
-          <MenuItem closeOnSelect={false}>Free subscription</MenuItem>
+          { userData["Expired"] == "True" ?
+            <MenuItem closeOnSelect={false}>Subscription expired</MenuItem> :
+            <MenuItem closeOnSelect={false}>Valid until: { userData["End Date"] }</MenuItem>
+          }
         </MenuGroup>
         <MenuDivider />
         <MenuItem

@@ -22,7 +22,11 @@ import {useUserInfo} from "@/services/user";
 import React from "react";
 import {FocusableElement} from "@chakra-ui/utils";
 
-const LoginPromptButton = (props: React.ComponentProps<typeof Button>) => {
+interface PromptButtonProps extends React.ComponentProps<typeof Button> {
+  dialogType: "login" | "subscribe"
+}
+
+const PromptButton: React.FC<PromptButtonProps> = (props) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const cancelRef = React.useRef<FocusableElement>()
 
@@ -41,11 +45,13 @@ const LoginPromptButton = (props: React.ComponentProps<typeof Button>) => {
         <AlertDialogOverlay>
           <AlertDialogContent>
             <AlertDialogHeader fontSize='lg' fontWeight='bold'>
-              Login Required
+              {props.dialogType == "login" && "Login Required"}
+              {props.dialogType == "subscribe" && "Subscription Required"}
             </AlertDialogHeader>
 
             <AlertDialogBody>
-              Sign in with Google to access this service.
+              {props.dialogType == "login" && "Sign in with Google to access this service."}
+              {props.dialogType == "subscribe" && "You need to subscribe to access this service."}
             </AlertDialogBody>
 
             <AlertDialogFooter>
@@ -64,9 +70,12 @@ const LoginPromptButton = (props: React.ComponentProps<typeof Button>) => {
 const AuthorizeButton = (props: React.ComponentProps<typeof Button>) => {
   const { data: userData, loading } = useUserInfo()
   if (!loading && userData.email) {
-    return <SiteLinkButton {...props}>{props.children}</SiteLinkButton>
+    if (userData["Expired"] != "True") {
+      return <SiteLinkButton {...props}>{props.children}</SiteLinkButton>
+    }
+    return <PromptButton {...props} dialogType="subscribe">{props.children}</PromptButton>
   }
-  return <LoginPromptButton {...props}>{props.children}</LoginPromptButton>
+  return <PromptButton {...props} dialogType="login">{props.children}</PromptButton>
 }
 
 interface ServiceCardProps {

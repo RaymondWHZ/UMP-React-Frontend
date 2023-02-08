@@ -34,15 +34,15 @@ export function FileTpyeInstruction() {
           , for example:
           <Flex>
             <Box flex={1} position="relative">
-              <Image src={"/printedVersion.png"} height={300} width={200}></Image>
+              <Image alt="Printed version" src={"/printedVersion.png"} height={300} width={200}></Image>
               <CheckIcon boxSize="30px" color="green" className={styles.ImageIcon}/>
             </Box>
             <Box flex={1} position="relative">
-              <Image src={"/handWritten.png"} height={300} width={200}></Image>
+              <Image alt="Hand written" src={"/handWritten.png"} height={300} width={200}></Image>
               <CloseIcon boxSize="30px" color="red" className={styles.ImageIcon}/>
             </Box>
             <Box flex={1} position="relative">
-              <Image src={"/scannedVersion.png"} height={300} width={200}></Image>
+              <Image alt="Scanned version" src={"/scannedVersion.png"} height={300} width={200}></Image>
               <CloseIcon boxSize="30px" color="red" className={styles.ImageIcon}/>
             </Box>
           </Flex>

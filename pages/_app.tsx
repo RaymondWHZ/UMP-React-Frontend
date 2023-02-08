@@ -5,6 +5,7 @@ import Head from "next/head";
 import { NavItem, NavBar } from "@/components/NavBar";
 import { Footer } from "@/components/Footer";
 import React from "react";
+import {PayPalScriptProvider} from "@paypal/react-paypal-js";
 
 const WEBSITE_NAME = "Ultra Music Practice"
 
@@ -40,26 +41,30 @@ function getPageTitle(route: string) {
 
 function MyApp({ Component, pageProps, router }: AppProps) {
   return (
-    <ChakraProvider>
-      <Head>
-        <title>{getPageTitle(router.route)}</title>
-        <link rel="shortcut icon" href="/icon-64x64.png" />
-      </Head>
-      <NavBar
-        title={WEBSITE_NAME}
-        items={NAV_ITEMS}
-        height={'60px'}
-        rightButton={
-          {
-            text: 'Login'
+    <PayPalScriptProvider options={{
+      "client-id": process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID as string,
+    }}>
+      <ChakraProvider>
+        <Head>
+          <title>{getPageTitle(router.route)}</title>
+          <link rel="shortcut icon" href="/icon-64x64.png" />
+        </Head>
+        <NavBar
+          title={WEBSITE_NAME}
+          items={NAV_ITEMS}
+          height={'60px'}
+          rightButton={
+            {
+              text: 'Login'
+            }
           }
-        }
-      />
-      <Box mt={'60px'}>
-        <Component {...pageProps} />
-        <Footer/>
-      </Box>
-    </ChakraProvider>
+        />
+        <Box mt={'60px'}>
+          <Component {...pageProps} />
+          <Footer/>
+        </Box>
+      </ChakraProvider>
+    </PayPalScriptProvider>
   )
 }
 

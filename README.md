@@ -28,8 +28,9 @@ Frontend of a computer vision based music sheet fingering generator and sight-re
 
 **IMPORTANT: If you need to develop locally, make sure to create a file named .env.local in the root directory to configure API endpoint like this:**
 
-```shell
-NEXT_PUBLIC_API_END_POINT=https://www.example.com/path
+```
+NEXT_PUBLIC_API_END_POINT=
+NEXT_PUBLIC_PAYPAL_CLIENT_ID=
 ```
 
 Replace https://www.example.com/path with the actual host name and api path of backend server.
