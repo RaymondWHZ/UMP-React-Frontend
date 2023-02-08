@@ -21,7 +21,7 @@ export function FileTypeInstruction() {
   return (
     <>
     <Button color='white' variant='link' onClick={onOpen}>
-      Why my file does't work?
+      Why my file doesn't work?
     </Button>
     <Modal isOpen={isOpen} onClose={onClose} size={"3xl"} isCentered>
       <ModalOverlay />
@@ -30,7 +30,7 @@ export function FileTypeInstruction() {
         <ModalCloseButton />
         <ModalBody>
           For now, we only accept <span style={{fontWeight: "bold"}}>digital printed version </span> 
-          of a music sheet but not <span style={{fontWeight: "bold"}}>handwritted or scanned version</span> 
+          of a music sheet but not <span style={{fontWeight: "bold"}}>hand-written or scanned version</span>
           , for example:
           <Flex>
             <Box flex={1} position="relative">

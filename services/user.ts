@@ -2,7 +2,20 @@ import {useToast} from "@chakra-ui/react";
 import useSWR from "swr";
 import request from "@/utils/request";
 
-export function useUserInfo() {
+export interface UserInfo {
+  email?: string
+  name?: string
+  picture?: string
+  freeTrial?: boolean
+  expired?: boolean
+  endDate?: boolean
+}
+
+export function useUserInfo(): {
+  data: UserInfo
+  error: any
+  loading: boolean
+} {
   const toast = useToast();
   const { data, error } = useSWR('/user-info', async () => {
     try {
@@ -14,6 +27,7 @@ export function useUserInfo() {
         description: "Please reload the page to try again.",
         status: 'error'
       })
+      return {};
     }
   })
   return {

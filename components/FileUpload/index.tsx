@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useCallback, useState} from "react";
 import {
   Button,
   ButtonGroup,
@@ -32,6 +32,10 @@ export interface UploadZoneProps {
 export const UploadZone = ({ onFileSubmit, watermarkEnforced }: UploadZoneProps) => {
   const [file, setFile] = useState<File | null>(null);
   const [watermark, setWatermark] = useState<boolean>(false);
+  const onSubmit = useCallback(
+    () => onFileSubmit && onFileSubmit(file!, watermarkEnforced || watermark),
+    [onFileSubmit, file, watermarkEnforced, watermark]
+  )
   return (
     <VStack width="100%" className={styles.cardBg} p="40px" spacing="20px">
       <FileDropZone onDrop={files => setFile(files[0])} />
@@ -51,7 +55,7 @@ export const UploadZone = ({ onFileSubmit, watermarkEnforced }: UploadZoneProps)
           color="white"
           bg="#60D1FA"
           disabled={!file}
-          onClick={() => onFileSubmit && onFileSubmit(file!, watermarkEnforced || watermark)}
+          onClick={onSubmit}
         >
           Upload & Process
         </Button>

@@ -88,13 +88,13 @@ const saveUploadedFiles = (filenames: string[]) => {
 }
 
 export default function Sightreading() {
-  const { data: userInfo } = useUserInfo()
+  const { data: userInfo, loading } = useUserInfo()
 
   useEffect(() => {
-    if (!userInfo) {
+    if (!loading && !userInfo.email) {
       location.replace('/')
     }
-  }, [userInfo])
+  }, [loading, userInfo])
 
   const toast = useToast()
 
@@ -136,11 +136,11 @@ export default function Sightreading() {
     let active = true
     const abortController = new AbortController()
     dispatch(async () => {
-      if (fileToUpload && userInfo) {
+      if (fileToUpload && userInfo.email) {
         try {
           const newFileName = await markUpload(
             fileToUpload,
-            userInfo!.email,
+            userInfo.email,
             clefType.value,
             watermark ? 'yes' : 'no',
             abortController
@@ -151,7 +151,6 @@ export default function Sightreading() {
           if (!uploadedFilenames.includes(newFileName)) {
             onUploadedFilesChange([...uploadedFilenames, newFileName])
           }
-          setFileToUpload(null)
         } catch (e) {
           if (e instanceof CanceledError) {
             return
@@ -161,8 +160,9 @@ export default function Sightreading() {
             description: "Please try again.",
             status: 'error'
           })
-          setFileToUpload(null)
           throw e
+        } finally {
+          setFileToUpload(null)
         }
       }
     })
@@ -172,7 +172,7 @@ export default function Sightreading() {
     }
   }, [
     fileToUpload,
-    userInfo,
+    userInfo.email,
     watermark,
     clefType,
     setFilenameToMonitor,
@@ -185,11 +185,11 @@ export default function Sightreading() {
   useEffect(() => {
     let active = true
     dispatch(async () => {
-      if (filenameToMonitor && userInfo) {
+      if (filenameToMonitor && userInfo.email) {
         setDownloadUrl(null)
         setProgress(-1)
         while (true) {
-          const progress = await markProgress(filenameToMonitor, userInfo.email)
+          const progress = await markProgress(filenameToMonitor, userInfo.email!)
           if (!active) return
           setProgress(progress * 100)
           if (progress == 1) {
@@ -198,14 +198,14 @@ export default function Sightreading() {
           await sleep(5000)
           if (!active) return
         }
-        const downloadUrl = getMarkDownloadUrl(filenameToMonitor, userInfo.email)
+        const downloadUrl = getMarkDownloadUrl(filenameToMonitor, userInfo.email!)
         setDownloadUrl(downloadUrl)
       }
     })
     return () => {
       active = false
     }
-  }, [filenameToMonitor, setDownloadUrl, setProgress, userInfo])
+  }, [filenameToMonitor, setDownloadUrl, setProgress, userInfo.email])
 
   // this effect retrieves the previous uploaded file (mainly to cope with page refreshes)
   useEffect(() => {
@@ -222,14 +222,14 @@ export default function Sightreading() {
         <HandSizeSelect onChange={setClefType} />
         <UploadZone onFileSubmit={onFileSubmit} watermarkEnforced={userInfo.freeTrial}/>
         {uploadedFilenames.length > 0 &&
-            <UploadHistoryZone
-                filenames={uploadedFilenames}
-                onDeleteFilename={onDeleteUploadedFilename}
-                onClickFilename={filename => {
-                  setFilenameToMonitor(filename)
-                  saveProcessingFileName(filename)
-                }}
-            />
+          <UploadHistoryZone
+            filenames={uploadedFilenames}
+            onDeleteFilename={onDeleteUploadedFilename}
+            onClickFilename={filename => {
+              setFilenameToMonitor(filename)
+              saveProcessingFileName(filename)
+            }}
+          />
         }
         <FileProcessModal
           isOpen={isOpen}

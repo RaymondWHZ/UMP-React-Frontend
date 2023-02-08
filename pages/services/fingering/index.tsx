@@ -19,6 +19,7 @@ import {fingerProgress, fingerUpload, getFingerDownloadUrl} from "@/services/fin
 import { FileProcessModal } from "@/components/FileProcessModal";
 import {SiteLinkIconButton} from "@/components/SiteLink";
 import {UploadHistoryZone, UploadZone} from "@/components/FileUpload";
+import {CanceledError} from "axios";
 
 const handSizeOptions: ButtonSelectItem[] = [
   {
@@ -111,13 +112,13 @@ const saveUploadedFiles = (filenames: string[]) => {
 }
 
 export default function Fingering() {
-  const { data: userInfo } = useUserInfo()
+  const { data: userInfo, loading } = useUserInfo()
 
   useEffect(() => {
-    if (!userInfo) {
+    if (!loading && !userInfo.email) {
       location.replace('/')
     }
-  }, [userInfo])
+  }, [loading, userInfo])
 
   const toast = useToast()
 
@@ -157,14 +158,16 @@ export default function Fingering() {
   // this effect uploads the file to the server if there is a file to upload, and then it sets up filename to monitor
   useEffect(() => {
     let active = true
+    const abortController = new AbortController()
     dispatch(async () => {
-      if (fileToUpload && userInfo) {
+      if (fileToUpload && userInfo.email) {
         try {
           const newFileName = await fingerUpload(
             fileToUpload,
-            userInfo!.email,
+            userInfo.email,
             handSize.value,
-            watermark ? 'yes' : 'no'
+            watermark ? 'yes' : 'no',
+            abortController
           )
           if (!active) return
           saveProcessingFileName(newFileName)
@@ -172,24 +175,28 @@ export default function Fingering() {
           if (!uploadedFilenames.includes(newFileName)) {
             onUploadedFilesChange([...uploadedFilenames, newFileName])
           }
-          setFileToUpload(null)
         } catch (e) {
+          if (e instanceof CanceledError) {
+            return
+          }
           toast({
             title: 'Failed to upload file.',
             description: "Please try again.",
             status: 'error'
           })
-          setFileToUpload(null)
           throw e
+        } finally {
+          setFileToUpload(null)
         }
       }
     })
     return () => {
       active = false
+      abortController.abort()
     }
   }, [
     fileToUpload,
-    userInfo,
+    userInfo.email,
     watermark,
     handSize,
     setFilenameToMonitor,
@@ -202,7 +209,7 @@ export default function Fingering() {
   useEffect(() => {
     let active = true
     dispatch(async () => {
-      if (filenameToMonitor && userInfo) {
+      if (filenameToMonitor && userInfo.email) {
         setDownloadUrl(null)
         setProgress(-1)
         while (true) {
@@ -222,7 +229,7 @@ export default function Fingering() {
     return () => {
       active = false
     }
-  }, [filenameToMonitor, setDownloadUrl, setProgress, userInfo])
+  }, [filenameToMonitor, setDownloadUrl, setProgress, userInfo.email])
 
   // this effect retrieves the previous uploaded file (mainly to cope with page refreshes)
   useEffect(() => {
@@ -239,14 +246,14 @@ export default function Fingering() {
         <HandSizeSelect onChange={setHandSize} />
         <UploadZone onFileSubmit={onFileSubmit} watermarkEnforced={userInfo.freeTrial} />
         {uploadedFilenames.length > 0 &&
-            <UploadHistoryZone
-                filenames={uploadedFilenames}
-                onDeleteFilename={onDeleteUploadedFilename}
-                onClickFilename={filename => {
-                  setFilenameToMonitor(filename)
-                  saveProcessingFileName(filename)
-                }}
-            />
+          <UploadHistoryZone
+            filenames={uploadedFilenames}
+            onDeleteFilename={onDeleteUploadedFilename}
+            onClickFilename={filename => {
+              setFilenameToMonitor(filename)
+              saveProcessingFileName(filename)
+            }}
+          />
         }
         <FileProcessModal
           isOpen={isOpen}
