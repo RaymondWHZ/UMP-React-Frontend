@@ -70,7 +70,7 @@ const PromptButton: React.FC<PromptButtonProps> = (props) => {
 const AuthorizeButton = (props: React.ComponentProps<typeof Button>) => {
   const { data: userData, loading } = useUserInfo()
   if (!loading && userData.email) {
-    if (userData["Expired"] != "True") {
+    if (!userData.expired) {
       return <SiteLinkButton {...props}>{props.children}</SiteLinkButton>
     }
     return <PromptButton {...props} dialogType="subscribe">{props.children}</PromptButton>
