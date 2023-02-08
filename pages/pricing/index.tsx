@@ -12,7 +12,6 @@ import {
 import Image from 'next/image'
 import styles from "../pricing/pricing.module.css"
 import {useCallback, useState} from 'react'
-import {useCountdown} from "@/utils/hooks";
 
 import React from "react";
 import {FUNDING, PayPalButtons, usePayPalScriptReducer} from "@paypal/react-paypal-js";
@@ -67,14 +66,13 @@ interface PriceCardProps extends PriceInfo {
   onComplete?: (success: boolean) => void
 }
 
-const PriceCard = ({oldPrice, newPrice, time, postFix, onComplete}: PriceCardProps) => {
+const PriceCard = ({newPrice, time, postFix, onComplete}: PriceCardProps) => {
 
   const [isExpand, setExpand] = useState(false)
   return (
     <VStack flex={1} width="200px" className={`${!isExpand ? styles.priceBg : styles.cardWrapper} ${styles.animation}`}  px={7} py={10}
       onMouseEnter = {() => setExpand(true)} onMouseLeave={() => setExpand(false)}
     >
-      <Text color={isExpand ? "black" : "white"} fontSize={"xl"} className={styles.priceText}>{oldPrice}</Text>
       <Text fontWeight={"bold"} fontSize={"5xl"} color={"#60D1FA"}>{newPrice}</Text>
       <Text fontWeight={"bold"} fontSize={"2xl"} color={isExpand ? "#60D1FA" : "white"}>{time}</Text>
       <Box style={{display: isExpand ? undefined : "none"}}>
@@ -141,9 +139,9 @@ const FailedDialog: React.FC<{ show: boolean, onClose: () => void }> = ({ show, 
 }
 
 const priceData: PriceInfo[] = [
-  {newPrice: "$7.99", oldPrice: "$27.99", time: "One Month", postFix: "" },
-  {newPrice: "$8.99", oldPrice: "$28.99", time: "One Year", postFix: "1"},
-  {newPrice: "$9.99", oldPrice: "$29.99", time: "Forever", postFix: "2"}
+  {newPrice: "$27.99", oldPrice: "$27.99", time: "One Month", postFix: "" },
+  {newPrice: "$28.99", oldPrice: "$28.99", time: "One Year", postFix: "1"},
+  {newPrice: "$29.99", oldPrice: "$29.99", time: "Forever", postFix: "2"}
 ]
 
 const Pricing: NextPage = () => {
